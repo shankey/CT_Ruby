@@ -1,0 +1,209 @@
+<% content_for :customJs do %>
+  <link href="css/dropzone.css" rel="stylesheet" type="text/css" media="all">
+  <script src="http://tinymce.cachefly.net/4.2/tinymce.min.js"></script>
+  
+    <script src="js/dropzone.js"></script>
+    <script>
+        
+        tinymce.init({selector:'#editor1',
+                      menubar: false,
+                      plugins: 'autoresize',
+                      autoresize_min_height: '300px',
+                      autoresize_max_height: '2000px',
+                      statusbar: false,
+                      toolbar1: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+                      style_formats: [
+        {title: 'Bold text', inline: 'b'},
+        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+        {title: 'Example 1', inline: 'span', classes: 'example1'},
+        {title: 'Example 2', inline: 'span', classes: 'example2'},
+        {title: 'Table styles'},
+        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+    ],
+                      content_css : "css/tinymce.css, https://fonts.googleapis.com/css?family=Roboto+Slab:400,300"
+                      
+                     });
+    
+    
+    
+    
+    
+    </script>
+      
+<% end %>
+
+<div class="banner">
+            <div class="collapse navbar-collapse main-top">
+                <nav class="navbar remove-margin">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                           <a class="navbar-brand" href="./index.html"><img class="logo-ct"  src="./images/CT-Logo-2heart.png" />   </a>
+                        </div>
+
+                        <ul class="nav navbar-nav">
+                            <li><a href="./about.html">About Us</a></li>
+                            <li><a href="./share.html">Share Your Trip</a></li>
+                            <li class="selected"><a href="./contact.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+    <br><br>
+    <div class="parent-null">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+    
+        <div class="banner-bottom left-right-margin">
+<!--                <h3 class = "center-align-place">Reach out to us</h3>-->
+            
+		
+        
+                <div class="row bs-wizard" style="border-bottom:0;">
+                
+                    <div class="col-xs-4 bs-wizard-step active">
+                        <div class="text-center bs-wizard-stepnum">Trip Title</div>
+                        <div class="progress"><div class="progress-bar"></div></div>
+                        <a href="#one" class="bs-wizard-dot" aria-controls="one" id="1" role="tab" data-toggle="tab"></a>
+<!--                  <div class="bs-wizard-info text-center">Lorem ipsum dolor sit amet.</div>-->
+                    </div>
+                
+                    <div class="col-xs-4 bs-wizard-step disabled"><!-- complete -->
+                        <div class="text-center bs-wizard-stepnum">Trip Pictures</div>
+                        <div class="progress"><div class="progress-bar"></div></div>
+                        <a href="#two" class="bs-wizard-dot" aria-controls="two" id="2" role="tab" data-toggle="tab"></a>
+<!--                  <div class="bs-wizard-info text-center">Nam mollis tristique erat vel tristique. Aliquam erat volutpat. Mauris et vestibulum nisi. Duis molestie nisl sed scelerisque vestibulum. Nam placerat tristique placerat</div>-->
+                    </div>
+                
+                    <div class="col-xs-4 bs-wizard-step disabled"><!-- complete -->
+                        <div class="text-center bs-wizard-stepnum">Trip Story</div>
+                        <div class="progress"><div class="progress-bar"></div></div>
+                        <a href="#three" class="bs-wizard-dot" aria-controls="three" role="tab" data-toggle="tab"></a>
+<!--                  <div class="bs-wizard-info text-center">Integer semper dolor ac auctor rutrum. Duis porta ipsum vitae mi bibendum bibendum</div>-->
+                    </div>
+                </div>
+	       
+        </div>
+        <br><br>
+    
+    
+    
+    </div>
+    <div class="col-md-2"></div>
+
+                <hr>						
+    </div>
+</div>
+    
+<div class="parent-null">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 blog-text">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="one"> 
+        
+                <div class="center-align-place">
+                    <h3>Give Your Trip a Great Title</h3> <br>
+                    <input type="text" class="one-line-input">
+                
+                </div>
+                
+        
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="two">
+            
+                <form action="/file-upload" class="dropzone" id="my-awesome-dropzone"></form>
+            
+            </div>
+            
+            <div role="tabpanel" class="tab-pane fade" id="three">
+                <div class="center-text">
+                    <textarea name="editor1" id="editor1"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+            
+    <div class="col-md-3"></div>
+    </div>
+
+    
+<div class="fixedbutton">
+        <button type="button" class="btn share-btn" id="back" style="margin-right:75px">
+        <span aria-hidden="true"></span> Back
+        </button>
+        <button type="button" class="btn share-btn" id="next">
+        <span aria-hidden="true"></span> Next
+        </button>
+    </div>
+ 
+            
+<script>
+    $(document).ready(function() {
+          
+        
+        $("#next").click(function(){
+            var nextVar = 0;
+            var sel = $(".bs-wizard-step");
+            sel.each( function(){ 
+                
+                if ($(this).attr("class").indexOf('active') >= 0 ){
+                    
+                    if(nextVar==0){
+                        $('a[href="#two"]').click();
+                        
+                            $(this).removeClass('active');
+                            $(this).addClass('complete');
+                            $(sel[nextVar+1]).removeClass('disabled');
+                            $(sel[nextVar+1]).addClass('active');
+                            return false;
+                    }else{
+                        if(nextVar==1){
+                            $('a[href="#three"]').click();
+                            $(this).removeClass('active');
+                            $(this).addClass('complete');
+                            $(sel[nextVar+1]).removeClass('disabled');
+                            $(sel[nextVar+1]).addClass('active');
+                            return false;
+                        }
+                    }    
+                }
+                nextVar++;
+            });
+            
+        }); 
+        
+        
+        
+        $("#back").click(function(){
+            var nextVar = 0;
+            var sel = $(".bs-wizard-step");
+            sel.each( function(){ 
+                
+                if ($(this).attr("class").indexOf('active') >= 0 ){
+                    
+                    if(nextVar==1){
+                        
+                        
+                            $('a[href="#one"]').click();
+                            $(this).removeClass('active');
+                            $(this).addClass('disabled');
+                            $(sel[nextVar-1]).removeClass('complete');
+                            $(sel[nextVar-1]).addClass('active');
+                            return false;
+                    }else{
+                        if(nextVar==2){
+                            $('a[href="#two"]').click();
+                            $(this).removeClass('active');
+                            $(this).addClass('disabled');
+                            $(sel[nextVar-1]).removeClass('complete');
+                            $(sel[nextVar-1]).addClass('active');
+                            return false;
+                        }
+                    } 
+                }
+                nextVar++;
+            });
+            
+        }); 
+    });
+</script>

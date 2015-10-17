@@ -1,0 +1,2 @@
+module CtControllerHelper
+end
