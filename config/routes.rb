@@ -5,11 +5,15 @@ Rails.application.routes.draw do
   get '/share' => 'ct_controller#share'
   get '/index' => 'ct_controller#index'
   get '/aboutus' => 'ct_controller#aboutus'
+  post '/fileUploader' => 'ct_controller#fileUploader'
+  
+  
   
   # get 'places/hampi' => 'places#hampi'
   # get 'places/khajjiar_dalhousie' => 'places#khajjiar_dalhousie'
   # get 'places/ananthagiri' => 'places#anathagiri'
   get 'places/:id' => 'places#getPlace'
+  
   
   
 
