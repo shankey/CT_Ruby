@@ -11,13 +11,17 @@ class CtControllerController < ApplicationController
   def share
   end
   
-  def fileUploader
+  def titleUploader
     
-   
+    puts params
+    render :nothing => true
+  end
+  
+  def fileUploader
     uploaded_io = params[:file]
-      File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-      file.write(uploaded_io.read)
-    end
+    File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+    file.write(uploaded_io.read)
+  end
     
     tempfile = params[:file].tempfile.path
     if File::exists?(tempfile)

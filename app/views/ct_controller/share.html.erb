@@ -111,7 +111,9 @@
             </div>
             <div role="tabpanel" class="tab-pane fade" id="two">
             
-                <form action="/fileUploader" class="dropzone" name="adiFileDrop"></form>
+                <form action="/fileUploader" class="dropzone" name="adiFileDrop">
+                    <input type="hidden" name="userId" value="search" />
+                </form>
             
             </div>
             
@@ -152,7 +154,16 @@
                     
                     if(nextVar==0){
                         $('a[href="#two"]').click();
+                            var dataParam = "paramData="+$('#one').find('h3').text();
+                            console.log(dataParam);
+                            $.ajax({
+                              type: "POST",
+                              url: "/titleUploader",
+                              data: dataParam,
+                              dataType: 'json'
+                            });
                         
+                            
                             $(this).removeClass('active');
                             $(this).addClass('complete');
                             $(sel[nextVar+1]).removeClass('disabled');
@@ -184,7 +195,6 @@
                 if ($(this).attr("class").indexOf('active') >= 0 ){
                     
                     if(nextVar==1){
-                        
                         
                             $('a[href="#one"]').click();
                             $(this).removeClass('active');

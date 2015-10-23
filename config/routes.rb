@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/index' => 'ct_controller#index'
   get '/aboutus' => 'ct_controller#aboutus'
   post '/fileUploader' => 'ct_controller#fileUploader'
+  post '/titleUploader' => 'ct_controller#titleUploader'
   
   
   
