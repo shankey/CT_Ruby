@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # get 'places/hampi' => 'places#hampi'
   # get 'places/khajjiar_dalhousie' => 'places#khajjiar_dalhousie'
   # get 'places/ananthagiri' => 'places#anathagiri'
-  get 'places/:id' => 'places#getPlace'
+  get 'places/:id' => 'places#get_place'
   
   
   

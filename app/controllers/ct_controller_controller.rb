@@ -9,6 +9,7 @@ class CtControllerController < ApplicationController
   end
   
   def share
+    puts params
   end
   
   def titleUploader

@@ -3,8 +3,11 @@ class PlacesController < ApplicationController
 
   # GET /places
   # GET /places.json
-  def getPlace
-    puts 'hi hello'
+  def get_place
+    @placeHeading = params[:id].gsub('_', ' ').upcase
+    # puts @placeHeading
+    # puts params.inspect
+    # puts 'hi hello'
   end
 
   # # GET /places/1
