@@ -10,9 +10,11 @@ class CtControllerController < ApplicationController
       
       puts "profile picture image = "+@user.profile_pictures
       @profile_image_display = "block"
+      @sign_in_out = "signout"
     else
       @user = User.new
       @profile_image_display = "none"
+      @sign_in_out = "signin"
     end
     
   end

@@ -50,9 +50,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
       // Logged into your app and Facebook.
       testAPI();
     } else if (response.status === 'not_authorized') {
-      // The person is logged into Facebook, but not your app.
+      if($.cookie("external_id") || $.cookie("remember_token")){
+        $( "#logout" ).click();
+      }
+      
       console.log('Please log ' + 'into this app.');
     } else {
+      if($.cookie("external_id") || $.cookie("remember_token")){
+        $( "#logout" ).click();
+      }
       // The person is not logged into Facebook, so we're not sure if
       // they are logged into this app or not.
       console.log('Please log ' + 'into Facebook.');
@@ -114,7 +120,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
       console.log('Successful login for: ' + response.name);
       console.log(response);
       
-      if(!($.cookie("remember_token"))){
+      if(!(($.cookie("remember_token")) && ($.cookie("external_id") == response.id))){
         
           $.ajax({
             type: "POST",
@@ -131,7 +137,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
           }).done(
             function(data){
               console.log("returned from login_request" + data);
-              $("#signin").text(response.name.split(" ")[0]);
+              $("#signouttext").text(response.name.split(" ")[0]);
+              $("#signinli").hide();
+              $(".dropdown").show();
               $("#profileimage").attr('src', response.picture.data.url);
               $("#profileimage").show();
             });
