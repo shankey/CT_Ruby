@@ -584,7 +584,34 @@ margin:10px 0 0 0;
 }
 
 
+.navbar-nav > li.float-right {
+  float:right;
+}
 
+#profileimage{
+  height: 30px;
+  color: white;
+  margin-right: 10px;
+  margin-top: 10px;
+  display: none;
+}
+
+p.float-right{
+  float:right;
+}
+
+float-right{
+  float:right;
+}
+
+#signin{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  
+}
 
 
 .slider h3 span{

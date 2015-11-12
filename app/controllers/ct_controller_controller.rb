@@ -3,13 +3,58 @@ class CtControllerController < ApplicationController
   skip_before_filter  :verify_authenticity_token
   
   def index
+    puts "inside index"
+    @user = check_current_user
+    #puts "name = "+@user.name
+    if(!(@user.blank?))
+      
+      puts "profile picture image = "+@user.profile_pictures
+      @profile_image_display = "block"
+    else
+      @user = User.new
+      @profile_image_display = "none"
+    end
+    
   end
 
-  def place
-  end
   
   def share
+    @user = check_current_user
     puts params
+  end
+  
+  # Call during registeration or cookie expiration or logout which leads to cookie expiration
+  def login_request
+    #TODO validate incoming parameters
+    client_user = User.new params.require(:user).permit(:user, :external_id, :name, :email, :access_token, :profile_pictures)
+    client_user.remember_digest = get_remember_digest
+    client_user.password = "1";
+    
+    puts "name = " + client_user.name
+    
+    puts "external_id = " + client_user.external_id
+    
+    
+    # make facebook call and see if access token is valid. TODO
+    # This is to spam calls to api which will cause unwanted entries into database 
+    
+    
+    existing_user = User.find_by(external_id: client_user.external_id);
+    
+    if existing_user.blank?
+      client_user.save
+    else
+      existing_user.name = client_user.name
+      existing_user.access_token = client_user.access_token
+      existing_user.email = client_user.email
+      existing_user.remember_digest = client_user.remember_digest
+      existing_user.profile_pictures = client_user.profile_pictures
+      existing_user.save
+    end
+    
+    log_in(client_user)
+    
+    render :nothing => true
   end
   
   def titleUploader
@@ -31,5 +76,48 @@ class CtControllerController < ApplicationController
     
     render :nothing => true
   end
+  
+    def log_in(user)
+        cookies.permanent[:external_id] = user.external_id
+    end
+    
+    def set_token(token)
+        cookies.permanent[:remember_token] = token
+    end
+    
+    def get_remember_digest
+        token = User.new_token
+        set_token(token)
+        User.digest(token)
+    end
+    
+    def validate_incoming_request
+      if(cookies[:remember_token].blank? || cookies[:external_id].blank?)
+        return nil
+      end
+    end
+    
+    def check_current_user
+        
+        if (cookies[:external_id].blank? || cookies[:remember_token].blank?)
+            return nil
+        end
+        
+        existing_user = User.find_by(external_id: cookies[:external_id])
+        puts " existing_user = "
+        puts " remember_digest = " + existing_user.remember_digest
+        if(existing_user.blank?)
+          return nil
+        else
+          if(BCrypt::Password.new(existing_user.remember_digest) == cookies[:remember_token])
+            puts " remember digest verified "
+            return existing_user
+          end
+        end
+        
+        return nil
+    end
+  
+  
 
 end
