@@ -50,7 +50,7 @@
     padding-bottom: 5px;
 }
 
-.modal {
+.modal1 {
     opacity: 0;
     pointer-events: none;
     position: fixed;
@@ -66,16 +66,16 @@
     transition: opacity 500ms ease-in;
 }
 
-.modal:target {
+.modal1:target {
   opacity: 1;
   pointer-events: auto;
 }
 
-.modal > div {
+.modal1 > div {
   -webkit-animation: minimise 500ms linear;
 }
 
-.modal:target > div {
+.modal1:target > div {
   -webkit-animation-name: bounce;
 }
 

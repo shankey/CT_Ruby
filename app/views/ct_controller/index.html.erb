@@ -10,17 +10,20 @@ $( document ).ready(function() {
             
     });
     
+    $( "#signinpop" ).click(function() {
+            $('#myModal').modal('show');
+    });
+    
+    
+    
     $( "#logout" ).click(function() {
             
             FB.logout(function(response) {
-                console.log("log out");
-                $(".dropdown").hide();
-                $("#signinli").show();
+                $.removeCookie("remember_token");
+                $.removeCookie("external_id");
+                location.reload();
             });
-            $.removeCookie("remember_token");
-            $.removeCookie("external_id");
-            $("#profileimage").hide();
-            location.reload();
+            
     });
 })
 </script>
@@ -55,7 +58,7 @@ $( document ).ready(function() {
                                                     </li>
                                                     
                                                     
-                                                    <li style="display:<%= get_log_in_display(@user) %>" id="signinli"><a href="#" id="signin">Sign In</a></li>
+                                                    <li style="display:<%= get_log_in_display(@user) %>" id="signinli"><a href="#" id="signinpop">Sign In</a></li>
                                                     
                                                 </ul>
                                             
@@ -172,3 +175,23 @@ $( document ).ready(function() {
     
   
 </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">SIGN IN</h4>
+      </div>
+      <div class="modal-body">
+        <button type="button" class="btn btn-primary btn-lg" id="signin"><img src="/images/fbicon.jpg" height="40px" style="padding-right:5px"> Sign In With Facebook</button>
+        <div height="50px"></div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+

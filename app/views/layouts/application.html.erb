@@ -137,11 +137,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
           }).done(
             function(data){
               console.log("returned from login_request" + data);
+              $('#myModal').modal('hide')
               $("#signouttext").text(response.name.split(" ")[0]);
               $("#signinli").hide();
               $(".dropdown").show();
               $("#profileimage").attr('src', response.picture.data.url);
               $("#profileimage").show();
+              
             });
         }
     });

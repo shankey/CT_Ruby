@@ -596,6 +596,10 @@ margin:10px 0 0 0;
   
 }
 
+.modal-body,.modal-header{
+  text-align: center;
+}
+
 p.float-right{
   float:right;
 }
@@ -604,13 +608,28 @@ float-right{
   float:right;
 }
 
-#signin{
+.navbar-nav > li.dropdown{
+  padding-left: 0px;
+}
+
+#signout, #signinpop{
   padding-top: 15px;
   padding-bottom: 15px;
+  padding-left:5px;
+  padding-right:5px;
   color: white;
   font-size: 14px;
   font-weight: 600;
   
+}
+
+#signinpop:hover,#signout:hover,#signinpop:focus,#signout:focus{
+  color: rgb(85,170,85);
+  background-color: white;
+}
+
+.dropdown-menu > li > a {
+  color: rgb(85,170,85);
 }
 
 
@@ -1435,7 +1454,7 @@ padding:80px 0;
 }
 .btn-primary {
   color: #fff;
-  background-color: #cc7a00;
+  background-color: #3b5998;
   border:none;
 }
 .btn-primary:hover {

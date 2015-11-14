@@ -8,6 +8,8 @@ gem 'jquery-rails', '4.0.3'
 gem 'turbolinks',   '2.3.0'
 gem 'jbuilder',     '2.2.3'
 gem 'bcrypt',       '3.1.7'
+gem 'yui-compressor', '~> 0.12.0'
+gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'mysql'
 gem 'sdoc',         '0.4.0', group: :doc
 
