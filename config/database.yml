@@ -47,6 +47,13 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: c9
+  adapter: mysql
+  encoding: utf8
+  pool: 5
+  timeout: 5000
+  hostname: engage.ca78l9msjwmh.us-west-2.rds.amazonaws.com
+  username: Engage
+  password: Startup123#
+  database: Engage
+  socket: /tmp/mysql.sock
   
