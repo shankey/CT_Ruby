@@ -1,28 +1,18 @@
 class CtControllerController < ApplicationController
   
+  
   skip_before_filter  :verify_authenticity_token
   
   def index
     puts "inside index"
-    @user = check_current_user
-    #puts "name = "+@user.name
-    if(!(@user.blank?))
-      
-      puts "profile picture image = "+@user.profile_pictures
-      @profile_image_display = "block"
-      @sign_in_out = "signout"
-    else
-      @user = User.new
-      @profile_image_display = "none"
-      @sign_in_out = "signin"
-    end
+    @user = verify_current_user
+    @user = define_sign_in_out_variables(@user)
     
   end
-
-  
+ 
   def share
-    @user = check_current_user
-    puts params
+    @user = verify_current_user
+    @user = define_sign_in_out_variables(@user)
   end
   
   # Call during registeration or cookie expiration or logout which leads to cookie expiration
@@ -60,18 +50,76 @@ class CtControllerController < ApplicationController
   end
   
   def titleUploader
+    user = verify_current_user
+    
+    if(user.blank?)
+      #error that please login
+      return
+    end
+    
+    existing_ts = TravelStory.find_by(user_id: user.id, completed: 0)
+    
+    if(existing_ts.blank?)
+      existing_ts = TravelStory.new
+      existing_ts.completed = 0;
+      existing_ts.user_id = user.id
+      existing_ts.save
+    end
+
+    
+    FileUtils.mkdir_p(get_story_path(user.id.to_s, existing_ts.id.to_s)) unless File.exists?(get_story_path(user.id.to_s, existing_ts.id.to_s))
+    File.open(get_story_path(user.id.to_s, existing_ts.id.to_s).join("title"), 'wb') do |file|
+      file.write(params[:title])
+    end
     
     puts params
+    
+    render :nothing => true
+  end
+  
+  def storyUploader
+    user = verify_current_user
+    
+    if(user.blank?)
+      #error that please login
+      return
+    end
+    
+    existing_ts = TravelStory.find_by(user_id: user.id, completed: 0)
+    
+    FileUtils.mkdir_p(get_story_path(user.id.to_s, existing_ts.id.to_s)) unless File.exists?(get_story_path(user.id.to_s, existing_ts.id.to_s))
+    File.open(get_story_path(user.id.to_s, existing_ts.id.to_s).join("story"), 'wb') do |file|
+      file.write(params[:story])
+    end
+    
+    existing_ts.completed = 1;
+    existing_ts.save
+    
+    UserMailer.welcome_email(existing_ts).deliver_now
+    
+    puts params
+    
     render :nothing => true
   end
   
   def fileUploader
+    user = verify_current_user
+    
+    if(user.blank?)
+      #error that please login
+      return
+    end
+    
+    existing_ts = TravelStory.find_by(user_id: user.id, completed: 0)
+    
     uploaded_io = params[:file]
-    File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-    file.write(uploaded_io.read)
-  end
+    
+    File.open(get_story_path(user.id.to_s, existing_ts.id.to_s).join(uploaded_io.original_filename), 'wb') do |file|
+      file.write(uploaded_io.read)
+    end
     
     tempfile = params[:file].tempfile.path
+    
     if File::exists?(tempfile)
       File::delete(tempfile)
     end
@@ -99,15 +147,17 @@ class CtControllerController < ApplicationController
       end
     end
     
-    def check_current_user
+    
+    
+    
+    def verify_current_user
         
         if (cookies[:external_id].blank? || cookies[:remember_token].blank?)
             return nil
         end
         
-        existing_user = User.find_by(external_id: cookies[:external_id])
-        puts " existing_user = "
-        puts " remember_digest = " + existing_user.remember_digest
+        existing_user = User.find_by(external_id: cookies[:external_id])  
+      
         if(existing_user.blank?)
           return nil
         else
@@ -120,6 +170,23 @@ class CtControllerController < ApplicationController
         return nil
     end
   
-  
+  def get_story_path(dir_user, dir_story)
+    Rails.root.join('stories', dir_user, dir_story)
+  end
+    
+  def define_sign_in_out_variables(user)
+    if(!(user.blank?))
+      
+      puts "profile picture image = "+@user.profile_pictures
+      @profile_image_display = "block"
+      @sign_in_out = "signout"
+      return user
+    else
+      user = User.new
+      @profile_image_display = "none"
+      @sign_in_out = "signin"
+      return user
+    end
+  end
 
 end

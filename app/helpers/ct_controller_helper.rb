@@ -1,5 +1,6 @@
 module CtControllerHelper
     
+    
     def default_sign_in_name(user)
         if (user.blank? || user.name.blank?) 
             return "Sign In" 

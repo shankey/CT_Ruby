@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post 'login_request' => 'ct_controller#login_request'
   post '/fileUploader' => 'ct_controller#fileUploader'
   post '/titleUploader' => 'ct_controller#titleUploader'
+  post '/storyUploader' => 'ct_controller#storyUploader'
   
   
   
