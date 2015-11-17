@@ -55,5 +55,5 @@ production:
   username: Engage
   password: Startup123#
   database: Engage
-  socket: /tmp/mysql.sock
+  port: 3306
   
