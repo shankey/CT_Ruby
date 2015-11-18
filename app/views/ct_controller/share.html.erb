@@ -48,21 +48,28 @@
         
                 <div class="row bs-wizard" style="border-bottom:0;">
                 
-                    <div class="col-xs-4 bs-wizard-step active">
+                    <div class="col-xs-3 bs-wizard-step active">
                         <div class="text-center bs-wizard-stepnum">Trip Title</div>
                         <div class="progress"><div class="progress-bar"></div></div>
                         <div class="bs-wizard-dot"></div>
 <!--                  <div class="bs-wizard-info text-center">Lorem ipsum dolor sit amet.</div>-->
                     </div>
+                    
+                    <div class="col-xs-3 bs-wizard-step disabled">
+                        <div class="text-center bs-wizard-stepnum">Trip Location</div>
+                        <div class="progress"><div class="progress-bar"></div></div>
+                        <div class="bs-wizard-dot"></div>
+<!--                  <div class="bs-wizard-info text-center">Lorem ipsum dolor sit amet.</div>-->
+                    </div>
                 
-                    <div class="col-xs-4 bs-wizard-step disabled"><!-- complete -->
+                    <div class="col-xs-3 bs-wizard-step disabled"><!-- complete -->
                         <div class="text-center bs-wizard-stepnum">Trip Pictures</div>
                         <div class="progress"><div class="progress-bar"></div></div>
                         <div class="bs-wizard-dot"></div>
 <!--                  <div class="bs-wizard-info text-center">Nam mollis tristique erat vel tristique. Aliquam erat volutpat. Mauris et vestibulum nisi. Duis molestie nisl sed scelerisque vestibulum. Nam placerat tristique placerat</div>-->
                     </div>
                 
-                    <div class="col-xs-4 bs-wizard-step disabled"><!-- complete -->
+                    <div class="col-xs-3 bs-wizard-step disabled"><!-- complete -->
                         <div class="text-center bs-wizard-stepnum">Trip Story</div>
                         <div class="progress"><div class="progress-bar"></div></div>
                         <div class="bs-wizard-dot"></div>
@@ -78,15 +85,16 @@
     </div>
     <div class="col-md-2"></div>
 
-                <hr>						
+                						
     </div>
 </div>
 
 <div style="display:none">
-    <a href="#one" class="bs-wizard-dot" aria-controls="one" id="1" role="tab" data-toggle="tab"></a>
-    <a href="#two" class="bs-wizard-dot" aria-controls="two" id="2" role="tab" data-toggle="tab"></a>
+    <a href="#one" class="bs-wizard-dot" aria-controls="one" role="tab" data-toggle="tab"></a>
+    <a href="#two" class="bs-wizard-dot" aria-controls="two" role="tab" data-toggle="tab"></a>
     <a href="#three" class="bs-wizard-dot" aria-controls="three" role="tab" data-toggle="tab"></a>
     <a href="#four" class="bs-wizard-dot" aria-controls="four" role="tab" data-toggle="tab"></a>
+    <a href="#five" class="bs-wizard-dot" aria-controls="five" role="tab" data-toggle="tab"></a>
 </div>
     
 <div class="parent-null">
@@ -97,13 +105,24 @@
         
                 <div class="center-align-place">
                     <h3>Give Your Trip a Great Title</h3> <br>
-                    <input type="text" class="one-line-input">
+                    <input type="text" class="one-line-input title">
                 
                 </div>
                 
         
             </div>
-            <div role="tabpanel" class="tab-pane fade" id="two">
+            <div role="tabpanel" class="tab-pane fade" id="two"> 
+        
+                <div class="center-align-place">
+                    <h3>Where Was You Trip</h3> <br>
+                    Include Your Trip Location
+                    <input type="text" class="one-line-input location">
+                
+                </div>
+                
+        
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="three">
             
                 <form action="/fileUploader" class="dropzone" name="adiFileDrop">
                     <div class="dz-message" data-dz-message><span><h3>Drop pictures here or Click to upload</h3></span></div>
@@ -112,13 +131,13 @@
             
             </div>
             
-            <div role="tabpanel" class="tab-pane fade" id="three">
+            <div role="tabpanel" class="tab-pane fade" id="four">
                 <div class="center-text">
                     <textarea name="editor1" id="editor1"></textarea>
                 </div>
             </div>
             
-            <div role="tabpanel" class="tab-pane fade" id="four">
+            <div role="tabpanel" class="tab-pane fade" id="five">
                 <div class="center-text">
                     You have successfully submitted the story. We will publish post a review and notify you.
                 </div>
@@ -147,23 +166,24 @@
           
         
         $("#next").click(function(){
-            
+            if(!$.cookie("remember_token")){
+                $("#signinpop").click();
+                return;
+            }
             var nextVar = 0;
             console.log(nextVar);
             var sel = $(".bs-wizard-step");
             sel.each( function(){ 
                 
+                
+                
                 if ($(this).attr("class").indexOf('active') >= 0 ){
-                    console.log(nextVar);
-                    if(!$.cookie("remember_token")){
-                                $("#signinpop").click();
-                                return;
-                    }
                     
-                    if(nextVar==0){
-                        var titleText = $(".one-line-input").val();
-                        console.log("yes yes");
-                        $('a[href="#two"]').click();
+                    switch(nextVar){
+                      case 0:
+                            var titleText = $(".one-line-input.title").val();
+                            console.log("yes yes");
+                            $('a[href="#two"]').click();
                             var dataParam = "title="+titleText;
                             console.log(dataParam);
                             $.ajax({
@@ -180,9 +200,30 @@
                             
                             $("#back").show();
                             return false;
-                    }else{
-                        if(nextVar==1){
+                            
+                        case 1:
+                            var placeText = $(".one-line-input.location").val();
+                            console.log("yes yes");
                             $('a[href="#three"]').click();
+                            var dataParam = "place="+placeText;
+                            console.log(dataParam);
+                            $.ajax({
+                              type: "POST",
+                              url: "/placeUploader",
+                              data: dataParam,
+                              dataType: 'json'
+                            });
+                            
+                            $(this).removeClass('active');
+                            $(this).addClass('complete');
+                            $(sel[nextVar+1]).removeClass('disabled');
+                            $(sel[nextVar+1]).addClass('active');
+                            
+                            $("#back").show();
+                            return false;
+                            
+                        case 2:
+                            $('a[href="#four"]').click();
                             $(this).removeClass('active');
                             $(this).addClass('complete');
                             $(sel[nextVar+1]).removeClass('disabled');
@@ -190,25 +231,23 @@
                             
                             $("#next").text("Submit")
                             return false;
-                        }
-                        else{
-                            if(nextVar==2){
-                                storyText = tinyMCE.activeEditor.getContent();
-                                var dataParam = "story="+storyText;
-                                $.ajax({
+                            
+                        case 3:
+                            storyText = tinyMCE.activeEditor.getContent();
+                            var dataParam = "story="+storyText;
+                            $.ajax({
                                   type: "POST",
                                   url: "/storyUploader",
                                   data: dataParam,
                                   dataType: 'json'
-                                });
+                            });
                                 
-                                $('a[href="#four"]').click();
-                                $("#back").hide();
-                                $("#next").hide();
-                                
-                            }
-                        }
-                    }    
+                            $('a[href="#five"]').click();
+                            $("#back").hide();
+                            $("#next").hide();
+                    }
+                    console.log(nextVar);
+                      
                 }
                 nextVar++;
             });

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post '/fileUploader' => 'ct_controller#fileUploader'
   post '/titleUploader' => 'ct_controller#titleUploader'
   post '/storyUploader' => 'ct_controller#storyUploader'
+  post '/placeUploader' => 'ct_controller#placeUploader'
   
   
   

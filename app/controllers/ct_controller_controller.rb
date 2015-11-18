@@ -77,6 +77,27 @@ class CtControllerController < ApplicationController
     render :nothing => true
   end
   
+  def placeUploader
+    user = verify_current_user
+    
+    if(user.blank?)
+      #error that please login
+      return
+    end
+    
+    existing_ts = TravelStory.find_by(user_id: user.id, completed: 0)
+    
+    FileUtils.mkdir_p(get_story_path(user.id.to_s, existing_ts.id.to_s)) unless File.exists?(get_story_path(user.id.to_s, existing_ts.id.to_s))
+    File.open(get_story_path(user.id.to_s, existing_ts.id.to_s).join("place"), 'wb') do |file|
+      file.write(params[:place])
+    end
+    
+
+    
+    render :nothing => true
+  end
+  
+  
   def storyUploader
     user = verify_current_user
     
