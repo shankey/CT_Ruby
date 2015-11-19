@@ -111,7 +111,7 @@ a.fill-div{
     background-color: rgb(85,170,85);
     font-size: 18px;
     color: white;
-    width: 120px;
+    min-width: 120px;
 }
 
 .btn:hover, .btn:focus, .btn.focus{
@@ -121,6 +121,7 @@ a.fill-div{
 .center-align-full-row{
     text-align: center;
     width: 100%
+    
 }
 
 
@@ -456,6 +457,35 @@ background-size: cover;
 -moz-background-size: cover;
 -o-background-size: cover;
 min-height:665px;
+}
+
+.footer{
+  margin-top:120px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  position: relative;
+  bottom: 0;
+  background-color: #795548;
+  opacity: .7;
+  color: white;
+  width: 100%;
+  
+}
+
+.social-icons {
+  display: inline-block;
+  margin-right:10px;
+  margin-left:10px;
+  margin-top: 10px;
+}
+
+
+.social-icons a{
+  color: white;
+}
+
+.footer.center-align-place > a{
+  
 }
 
 /*-- menu --*/
@@ -1213,20 +1243,7 @@ padding: 8px 20px;
 .twitter-info a:hover{
 color:#000;
 }
-.footer p{
-color:#202e45;
-font-size:15px;
-margin:30px 0;
-font-weight:600;
-text-align:center;
-}
-.footer p a{
-color:#cc7a00;
-text-decoration:none;
-}
-.footer p a:hover{
-color:#202e45;
-}
+
 /*--contact-page--*/
 .contact-map iframe{
 width:100%;
@@ -2444,9 +2461,7 @@ border:none;
 	.twitt-grid-right {
 	  min-height: 239px;
 	}
-	.footer p {
-	  font-size: 13px;
-	  }
+
 	.about-grid-left {
 	  padding: 0;
 	  float: left;

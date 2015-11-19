@@ -99,6 +99,9 @@ class CtControllerController < ApplicationController
   
   
   def storyUploader
+    
+    puts params
+    
     user = verify_current_user
     
     if(user.blank?)
@@ -113,9 +116,10 @@ class CtControllerController < ApplicationController
       file.write(params[:story])
     end
     
-    existing_ts.completed = 1;
-    existing_ts.save
-    
+    if(params[:draft].blank?)
+      existing_ts.completed = 1;
+      existing_ts.save
+    end
     UserMailer.welcome_email(existing_ts).deliver_now
     
     puts params

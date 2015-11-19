@@ -153,13 +153,16 @@
         <button type="button" class="btn share-btn" id="back" style="margin-right:75px; display:none">
         <span aria-hidden="true"></span> Back
         </button>
+        
+        <button type="button" class="btn share-btn" id="draft" style="margin-right:75px; display:none">
+        <span aria-hidden="true"></span> Save Draft
+        </button>
+        
         <button type="button" class="btn share-btn" style="display:relative" id="next">
         <span aria-hidden="true"></span> Next
         </button>
     </div>
-    
 
- 
             
 <script>
     $(document).ready(function() {
@@ -174,8 +177,6 @@
             console.log(nextVar);
             var sel = $(".bs-wizard-step");
             sel.each( function(){ 
-                
-                
                 
                 if ($(this).attr("class").indexOf('active') >= 0 ){
                     
@@ -229,7 +230,8 @@
                             $(sel[nextVar+1]).removeClass('disabled');
                             $(sel[nextVar+1]).addClass('active');
                             
-                            $("#next").text("Submit")
+                            $("#next").text("Submit");
+                            $("#draft").show();
                             return false;
                             
                         case 3:
@@ -243,6 +245,7 @@
                             });
                                 
                             $('a[href="#five"]').click();
+                            $("#draft").hide();
                             $("#back").hide();
                             $("#next").hide();
                     }
@@ -254,7 +257,18 @@
             
         }); 
         
-        
+        $("#draft").click(function(){
+            storyText = tinyMCE.activeEditor.getContent();
+            var dataParam = "story="+storyText+":draft=1";
+            $.ajax({
+                    type: "POST",
+                    url: "/storyUploader",
+                    data: { story: storyText ,
+                            draft: 1
+                      },
+                    dataType: 'json'
+            });
+        });
         
         $("#back").click(function(){
             var nextVar = 0;
@@ -263,7 +277,8 @@
                 
                 if ($(this).attr("class").indexOf('active') >= 0 ){
                     
-                    if(nextVar==1){
+                    switch(nextVar){
+                      case 1:
                         
                             $('a[href="#one"]').click();
                             $(this).removeClass('active');
@@ -272,18 +287,31 @@
                             $(sel[nextVar-1]).addClass('active');
                             
                             $("#back").hide();
+                            $("#draft").hide();
                             return false;
-                    }else{
-                        if(nextVar==2){
+                      case 2:
                             $('a[href="#two"]').click();
                             $(this).removeClass('active');
                             $(this).addClass('disabled');
                             $(sel[nextVar-1]).removeClass('complete');
                             $(sel[nextVar-1]).addClass('active');
                             
-                            $("#next").text("Next");
+                            $("#next").show();
+                            $("#back").show();
+                            $("#draft").hide();
                             return false;
-                        }
+                            
+                      case 3:
+                            $('a[href="#three"]').click();
+                            $(this).removeClass('active');
+                            $(this).addClass('disabled');
+                            $(sel[nextVar-1]).removeClass('complete');
+                            $(sel[nextVar-1]).addClass('active');
+                            
+                            $("#next").text("Next");
+                            $("#draft").hide();
+                            return false;
+                     
                     } 
                 }
                 nextVar++;
