@@ -9,6 +9,20 @@ class CtControllerController < ApplicationController
     @user = define_sign_in_out_variables(@user)
     
   end
+  
+  def about
+    puts "inside aboutus"
+    @user = verify_current_user
+    @user = define_sign_in_out_variables(@user)
+    
+  end
+  
+  def contact
+    puts "inside contact"
+    @user = verify_current_user
+    @user = define_sign_in_out_variables(@user)
+    
+  end
  
   def share
     @user = verify_current_user

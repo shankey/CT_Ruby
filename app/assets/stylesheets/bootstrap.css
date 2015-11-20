@@ -45,7 +45,7 @@ template {
 }
 
 .main-top.navbar-collapse.collapse{
-    background-color:rgb(85, 170, 85);
+    background-color: #0EA474;
     padding-left: 10%;
     
 }
@@ -1096,7 +1096,7 @@ th {
 }
 html {
   font-size: 10px;
-
+  height: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {

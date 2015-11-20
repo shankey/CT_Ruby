@@ -4,9 +4,14 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
+html{
+  height: 100%;
+}
 body{
 	margin:0;
 	font-family: 'Oxygen', sans-serif;
+	position: relative;
+	height: 100%;
 }
 body a{
 	transition: 0.5s all ease;
@@ -59,6 +64,11 @@ width:100%
 display:block;
 }
 
+.page-wrap{
+  min-height: 100%;
+  padding-bottom:40px;
+}
+
 .remove-margin.navbar{
     margin-bottom: 0px;
 }
@@ -108,7 +118,7 @@ a.fill-div{
 
 .share-btn{
     padding: 10px 30px;
-    background-color: rgb(85,170,85);
+    background-color: #0EA474;
     font-size: 18px;
     color: white;
     min-width: 120px;
@@ -221,10 +231,10 @@ img.logo-ct{
 .bs-wizard > .bs-wizard-step + .bs-wizard-step {}
 .bs-wizard > .bs-wizard-step .bs-wizard-stepnum {color: #595959; margin-bottom: 5px; font-size: 18px; font-weight: 600; font-family: 'Oxygen', sans-serif;}
 .bs-wizard > .bs-wizard-step .bs-wizard-info {color: #999; font-size: 14px;}
-.bs-wizard > .bs-wizard-step > .bs-wizard-dot {position: absolute; width: 30px; height: 30px; display: block; background: #43A047; top: 45px; left: 50%; margin-top: -15px; margin-left: -15px; border-radius: 50%;} 
+.bs-wizard > .bs-wizard-step > .bs-wizard-dot {position: absolute; width: 30px; height: 30px; display: block; background: #0EA474; top: 45px; left: 50%; margin-top: -15px; margin-left: -15px; border-radius: 50%;} 
 .bs-wizard > .bs-wizard-step > .bs-wizard-dot:after {content: ' '; width: 14px; height: 14px; border-radius: 50px; position: absolute; top: 8px; left: 8px; } 
 .bs-wizard > .bs-wizard-step > .progress {position: relative; border-radius: 0px; height: 8px; box-shadow: none; margin: 18px 0; left:50%}
-.bs-wizard > .bs-wizard-step > .progress > .progress-bar {width:0px; box-shadow: none; background: #00C853;}
+.bs-wizard > .bs-wizard-step > .progress > .progress-bar {width:0px; box-shadow: none; background: #0c8d64;}
 .bs-wizard > .bs-wizard-step.complete > .progress > .progress-bar {width:100%;}
 .bs-wizard > .bs-wizard-step.active > .progress > .progress-bar {width:0%;}
 .bs-wizard > .bs-wizard-step:first-child.active > .progress > .progress-bar {width:0%;}
@@ -431,14 +441,14 @@ ol.progtrckr {
 
 .banner-infoa{
 /*border:10px solid #cc7a00;*/
-background: url(../images/banner3.jpg) no-repeat 0px 0px;
+background: url(../images/banner3-new2.jpg) no-repeat 0px 0px;
 background-size: cover;
 -webkit-background-size: cover;
 -moz-background-size: cover;
 -o-background-size: cover;
 min-height:460px;
     position: relative;
-box-shadow :0px 1000px rgba(255, 255, 255, 0.2) inset
+box-shadow :0px 1000px rgba(0, 0, 0, 0.15) inset
 }
 .banner-infob{
 /*border:10px solid #cc7a00;*/
@@ -460,15 +470,16 @@ min-height:665px;
 }
 
 .footer{
-  margin-top:120px;
-  padding-top: 10px;
+  
+  padding-top: 5px;
   padding-bottom: 5px;
-  position: relative;
+  
   bottom: 0;
   background-color: #795548;
   opacity: .7;
   color: white;
   width: 100%;
+  height: 50px;
   
 }
 
@@ -996,7 +1007,7 @@ margin-bottom: 15px;
 
 .photo a{
     
-    background-color: rgba(0,0,0,.05);
+    background-color: rgba(0,0,0,.1);
 }
 
 .photo a:hover{
@@ -3350,12 +3361,12 @@ width: 94.2%;
 }
 
 .top-button.btn-primary.gradient {
-    background-color: rgb(255,255,255);
-    color: #000000;
+    background-color: #0EA474;
+    color: #FFFFFF;
     margin-top: 3%;
     font-size: 18px;
     font-weight: 800;
     border-radius: 5px;
-    padding: 5px 10px 5px 10px;
+    padding: 10px 15px 10px 15px;
     
 }

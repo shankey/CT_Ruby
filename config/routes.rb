@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   get '/' => 'ct_controller#index'
   get '/share' => 'ct_controller#share'
   get '/index' => 'ct_controller#index'
-  get '/aboutus' => 'ct_controller#aboutus'
+  get '/about' => 'ct_controller#about'
   get '/login' => 'ct_controller#login'
+  get '/contact' => 'ct_controller#contact'
+  
   post 'login_request' => 'ct_controller#login_request'
   post '/fileUploader' => 'ct_controller#fileUploader'
   post '/titleUploader' => 'ct_controller#titleUploader'
