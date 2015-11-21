@@ -200,8 +200,9 @@ class CtControllerController < ApplicationController
         if(existing_user.blank?)
           return nil
         else
+          Rails.logger.info("id from db of exisitng user = "+existing_user.external_id)
           if(BCrypt::Password.new(existing_user.remember_digest) == cookies[:remember_token])
-            puts " remember digest verified "
+            Rails.logger.info("remember digest verified "); 
             return existing_user
           end
         end

@@ -78,4 +78,9 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   config.assets.css_compressor = :yui
   config.assets.js_compressor = :uglifier
+  
+  config.logger = Logger.new(STDOUT)
+
+  # Set log level
+  config.log_level = :DEBUG
 end
