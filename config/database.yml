@@ -51,7 +51,7 @@ production:
   encoding: utf8
   pool: 5
   timeout: 5000
-  hostname: engage.ca78l9msjwmh.us-west-2.rds.amazonaws.com
+  host: engage.ca78l9msjwmh.us-west-2.rds.amazonaws.com
   username: Engage
   password: Startup123#
   database: Engage
