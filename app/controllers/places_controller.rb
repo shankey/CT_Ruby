@@ -5,6 +5,8 @@ class PlacesController < ApplicationController
   # GET /places.json
   def get_place
     @placeHeading = params[:id].gsub('_', ' ').upcase
+    @user = verify_current_user
+    @user = define_sign_in_out_variables(@user)
     # puts @placeHeading
     # puts params.inspect
     # puts 'hi hello'
