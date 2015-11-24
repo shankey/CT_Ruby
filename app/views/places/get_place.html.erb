@@ -3,8 +3,8 @@
 		
 			<div class="banner-bottom left-right-margin">
 			    
-                <h3 class = "center-align-place"><%= @placeHeading %></h3>
-                <hr>						
+                <%= render get_place_title_url(params) %>
+                						
             </div>
 </div>
 
@@ -26,4 +26,4 @@
 
 
 
-<%= render getPlaceUrl(params) %>
+<%= render get_place_url(params) %>
