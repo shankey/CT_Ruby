@@ -105,7 +105,7 @@
         
                 <div class="center-align-place">
                     <h3>Give Your Trip a Great Title</h3> <br>
-                    <input type="text" class="one-line-input title">
+                    <input type="text" class="one-line-input title" value="<%= @saved_story.blank? ? "" : blank_on_nil(@saved_story.title) %>">
                 
                 </div>
                 
@@ -116,7 +116,7 @@
                 <div class="center-align-place">
                     <h3>Where Was You Trip</h3> <br>
                     Include Your Trip Location
-                    <input type="text" class="one-line-input location">
+                    <input type="text" class="one-line-input location" value="<%= @saved_story.blank? ? "" : blank_on_nil(@saved_story.place) %>">
                 
                 </div>
                 
@@ -133,7 +133,7 @@
             
             <div role="tabpanel" class="tab-pane fade" id="four">
                 <div class="center-text">
-                    <textarea name="editor1" id="editor1"></textarea>
+                    <textarea name="editor1" id="editor1" value="<%= @saved_story.blank? ? "" : blank_on_nil(@saved_story.story) %>"></textarea>
                 </div>
             </div>
             
@@ -167,6 +167,7 @@
 <script>
     $(document).ready(function() {
           
+        
         
         $("#next").click(function(){
             if(!$.cookie("remember_token")){
@@ -224,6 +225,7 @@
                             return false;
                             
                         case 2:
+                            tinyMCE.get('editor1').setContent($("#editor1").attr('value'));
                             $('a[href="#four"]').click();
                             $(this).removeClass('active');
                             $(this).addClass('complete');

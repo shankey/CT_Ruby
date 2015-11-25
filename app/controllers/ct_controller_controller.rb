@@ -1,5 +1,5 @@
 class CtControllerController < ApplicationController
-  
+  include CtControllerHelper
   
   skip_before_filter  :verify_authenticity_token
   
@@ -27,6 +27,7 @@ class CtControllerController < ApplicationController
   def share
     @user = verify_current_user
     @user = define_sign_in_out_variables(@user)
+    @saved_story = get_saved_story(params)
   end
   
   # Call during registeration or cookie expiration or logout which leads to cookie expiration
