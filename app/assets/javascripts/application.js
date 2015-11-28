@@ -13,3 +13,33 @@
 
 
 //= require_tree .
+$(document).ready(function() {
+  $( "#signin" ).click(function() {
+    FB.login(function(response){
+      checkLoginState();
+    });
+  });
+
+  $( "#signinpop" ).click(function() {
+    $('#myModal').modal('show');
+  });
+
+  $( "#logout" ).click(function() {
+    FB.logout(function(response) {
+      $.removeCookie("remember_token");
+      $.removeCookie("external_id");
+      location.reload();
+    });
+  });
+  $(".navbar-brand").hover(
+    function() { 
+      $("img.logo-ct").attr("src", '/images/CT-Logo-green.png');
+      $(".navbar-brand").css("background-color","white");
+    },
+    function() {
+      $("img.logo-ct").attr("src", '/images/CT-Logo-2heart.png');
+      $(".navbar-brand").css("background-color", "#0EA474" );
+    })
+
+})
+
