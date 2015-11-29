@@ -8,6 +8,10 @@ function statusChangeCallback(response) {
     // Logged into your app and Facebook.
     // Make an XHR to the backend to store that the user has logged in.
     handleLoginSuccess(response);
+    // Make this cookie live for 1 year.
+    // Ideally we should make a login client API and use that
+    // in client everywhere.
+    $.cookie("login", "1", {expires: 365, path: '/' });
   } else if (response.status === 'not_authorized') {
     // The person is logged into Facebook, but not your app.
   } else {

@@ -17,8 +17,7 @@ module CtControllerHelper
   end
 
   def get_saved_story(params)
-    user = verify_current_user
-
+    user = get_current_user 
     if(user.blank?)
       #error that please login
       return

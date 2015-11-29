@@ -4,25 +4,22 @@ class CtControllerController < ApplicationController
   skip_before_filter  :verify_authenticity_token
 
   def index
-    puts "inside index"
-    @user = verify_current_user
+    @user = get_current_user
     @user = define_sign_in_out_variables(@user)
   end
 
   def about
-    puts "inside aboutus"
-    @user = verify_current_user
+    @user = get_current_user
     @user = define_sign_in_out_variables(@user)
   end
 
   def contact
-    puts "inside contact"
-    @user = verify_current_user
+    @user = get_current_user
     @user = define_sign_in_out_variables(@user)
   end
 
   def share
-    @user = verify_current_user
+    @user = get_current_user
     @user = define_sign_in_out_variables(@user)
     @saved_story = get_saved_story(params)
   end
@@ -37,18 +34,17 @@ class CtControllerController < ApplicationController
       :email,
       :access_token,
       :profile_pictures)
-    client_user.remember_digest = get_remember_digest
-    client_user.password = "1";
 
-    # make facebook call and see if access token is valid. TODO
     # This is to spam calls to api which will cause unwanted entries into database 
 
     existing_user = User.find_by(external_id: client_user.external_id);
-
     if existing_user.blank?
       client_user.save
     else
+      # WHY IS THIS REQUIRED?
       existing_user.name = client_user.name
+
+      # NO POINT SAVING THIS TOKEN - this is short lived.
       existing_user.access_token = client_user.access_token
       existing_user.email = client_user.email
       existing_user.remember_digest = client_user.remember_digest
@@ -60,7 +56,7 @@ class CtControllerController < ApplicationController
   end
 
   def titleUploader
-    user = verify_current_user
+    user = get_current_user 
 
     if(user.blank?)
       #error that please login
@@ -82,13 +78,11 @@ class CtControllerController < ApplicationController
       file.write(params[:title])
     end
 
-    puts params
-
     render :nothing => true
   end
 
   def placeUploader
-    user = verify_current_user
+    user = get_current_user
 
     if(user.blank?)
       #error that please login
@@ -105,8 +99,7 @@ class CtControllerController < ApplicationController
   end
 
   def storyUploader
-    puts params
-    user = verify_current_user
+    user = get_current_user
 
     if(user.blank?)
       #error that please login
@@ -126,12 +119,11 @@ class CtControllerController < ApplicationController
       existing_ts.save
     end
     UserMailer.welcome_email(existing_ts).deliver_now
-    puts params
     render :nothing => true
   end
 
   def fileUploader
-    user = verify_current_user
+    user = get_current_user
 
     if(user.blank?)
       #error that please login

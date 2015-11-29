@@ -18,13 +18,13 @@ $(document).ready(function() {
     $('#myModal').modal('show');
   });
 
-  $( "#logout" ).click(function() {
+  $("#logout" ).click(function() {
     FB.logout(function(response) {
-      $.removeCookie("remember_token");
-      $.removeCookie("external_id");
+      $.cookie("login", "0");
       location.reload();
     });
   });
+
   $(".navbar-brand").hover(
     function() { 
       $("img.logo-ct").attr("src", '/images/CT-Logo-green.png');

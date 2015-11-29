@@ -6,41 +6,34 @@ class ApplicationController < ActionController::Base
   helper :all
 
   def log_in(user)
-    cookies.permanent[:external_id] = user.external_id
-  end
-
-  def set_token(token)
-    cookies.permanent[:remember_token] = token
-  end
-
-  def get_remember_digest
-    token = User.new_token
-    set_token(token)
-    User.digest(token)
+    if cookies[:login] == "1"
+      session[:current_user_id] = user.external_id
+    else
+      session[:current_user_id] = nil
+    end
   end
 
   def validate_incoming_request
-    if(cookies[:remember_token].blank? || cookies[:external_id].blank?)
+    if(!session[:current_user_id])
       return nil
     end
   end
 
-  def verify_current_user
-    if (cookies[:external_id].blank? || cookies[:remember_token].blank?)
+  def get_current_user 
+    if cookies[:login] != "1"
+      return nil
+    end
+    if (!session[:current_user_id])
       return nil
     end
 
-    existing_user = User.find_by(external_id: cookies[:external_id])  
+    existing_user = User.find_by(
+      external_id: session[:current_user_id])  
     if(existing_user.blank?)
       return nil
     else
-      Rails.logger.info("id from db of exisitng user = "+existing_user.external_id+ " " + existing_user.remember_digest)
-      if(BCrypt::Password.new(existing_user.remember_digest) == cookies[:remember_token])
-        Rails.logger.info("remember digest verified "); 
-        return existing_user
-      end
+      return existing_user
     end
-    return nil
   end
 
   def define_sign_in_out_variables(user)
@@ -51,7 +44,7 @@ class ApplicationController < ActionController::Base
       puts "profile picture image = "+@user.profile_pictures
       @sign_in_out = "signout"
     end
-    @profile_image_display = get_log_in_display(user)
+    @profile_image_display = get_log_out_display(user)
     return user
   end
 end

@@ -1,324 +1,280 @@
 <% content_for :customJs do %>
 
   <script src="https://tinymce.cachefly.net/4.2/tinymce.min.js"></script>
-  
-    <script src="js/dropzone.js"></script>
-    <script>
-        
-        tinymce.init({selector:'#editor1',
-                      menubar: false,
-                      plugins: 'autoresize image',
-                      autoresize_min_height: '300px',
-                      autoresize_max_height: '2000px',
-                      statusbar: false,
-                      image_dimensions: false,
-                      toolbar1: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-                      style_formats: [
-        {title: 'Bold text', inline: 'b'},
-        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-        {title: 'Example 1', inline: 'span', classes: 'example1'},
-        {title: 'Example 2', inline: 'span', classes: 'example2'},
-        {title: 'Table styles'},
-        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-    ],
-                      content_css : "css/tinymce.css, https://fonts.googleapis.com/css?family=Roboto+Slab:400,300"
-                      
-                     });
-    
-    
-    
-    
-    
-    </script>
-      
+  <script src="js/dropzone.js"></script>
+  <script>
+    tinymce.init({selector:'#editor1',
+      menubar: false,
+      plugins: 'autoresize image',
+      autoresize_min_height: '300px',
+      autoresize_max_height: '2000px',
+      statusbar: false,
+      image_dimensions: false,
+      toolbar1: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+      style_formats: [
+      {title: 'Bold text', inline: 'b'},
+      {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+      {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+      {title: 'Example 1', inline: 'span', classes: 'example1'},
+      {title: 'Example 2', inline: 'span', classes: 'example2'},
+      {title: 'Table styles'},
+      {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+      ],
+      content_css : "css/tinymce.css, https://fonts.googleapis.com/css?family=Roboto+Slab:400,300"
+    });
+  </script>
 <% end %>
 
 <div class="banner">
-            <%= render "/ct_controller/topnav" %>
-    <br><br>
-    <div class="parent-null">
+  <%= render "/ct_controller/topnav" %>
+  <br><br>
+  <div class="parent-null">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-    
-        <div class="banner-bottom left-right-margin">
-<!--                <h3 class = "center-align-place">Reach out to us</h3>-->
-            
-		
-        
-                <div class="row bs-wizard" style="border-bottom:0;">
-                
-                    <div class="col-xs-3 bs-wizard-step active">
-                        <div class="text-center bs-wizard-stepnum">Trip Title</div>
-                        <div class="progress"><div class="progress-bar"></div></div>
-                        <div class="bs-wizard-dot"></div>
-<!--                  <div class="bs-wizard-info text-center">Lorem ipsum dolor sit amet.</div>-->
-                    </div>
-                    
-                    <div class="col-xs-3 bs-wizard-step disabled">
-                        <div class="text-center bs-wizard-stepnum">Trip Location</div>
-                        <div class="progress"><div class="progress-bar"></div></div>
-                        <div class="bs-wizard-dot"></div>
-<!--                  <div class="bs-wizard-info text-center">Lorem ipsum dolor sit amet.</div>-->
-                    </div>
-                
-                    <div class="col-xs-3 bs-wizard-step disabled"><!-- complete -->
-                        <div class="text-center bs-wizard-stepnum">Trip Pictures</div>
-                        <div class="progress"><div class="progress-bar"></div></div>
-                        <div class="bs-wizard-dot"></div>
-<!--                  <div class="bs-wizard-info text-center">Nam mollis tristique erat vel tristique. Aliquam erat volutpat. Mauris et vestibulum nisi. Duis molestie nisl sed scelerisque vestibulum. Nam placerat tristique placerat</div>-->
-                    </div>
-                
-                    <div class="col-xs-3 bs-wizard-step disabled"><!-- complete -->
-                        <div class="text-center bs-wizard-stepnum">Trip Story</div>
-                        <div class="progress"><div class="progress-bar"></div></div>
-                        <div class="bs-wizard-dot"></div>
-<!--                  <div class="bs-wizard-info text-center">Integer semper dolor ac auctor rutrum. Duis porta ipsum vitae mi bibendum bibendum</div>-->
-                    </div>
-                </div>
-	       
+      <div class="banner-bottom left-right-margin">
+        <div class="row bs-wizard" style="border-bottom:0;">
+          <div class="col-xs-3 bs-wizard-step active">
+            <div class="text-center bs-wizard-stepnum">Trip Title</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <div class="bs-wizard-dot"></div>
+          </div>
+          <div class="col-xs-3 bs-wizard-step disabled">
+            <div class="text-center bs-wizard-stepnum">Trip Location</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <div class="bs-wizard-dot"></div>
+          </div>
+          <div class="col-xs-3 bs-wizard-step disabled"><!-- complete -->
+            <div class="text-center bs-wizard-stepnum">Trip Pictures</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <div class="bs-wizard-dot"></div>
+          </div>
+          <div class="col-xs-3 bs-wizard-step disabled"><!-- complete -->
+            <div class="text-center bs-wizard-stepnum">Trip Story</div>
+            <div class="progress"><div class="progress-bar"></div></div>
+            <div class="bs-wizard-dot"></div>
+          </div>
         </div>
-        <br><br>
-    
-    
-    
+      </div>
+      <br><br>
     </div>
     <div class="col-md-2"></div>
-
-                						
-    </div>
+  </div>
 </div>
 
 <div style="display:none">
-    <a href="#one" class="bs-wizard-dot" aria-controls="one" role="tab" data-toggle="tab"></a>
-    <a href="#two" class="bs-wizard-dot" aria-controls="two" role="tab" data-toggle="tab"></a>
-    <a href="#three" class="bs-wizard-dot" aria-controls="three" role="tab" data-toggle="tab"></a>
-    <a href="#four" class="bs-wizard-dot" aria-controls="four" role="tab" data-toggle="tab"></a>
-    <a href="#five" class="bs-wizard-dot" aria-controls="five" role="tab" data-toggle="tab"></a>
+  <a href="#one" class="bs-wizard-dot" aria-controls="one" role="tab" data-toggle="tab"></a>
+  <a href="#two" class="bs-wizard-dot" aria-controls="two" role="tab" data-toggle="tab"></a>
+  <a href="#three" class="bs-wizard-dot" aria-controls="three" role="tab" data-toggle="tab"></a>
+  <a href="#four" class="bs-wizard-dot" aria-controls="four" role="tab" data-toggle="tab"></a>
+  <a href="#five" class="bs-wizard-dot" aria-controls="five" role="tab" data-toggle="tab"></a>
 </div>
-    
+
 <div class="parent-null">
-    <div class="col-md-3"></div>
-    <div class="col-md-6 blog-text">
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade in active" id="one"> 
-        
-                <div class="center-align-place">
-                    <h3>Give Your Trip a Great Title</h3> <br>
-                    <input type="text" class="one-line-input title" value="<%= @saved_story.blank? ? "" : blank_on_nil(@saved_story.title) %>">
-                
-                </div>
-                
-        
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="two"> 
-        
-                <div class="center-align-place">
-                    <h3>Where Was You Trip</h3> <br>
-                    Include Your Trip Location
-                    <input type="text" class="one-line-input location" value="<%= @saved_story.blank? ? "" : blank_on_nil(@saved_story.place) %>">
-                
-                </div>
-                
-        
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="three">
-            
-                <form action="/fileUploader" class="dropzone" name="adiFileDrop">
-                    <div class="dz-message" data-dz-message><span><h3>Drop pictures here or Click to upload</h3></span></div>
-                    <input type="hidden" name="userId" value="null" />
-                </form>
-            
-            </div>
-            
-            <div role="tabpanel" class="tab-pane fade" id="four">
-                <div class="center-text">
-                    <textarea name="editor1" id="editor1" value="<%= @saved_story.blank? ? "" : blank_on_nil(@saved_story.story) %>"></textarea>
-                </div>
-            </div>
-            
-            <div role="tabpanel" class="tab-pane fade" id="five">
-                <div class="center-text">
-                    You have successfully submitted the story. We will publish post a review and notify you.
-                </div>
-            </div>
+  <div class="col-md-3"></div>
+  <div class="col-md-6 blog-text">
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane fade in active" id="one"> 
+        <div class="center-align-place">
+          <h3>Give Your Trip a Great Title</h3> <br>
+          <input type="text" class="one-line-input title" value="<%= @saved_story.blank? ? "" : blank_on_nil(@saved_story.title) %>">
         </div>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="two"> 
+        <div class="center-align-place">
+          <h3>Where Was You Trip</h3> <br>
+          Include Your Trip Location
+          <input type="text" class="one-line-input location" value="<%= @saved_story.blank? ? "" : blank_on_nil(@saved_story.place) %>">
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="three">
+        <form action="/fileUploader" class="dropzone" name="adiFileDrop">
+          <div class="dz-message" data-dz-message><span><h3>Drop pictures here or Click to upload</h3></span></div>
+          <input type="hidden" name="userId" value="null" />
+        </form>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="four">
+        <div class="center-text">
+          <textarea name="editor1" id="editor1" value="<%= @saved_story.blank? ? "" : blank_on_nil(@saved_story.story) %>"></textarea>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="five">
+        <div class="center-text">
+          You have successfully submitted the story. We will publish post a review and notify you.
+        </div>
+      </div>
     </div>
-            
-    <div class="col-md-3"></div>
-    </div>
+  </div>
 
-    
+  <div class="col-md-3"></div>
+</div>
+
+
 <div class="fixedbutton">
-        <button type="button" class="btn share-btn" id="back" style="margin-right:75px; display:none">
-        <span aria-hidden="true"></span> Back
-        </button>
-        
-        <button type="button" class="btn share-btn" id="draft" style="margin-right:75px; display:none">
-        <span aria-hidden="true"></span> Save Draft
-        </button>
-        
-        <button type="button" class="btn share-btn" style="display:relative" id="next">
-        <span aria-hidden="true"></span> Next
-        </button>
-    </div>
+  <button type="button" class="btn share-btn" id="back" style="margin-right:75px; display:none">
+    <span aria-hidden="true"></span> Back
+  </button>
 
-            
+  <button type="button" class="btn share-btn" id="draft" style="margin-right:75px; display:none">
+    <span aria-hidden="true"></span> Save Draft
+  </button>
+
+  <button type="button" class="btn share-btn" style="display:relative" id="next">
+    <span aria-hidden="true"></span> Next
+  </button>
+</div>
+
+
 <script>
-    $(document).ready(function() {
-          
-        
-        
-        $("#next").click(function(){
-            if(!$.cookie("remember_token")){
-                $("#signinpop").click();
-                return;
-            }
-            var nextVar = 0;
-            console.log(nextVar);
-            var sel = $(".bs-wizard-step");
-            sel.each( function(){ 
-                
-                if ($(this).attr("class").indexOf('active') >= 0 ){
-                    
-                    switch(nextVar){
-                      case 0:
-                            var titleText = $(".one-line-input.title").val();
-                            console.log("yes yes");
-                            $('a[href="#two"]').click();
-                            var dataParam = "title="+titleText;
-                            console.log(dataParam);
-                            $.ajax({
-                              type: "POST",
-                              url: "/titleUploader",
-                              data: dataParam,
-                              dataType: 'json'
-                            });
-                            
-                            $(this).removeClass('active');
-                            $(this).addClass('complete');
-                            $(sel[nextVar+1]).removeClass('disabled');
-                            $(sel[nextVar+1]).addClass('active');
-                            
-                            $("#back").show();
-                            return false;
-                            
-                        case 1:
-                            var placeText = $(".one-line-input.location").val();
-                            console.log("yes yes");
-                            $('a[href="#three"]').click();
-                            var dataParam = "place="+placeText;
-                            console.log(dataParam);
-                            $.ajax({
-                              type: "POST",
-                              url: "/placeUploader",
-                              data: dataParam,
-                              dataType: 'json'
-                            });
-                            
-                            $(this).removeClass('active');
-                            $(this).addClass('complete');
-                            $(sel[nextVar+1]).removeClass('disabled');
-                            $(sel[nextVar+1]).addClass('active');
-                            
-                            $("#back").show();
-                            return false;
-                            
-                        case 2:
-                            tinyMCE.get('editor1').setContent($("#editor1").attr('value'));
-                            $('a[href="#four"]').click();
-                            $(this).removeClass('active');
-                            $(this).addClass('complete');
-                            $(sel[nextVar+1]).removeClass('disabled');
-                            $(sel[nextVar+1]).addClass('active');
-                            
-                            $("#next").text("Submit");
-                            $("#draft").show();
-                            return false;
-                            
-                        case 3:
-                            storyText = tinyMCE.activeEditor.getContent();
-                            var dataParam = "story="+storyText;
-                            $.ajax({
-                                  type: "POST",
-                                  url: "/storyUploader",
-                                  data: dataParam,
-                                  dataType: 'json'
-                            });
-                                
-                            $('a[href="#five"]').click();
-                            $("#draft").hide();
-                            $("#back").hide();
-                            $("#next").hide();
-                    }
-                    console.log(nextVar);
-                      
-                }
-                nextVar++;
-            });
-            
-        }); 
-        
-        $("#draft").click(function(){
-            storyText = tinyMCE.activeEditor.getContent();
-            var dataParam = "story="+storyText+":draft=1";
+  $(document).ready(function() {
+    $("#next").click(function(){
+      // This should go away, we should call the login api to check
+      // if there is a user logged in already or not.
+      if($.cookie("login") == "0"){
+        $("#signinpop").click();
+        return;
+      }
+      var nextVar = 0;
+      var sel = $(".bs-wizard-step");
+      sel.each( function(){ 
+        if ($(this).attr("class").indexOf('active') >= 0 ){
+          switch(nextVar){
+            case 0:
+            var titleText = $(".one-line-input.title").val();
+            console.log("yes yes");
+            $('a[href="#two"]').click();
+            var dataParam = "title="+titleText;
+            console.log(dataParam);
             $.ajax({
-                    type: "POST",
-                    url: "/storyUploader",
-                    data: { story: storyText ,
-                            draft: 1
-                      },
-                    dataType: 'json'
+              type: "POST",
+              url: "/titleUploader",
+              data: dataParam,
+              dataType: 'json'
             });
-        });
-        
-        $("#back").click(function(){
-            var nextVar = 0;
-            var sel = $(".bs-wizard-step");
-            sel.each( function(){ 
-                
-                if ($(this).attr("class").indexOf('active') >= 0 ){
-                    
-                    switch(nextVar){
-                      case 1:
-                        
-                            $('a[href="#one"]').click();
-                            $(this).removeClass('active');
-                            $(this).addClass('disabled');
-                            $(sel[nextVar-1]).removeClass('complete');
-                            $(sel[nextVar-1]).addClass('active');
-                            
-                            $("#back").hide();
-                            $("#draft").hide();
-                            return false;
-                      case 2:
-                            $('a[href="#two"]').click();
-                            $(this).removeClass('active');
-                            $(this).addClass('disabled');
-                            $(sel[nextVar-1]).removeClass('complete');
-                            $(sel[nextVar-1]).addClass('active');
-                            
-                            $("#next").show();
-                            $("#back").show();
-                            $("#draft").hide();
-                            return false;
-                            
-                      case 3:
-                            $('a[href="#three"]').click();
-                            $(this).removeClass('active');
-                            $(this).addClass('disabled');
-                            $(sel[nextVar-1]).removeClass('complete');
-                            $(sel[nextVar-1]).addClass('active');
-                            
-                            $("#next").text("Next");
-                            $("#draft").hide();
-                            return false;
-                     
-                    } 
-                }
-                nextVar++;
+
+            $(this).removeClass('active');
+            $(this).addClass('complete');
+            $(sel[nextVar+1]).removeClass('disabled');
+            $(sel[nextVar+1]).addClass('active');
+
+            $("#back").show();
+            return false;
+
+            case 1:
+            var placeText = $(".one-line-input.location").val();
+            console.log("yes yes");
+            $('a[href="#three"]').click();
+            var dataParam = "place="+placeText;
+            console.log(dataParam);
+            $.ajax({
+              type: "POST",
+              url: "/placeUploader",
+              data: dataParam,
+              dataType: 'json'
             });
-            
-        }); 
+
+            $(this).removeClass('active');
+            $(this).addClass('complete');
+            $(sel[nextVar+1]).removeClass('disabled');
+            $(sel[nextVar+1]).addClass('active');
+
+            $("#back").show();
+            return false;
+
+            case 2:
+            tinyMCE.get('editor1').setContent($("#editor1").attr('value'));
+            $('a[href="#four"]').click();
+            $(this).removeClass('active');
+            $(this).addClass('complete');
+            $(sel[nextVar+1]).removeClass('disabled');
+            $(sel[nextVar+1]).addClass('active');
+
+            $("#next").text("Submit");
+            $("#draft").show();
+            return false;
+
+            case 3:
+            storyText = tinyMCE.activeEditor.getContent();
+            var dataParam = "story="+storyText;
+            $.ajax({
+              type: "POST",
+              url: "/storyUploader",
+              data: dataParam,
+              dataType: 'json'
+            });
+
+            $('a[href="#five"]').click();
+            $("#draft").hide();
+            $("#back").hide();
+            $("#next").hide();
+          }
+          console.log(nextVar);
+
+        }
+        nextVar++;
+      });
+
+    }); 
+
+    $("#draft").click(function(){
+      storyText = tinyMCE.activeEditor.getContent();
+      var dataParam = "story="+storyText+":draft=1";
+      $.ajax({
+        type: "POST",
+        url: "/storyUploader",
+        data: { story: storyText ,
+          draft: 1
+        },
+        dataType: 'json'
+      });
     });
+
+    $("#back").click(function(){
+      var nextVar = 0;
+      var sel = $(".bs-wizard-step");
+      sel.each( function(){ 
+
+        if ($(this).attr("class").indexOf('active') >= 0 ){
+
+          switch(nextVar){
+            case 1:
+
+            $('a[href="#one"]').click();
+            $(this).removeClass('active');
+            $(this).addClass('disabled');
+            $(sel[nextVar-1]).removeClass('complete');
+            $(sel[nextVar-1]).addClass('active');
+
+            $("#back").hide();
+            $("#draft").hide();
+            return false;
+            case 2:
+            $('a[href="#two"]').click();
+            $(this).removeClass('active');
+            $(this).addClass('disabled');
+            $(sel[nextVar-1]).removeClass('complete');
+            $(sel[nextVar-1]).addClass('active');
+
+            $("#next").show();
+            $("#back").show();
+            $("#draft").hide();
+            return false;
+
+            case 3:
+            $('a[href="#three"]').click();
+            $(this).removeClass('active');
+            $(this).addClass('disabled');
+            $(sel[nextVar-1]).removeClass('complete');
+            $(sel[nextVar-1]).addClass('active');
+
+            $("#next").text("Next");
+            $("#draft").hide();
+            return false;
+
+          } 
+        }
+        nextVar++;
+      });
+
+    }); 
+  });
 </script>
