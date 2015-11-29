@@ -8,17 +8,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html>
   <head>
     <title>CoupleTrips</title>
-    
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'login' %>
     <link href="https://fonts.googleapis.com/css?family=Oxygen" rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,300' rel='stylesheet' type='text/css'>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    
     <%= csrf_meta_tags %>
     <%= yield :customJs %>
     <!-- for-mobile-apps -->
@@ -28,8 +25,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   </head>
   <body>
     <div class="page-wrap">
-    <!-- banner -->
-    <%= yield %>
+      <!-- banner -->
+      <%= yield %>
       <div id="preloadimage">
         <img src="/images/CT-Logo-green.png">
       </div>

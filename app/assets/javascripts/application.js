@@ -14,12 +14,6 @@
 
 //= require_tree .
 $(document).ready(function() {
-  $( "#signin" ).click(function() {
-    FB.login(function(response){
-      checkLoginState();
-    });
-  });
-
   $( "#signinpop" ).click(function() {
     $('#myModal').modal('show');
   });
@@ -39,7 +33,6 @@ $(document).ready(function() {
     function() {
       $("img.logo-ct").attr("src", '/images/CT-Logo-2heart.png');
       $(".navbar-brand").css("background-color", "#0EA474" );
-    })
-
+    });
 })
 

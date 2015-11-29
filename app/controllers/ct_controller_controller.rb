@@ -30,12 +30,15 @@ class CtControllerController < ApplicationController
   # Call during registeration or cookie expiration or logout which leads to cookie expiration
   def login_request
     #TODO validate incoming parameters
-    client_user = User.new params.require(:user).permit(:user, :external_id, :name, :email, :access_token, :profile_pictures)
+    client_user = User.new params.require(:user).permit(
+      :user,
+      :external_id,
+      :name,
+      :email,
+      :access_token,
+      :profile_pictures)
     client_user.remember_digest = get_remember_digest
     client_user.password = "1";
-
-    puts "name = " + client_user.name
-    puts "external_id = " + client_user.external_id
 
     # make facebook call and see if access token is valid. TODO
     # This is to spam calls to api which will cause unwanted entries into database 
@@ -52,9 +55,7 @@ class CtControllerController < ApplicationController
       existing_user.profile_pictures = client_user.profile_pictures
       existing_user.save
     end
-
     log_in(client_user)
-
     render :nothing => true
   end
 
