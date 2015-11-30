@@ -34,6 +34,7 @@ class CtControllerController < ApplicationController
       :email,
       :access_token,
       :profile_pictures)
+    client_user.password = "1"
 
     # This is to spam calls to api which will cause unwanted entries into database 
 
@@ -47,7 +48,6 @@ class CtControllerController < ApplicationController
       # NO POINT SAVING THIS TOKEN - this is short lived.
       existing_user.access_token = client_user.access_token
       existing_user.email = client_user.email
-      existing_user.remember_digest = client_user.remember_digest
       existing_user.profile_pictures = client_user.profile_pictures
       existing_user.save
     end
