@@ -65,7 +65,7 @@ $(function() {
 });
 
 window.fbAsyncInit = function() {
-  var isLocal = window.location.href.indexOf('localhost') != -1;
+  var isLocal = (window.location.href.indexOf('localhost') != -1) || (window.location.href.indexOf('c9users') != -1);
   FB.init({
     appId      : isLocal ? '1145563762138091' : '1138815052812962',
     cookie     : true,  // enable cookies to allow the server to access 
