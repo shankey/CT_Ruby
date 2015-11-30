@@ -65,8 +65,9 @@ $(function() {
 });
 
 window.fbAsyncInit = function() {
+  var isLocal = window.location.href.indexOf('localhost') != -1;
   FB.init({
-    appId      : '1145563762138091',
+    appId      : isLocal ? '1145563762138091' : '1138815052812962',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page
