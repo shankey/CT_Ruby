@@ -378,7 +378,7 @@
       color: white; }
       .dropzone .dz-preview .dz-error-message:after {
         content: '';
-        position: absolute;s
+        position: absolute;
         top: -6px;
         left: 64px;
         width: 0;
