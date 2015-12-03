@@ -4,17 +4,19 @@ Rails.application.routes.draw do
   get 'sessions/new'
 
   get '/' => 'ct_controller#index'
-  get '/share' => 'ct_controller#share'
+  
   get '/index' => 'ct_controller#index'
   get '/about' => 'ct_controller#about'
   get '/login' => 'ct_controller#login'
   get '/contact' => 'ct_controller#contact'
   
   post 'login_request' => 'ct_controller#login_request'
-  post '/fileUploader' => 'ct_controller#fileUploader'
-  post '/titleUploader' => 'ct_controller#titleUploader'
-  post '/storyUploader' => 'ct_controller#storyUploader'
-  post '/placeUploader' => 'ct_controller#placeUploader'
+  
+  get '/share' => 'share#share'
+  post '/fileUploader' => 'share#fileUploader'
+  post '/titleUploader' => 'share#titleUploader'
+  post '/storyUploader' => 'share#storyUploader'
+  post '/placeUploader' => 'share#placeUploader'
   
   
   
