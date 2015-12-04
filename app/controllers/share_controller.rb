@@ -104,4 +104,16 @@ class ShareController < ApplicationController
         render :nothing => true
     end
     
+    def discardStory
+        if(params[:storyid].blank?)
+            return
+        end
+        
+        ts = TravelStory.find_by(id: params[:storyid]);
+        ts.completed = -1;
+        ts.save
+        
+        render :nothing => true
+    end
+    
 end

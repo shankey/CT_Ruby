@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post '/titleUploader' => 'share#titleUploader'
   post '/storyUploader' => 'share#storyUploader'
   post '/placeUploader' => 'share#placeUploader'
+  post '/discardStory' => 'share#discardStory'
   
   
   

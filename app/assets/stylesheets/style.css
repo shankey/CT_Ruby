@@ -43,7 +43,6 @@ body a:hover{
 }
 
 a::after {
-    display:block;
     content:attr(title);
     font-weight:bold;
     height:4px;
