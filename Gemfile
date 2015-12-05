@@ -11,6 +11,7 @@ gem 'bcrypt',       '3.1.7'
 gem 'yui-compressor', '~> 0.12.0'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'mysql'
+gem 'twitter'
 gem 'sdoc',         '0.4.0', group: :doc
 
 group :development, :test do
