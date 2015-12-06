@@ -9,8 +9,10 @@ Rails.application.routes.draw do
   get '/about' => 'ct_controller#about'
   get '/login' => 'ct_controller#login'
   get '/contact' => 'ct_controller#contact'
+  get '/subscribe' => 'ct_controller#subscribe'
   
   post 'login_request' => 'ct_controller#login_request'
+  get '/ifttt_follow_like' => 'ct_controller#ifttt_follow_like'
   
   get '/share' => 'share#share'
   post '/fileUploader' => 'share#fileUploader'
