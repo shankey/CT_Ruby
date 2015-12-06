@@ -1,8 +1,9 @@
 class CtControllerController < ApplicationController
   include CtControllerHelper
   require 'twitter'
+  require 'thread'
   
-   
+  @@arrayFollow = Array.new
 
   skip_before_filter  :verify_authenticity_token
 
@@ -57,30 +58,88 @@ class CtControllerController < ApplicationController
   def subscribe
   end
   
-  def ifttt_follow_like
-      puts params
-      
-      client = Twitter::REST::Client.new do |config|
+  def ifttt
+    if(!params[:name].blank?)
+      @@arrayFollow.push(params[:name])
+    end
+    
+    if(!params[:tweet].blank?)
+      ifttt_like
+    end
+    
+    puts "current queue size = "+@@arrayFollow.size.to_s
+    
+    if(@@arrayFollow.size > 50)
+      ifttt_follow
+    end
+    
+    render :nothing => true
+  end
+  
+  def ifttt_like
+    
+    client = Twitter::REST::Client.new do |config|
         config.consumer_key        = "IGEpNQSbzPokonHlFQzAdGxOI"
         config.consumer_secret     = "jNhr5ITUsX9NQlpKtT6GtQb0Gtj33z6OBZtcUSioJr5IhK7F5E"
         config.access_token        = "4069963099-on9tZ6ZwxJxNSqoQvJzLLbjQs6fLO9FNF9HsJVg"
         config.access_token_secret = "1QKvMEpUy2ZVEn5xzQ49zbmIE6rdioRKEt8NJiYs8TQ9u"
-      end
-      
-      if(!params[:name].blank?)
-         client.follow(params[:name])
-      end
-      
-      if(!params[:tweet].blank?)
+    end
+    
+    if(!params[:tweet].blank?)
         uri = URI.parse(params[:tweet])
         index = uri.path.split('/').size - 1
         statusid = uri.path.split('/')[index];
-        tweet = client.status(statusid)
-        client.fav(tweet)
-        
-      end
+        client.fav(statusid)
+    end
+  end
+  
+  def ifttt_follow
       
-      render :nothing => true
+        
+        client = Twitter::REST::Client.new do |config|
+            config.consumer_key        = "IGEpNQSbzPokonHlFQzAdGxOI"
+            config.consumer_secret     = "jNhr5ITUsX9NQlpKtT6GtQb0Gtj33z6OBZtcUSioJr5IhK7F5E"
+            config.access_token        = "4069963099-on9tZ6ZwxJxNSqoQvJzLLbjQs6fLO9FNF9HsJVg"
+            config.access_token_secret = "1QKvMEpUy2ZVEn5xzQ49zbmIE6rdioRKEt8NJiYs8TQ9u"
+        end
+        
+        client.follow(@@arrayFollow)
+        puts "SUCCESSFUL"
+        @@arrayFollow.clear
+        
+        
+        
+        
+        # while(!@@queue.empty?) do
+        #   params = @@queue.pop
+        #   puts params
+        #   time = Random.rand(2..Random.rand(2..10))
+        #   puts "sleeping now for "+ time.to_s
+        #   sleep(0.5)
+      
+        
+      
+      
+        #   if(!params[:name].blank?)
+            
+        #   end
+          
+          
+        
+        
+      
+      
+      
+      rescue Twitter::Error::TooManyRequests => error
+        puts error
+        puts "UNSUCCESSFUL"
+ 
+  end
+  
+  
+  def callback
+    puts request.env['omniauth.auth']
+    render :nothing => true
   end
 
 end

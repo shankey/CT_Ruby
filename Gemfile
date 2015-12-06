@@ -12,6 +12,9 @@ gem 'yui-compressor', '~> 0.12.0'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'mysql'
 gem 'twitter'
+gem 'omniauth-twitter'
+gem 'instagram'
+gem "sinatra"
 gem 'sdoc',         '0.4.0', group: :doc
 
 group :development, :test do
