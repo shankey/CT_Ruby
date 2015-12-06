@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get '/subscribe' => 'ct_controller#subscribe'
   
   post 'login_request' => 'ct_controller#login_request'
-  get '/ifttt_follow_like' => 'ct_controller#ifttt_follow_like'
+  get '/ifttt' => 'ct_controller#ifttt'
   
   get '/share' => 'share#share'
   post '/fileUploader' => 'share#fileUploader'
@@ -20,6 +20,12 @@ Rails.application.routes.draw do
   post '/storyUploader' => 'share#storyUploader'
   post '/placeUploader' => 'share#placeUploader'
   post '/discardStory' => 'share#discardStory'
+  
+  get '/auth/:provider/callback' => 'ct_controller#callback'
+  
+  get '/instagram/connect' => 'instagram#connect'
+  get '/instagram/callback' => 'instagram#callback'
+  get '/instagram/ifttt_instagram' => 'instagram#ifttt_instagram'
   
   
   
