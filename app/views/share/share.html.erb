@@ -48,25 +48,25 @@
       
       <div class="banner-bottom left-right-margin">
         <div class="row bs-wizard" style="border-bottom:0;">
-          <div class="col-xs-3 bs-wizard-step active">
+          <div class="col-xs-3 bs-wizard-step active" id="0">
             <div class="text-center bs-wizard-stepnum">Trip Title</div>
             <div class="progress"><div class="progress-bar"></div></div>
-            <div class="bs-wizard-dot"></div>
+            <a href="#one" class="bs-wizard-dot" aria-controls="one" id="0" role="tab" data-toggle="tab"><div class="bs-wizard-dot"></div></a>
           </div>
-          <div class="col-xs-3 bs-wizard-step disabled">
+          <div class="col-xs-3 bs-wizard-step disabled" id="1">
             <div class="text-center bs-wizard-stepnum">Trip Location</div>
             <div class="progress"><div class="progress-bar"></div></div>
-            <div class="bs-wizard-dot"></div>
+            <a href="#two" class="bs-wizard-dot" aria-controls="two" id="1" role="tab" data-toggle="tab"><div class="bs-wizard-dot"></div></a>
           </div>
-          <div class="col-xs-3 bs-wizard-step disabled"><!-- complete -->
+          <div class="col-xs-3 bs-wizard-step disabled" id="2"><!-- complete -->
             <div class="text-center bs-wizard-stepnum">Trip Pictures</div>
             <div class="progress"><div class="progress-bar"></div></div>
-            <div class="bs-wizard-dot"></div>
+            <a href="#three" class="bs-wizard-dot" aria-controls="three" id="2" role="tab" data-toggle="tab"><div class="bs-wizard-dot"></div></a>
           </div>
-          <div class="col-xs-3 bs-wizard-step disabled"><!-- complete -->
+          <div class="col-xs-3 bs-wizard-step disabled" id="3"><!-- complete -->
             <div class="text-center bs-wizard-stepnum">Trip Story</div>
             <div class="progress"><div class="progress-bar"></div></div>
-            <div class="bs-wizard-dot"></div>
+            <a href="#four" class="bs-wizard-dot" aria-controls="four" id="3" role="tab" data-toggle="tab"><div class="bs-wizard-dot"></div></a>
           </div>
         </div>
       </div>
@@ -77,11 +77,11 @@
 </div>
 
 <div style="display:none">
-  <a href="#one" class="bs-wizard-dot" aria-controls="one" role="tab" data-toggle="tab"></a>
-  <a href="#two" class="bs-wizard-dot" aria-controls="two" role="tab" data-toggle="tab"></a>
-  <a href="#three" class="bs-wizard-dot" aria-controls="three" role="tab" data-toggle="tab"></a>
-  <a href="#four" class="bs-wizard-dot" aria-controls="four" role="tab" data-toggle="tab"></a>
-  <a href="#five" class="bs-wizard-dot" aria-controls="five" role="tab" data-toggle="tab"></a>
+  <a href="#one" aria-controls="one" id="0" role="tab" data-toggle="tab"></a>
+  <a href="#two" aria-controls="one" id="0" role="tab" data-toggle="tab"></a>
+  <a href="#three" aria-controls="one" id="0" role="tab" data-toggle="tab"></a>
+  <a href="#four" aria-controls="one" id="0" role="tab" data-toggle="tab"></a>
+  <a href="#five" aria-controls="one" id="0" role="tab" data-toggle="tab"></a>
 </div>
 
 <div class="parent-null">
@@ -142,6 +142,115 @@
 <script>
   $(document).ready(function() {
     
+    
+    
+    $(".bs-wizard-dot").click(function(){
+      
+      if($.cookie("login") == "0"){
+        $("#signinpop").click();
+        return;
+      }
+      
+      var currentTabId = $(".bs-wizard-step.active").attr('id');
+      var currentTabNo = parseInt(currentTabId);
+      var storyId = $('div[storyid]').attr('storyid');
+      switch(currentTabNo){
+        case 0:
+            var titleText = $(".one-line-input.title").val();
+            var dataParam = "title="+titleText+"&storyid="+storyId;
+            console.log(dataParam);
+            $.ajax({
+              type: "POST",
+              url: "/titleUploader",
+              data: dataParam,
+              dataType: 'json'
+            });
+            break;
+        case 1:
+            var placeText = $(".one-line-input.location").val();
+            var dataParam = "place="+placeText+"&storyid="+storyId;
+            console.log(dataParam);
+            $.ajax({
+              type: "POST",
+              url: "/placeUploader",
+              data: dataParam,
+              dataType: 'json'
+            });
+            break;
+        case 2:
+            break;
+        case 3:
+          storyText = tinyMCE.activeEditor.getContent();
+            var dataParam = "story="+storyText+"&draft=1"+"&storyid="+storyId;
+            $.ajax({
+              type: "POST",
+              url: "/storyUploader",
+              data: dataParam,
+              dataType: 'json'
+            });
+            break;
+        case 4:
+      }
+      
+      
+      var selectId = $(this).attr('id');
+      var sel = $(".bs-wizard-step");
+      sel.each( function(){
+      if($(this).attr('id') < selectId){
+            $(this).removeClass('active');
+            $(this).removeClass('disabled');
+            $(this).addClass('complete');
+      }
+
+      if($(this).attr('id') == selectId){
+            $(this).removeClass('complete');
+            $(this).removeClass('disabled');
+            $(this).addClass('active');
+      }
+
+      if($(this).attr('id') > selectId){
+            $(this).removeClass('complete');
+            $(this).removeClass('active');
+            $(this).addClass('disabled');
+      }
+    });
+    
+    
+    selectNo = parseInt(selectId)
+      switch(selectNo){
+            case 0:
+              $("#draft").hide();
+              $("#back").hide();
+              $("#next").text("Next");
+              $("#next").show();
+              return true;
+            case 1: 
+              $("#draft").hide();
+              $("#back").show();
+              $("#next").text("Next");
+              $("#next").show();
+              return true;
+            case 2:
+              $("#draft").hide();
+              $("#back").show();
+              $("#next").text("Next");
+              $("#next").show();
+              return true;
+            case 3:
+              $("#draft").show();
+              $("#back").show();
+              $("#next").text("Submit");
+              if($("#editor1").attr('value')){
+                tinyMCE.get('editor1').setContent($("#editor1").attr('value'));
+              }
+              $("#next").show();
+              return true;
+            
+              
+         }
+    
+});
+    
     $("#discard-story").click(function(){
       $(".close").click();
       var storyId = $('div[storyid]').attr('storyid');
@@ -152,104 +261,51 @@
               url: "/discardStory",
               data: dataParam,
               dataType: 'json'
+              
+            }).done(
+              function(){ 
+                
             });
-      location.reload();
+            $('div[storyid]').attr('storyid', "");
+            $(".one-line-input.title").val("");
+            tinyMCE.get('editor1').setContent("");
+            $(".one-line-input.location").val("");
+           
     });
     
     $("#next").click(function(){
       // This should go away, we should call the login api to check
       // if there is a user logged in already or not.
-      if($.cookie("login") == "0"){
-        $("#signinpop").click();
-        return;
+      
+      var currentTabId = $(".bs-wizard-step.active").attr('id');
+      var currentTabNo = parseInt(currentTabId);
+      var nextTabNo = currentTabNo + 1;
+      if(nextTabNo == 4){
+        $(".banner-bottom.left-right-margin").hide();
+        $("a[href=#five]").click();
+        $("#next").hide();
+        $("#draft").hide();
+        $("#back").hide();
       }
-      var storyId = $('div[storyid]').attr('storyid');
-      var nextVar = 0;
-      var sel = $(".bs-wizard-step");
-      sel.each( function(){ 
-        if ($(this).attr("class").indexOf('active') >= 0 ){
-          switch(nextVar){
-            case 0:
-            var titleText = $(".one-line-input.title").val();
-            console.log("yes yes");
-            $('a[href="#two"]').click();
-            var dataParam = "title="+titleText+"&storyid="+storyId;
-            console.log(dataParam);
-            $.ajax({
-              type: "POST",
-              url: "/titleUploader",
-              data: dataParam,
-              dataType: 'json'
-            });
+      var selector = "#"+nextTabNo+".bs-wizard-dot"
+      $(selector).click();
 
-            $(this).removeClass('active');
-            $(this).addClass('complete');
-            $(sel[nextVar+1]).removeClass('disabled');
-            $(sel[nextVar+1]).addClass('active');
-
-            $("#back").show();
-            return false;
-
-            case 1:
-            var placeText = $(".one-line-input.location").val();
-            console.log("yes yes");
-            $('a[href="#three"]').click();
-            var dataParam = "place="+placeText+"&storyid="+storyId;
-            console.log(dataParam);
-            $.ajax({
-              type: "POST",
-              url: "/placeUploader",
-              data: dataParam,
-              dataType: 'json'
-            });
-
-            $(this).removeClass('active');
-            $(this).addClass('complete');
-            $(sel[nextVar+1]).removeClass('disabled');
-            $(sel[nextVar+1]).addClass('active');
-
-            $("#back").show();
-            return false;
-
-            case 2:
-            tinyMCE.get('editor1').setContent($("#editor1").attr('value'));
-            $('a[href="#four"]').click();
-            $(this).removeClass('active');
-            $(this).addClass('complete');
-            $(sel[nextVar+1]).removeClass('disabled');
-            $(sel[nextVar+1]).addClass('active');
-
-            $("#next").text("Submit");
-            $("#draft").show();
-            return false;
-
-            case 3:
-            storyText = tinyMCE.activeEditor.getContent();
-            var dataParam = "story="+storyText+"&storyid="+storyId;
-            $.ajax({
-              type: "POST",
-              url: "/storyUploader",
-              data: dataParam,
-              dataType: 'json'
-            });
-
-            $('a[href="#five"]').click();
-            $("#draft").hide();
-            $("#back").hide();
-            $("#next").hide();
-          }
-          console.log(nextVar);
-
-        }
-        nextVar++;
-      });
+    }); 
+    
+    $("#back").click(function(){
+      var currentTabId = $(".bs-wizard-step.active").attr('id');
+      var currentTabNo = parseInt(currentTabId);
+      var nextTabNo = currentTabNo - 1;
+      var selector = "#"+nextTabNo+".bs-wizard-dot"
+      $(selector).click();
+      
 
     }); 
 
     $("#draft").click(function(){
       var storyId = $('div[storyid]').attr('storyid');
       storyText = tinyMCE.activeEditor.getContent();
-      var dataParam = "story="+storyText+"$draft=1"+"&storyid="+storyId;
+      var dataParam = "story="+storyText+"&draft=1"+"&storyid="+storyId;
       $.ajax({
         type: "POST",
         url: "/storyUploader",
@@ -260,53 +316,6 @@
       });
     });
 
-    $("#back").click(function(){
-      var nextVar = 0;
-      var sel = $(".bs-wizard-step");
-      sel.each( function(){ 
-
-        if ($(this).attr("class").indexOf('active') >= 0 ){
-
-          switch(nextVar){
-            case 1:
-
-            $('a[href="#one"]').click();
-            $(this).removeClass('active');
-            $(this).addClass('disabled');
-            $(sel[nextVar-1]).removeClass('complete');
-            $(sel[nextVar-1]).addClass('active');
-
-            $("#back").hide();
-            $("#draft").hide();
-            return false;
-            case 2:
-            $('a[href="#two"]').click();
-            $(this).removeClass('active');
-            $(this).addClass('disabled');
-            $(sel[nextVar-1]).removeClass('complete');
-            $(sel[nextVar-1]).addClass('active');
-
-            $("#next").show();
-            $("#back").show();
-            $("#draft").hide();
-            return false;
-
-            case 3:
-            $('a[href="#three"]').click();
-            $(this).removeClass('active');
-            $(this).addClass('disabled');
-            $(sel[nextVar-1]).removeClass('complete');
-            $(sel[nextVar-1]).addClass('active');
-
-            $("#next").text("Next");
-            $("#draft").hide();
-            return false;
-
-          } 
-        }
-        nextVar++;
-      });
-
-    }); 
+    
   });
 </script>
