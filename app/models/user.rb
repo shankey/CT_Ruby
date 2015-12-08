@@ -16,4 +16,7 @@ class User < ActiveRecord::Base
     update_attribute(:remember_digest, User.get_remember_digest)
   end
 
+  def User.verify_user(email, password)
+
+  end
 end
