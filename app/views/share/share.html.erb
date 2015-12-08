@@ -78,10 +78,10 @@
 
 <div style="display:none">
   <a href="#one" aria-controls="one" id="0" role="tab" data-toggle="tab"></a>
-  <a href="#two" aria-controls="one" id="0" role="tab" data-toggle="tab"></a>
-  <a href="#three" aria-controls="one" id="0" role="tab" data-toggle="tab"></a>
-  <a href="#four" aria-controls="one" id="0" role="tab" data-toggle="tab"></a>
-  <a href="#five" aria-controls="one" id="0" role="tab" data-toggle="tab"></a>
+  <a href="#two" aria-controls="one" id="1" role="tab" data-toggle="tab"></a>
+  <a href="#three" aria-controls="one" id="2" role="tab" data-toggle="tab"></a>
+  <a href="#four" aria-controls="one" id="3" role="tab" data-toggle="tab"></a>
+  <a href="#five" aria-controls="one" id="4" role="tab" data-toggle="tab"></a>
 </div>
 
 <div class="parent-null">
@@ -181,7 +181,7 @@
             break;
         case 3:
           storyText = tinyMCE.activeEditor.getContent();
-            var dataParam = "story="+storyText+"&draft=1"+"&storyid="+storyId;
+            var dataParam = "story="+escape(storyText)+"&draft=1"+"&storyid="+storyId;
             $.ajax({
               type: "POST",
               url: "/storyUploader",
@@ -258,18 +258,19 @@
             console.log(dataParam);
             $.ajax({
               type: "POST",
+              async: false,
               url: "/discardStory",
               data: dataParam,
-              dataType: 'json'
+              dataType: 'text/html'
               
-            }).done(
-              function(){ 
-                
-            });
-            $('div[storyid]').attr('storyid', "");
-            $(".one-line-input.title").val("");
-            tinyMCE.get('editor1').setContent("");
-            $(".one-line-input.location").val("");
+            }).then(function(successResponse){
+              console.log("jo chaho ho jaye coca coal"+successResponse);
+          });
+            location.reload();
+            // $('div[storyid]').attr('storyid', "");
+            // $(".one-line-input.title").val("");
+            // tinyMCE.get('editor1').setContent("");
+            // $(".one-line-input.location").val("");
            
     });
     
@@ -281,6 +282,16 @@
       var currentTabNo = parseInt(currentTabId);
       var nextTabNo = currentTabNo + 1;
       if(nextTabNo == 4){
+            storyText = tinyMCE.activeEditor.getContent();
+            var storyId = $('div[storyid]').attr('storyid');
+            var dataParam = "story="+escape(storyText)+"&storyid="+storyId;
+            $.ajax({
+              type: "POST",
+              async: false,
+              url: "/storyUploader",
+              data: dataParam,
+              dataType: 'json'
+            });
         $(".banner-bottom.left-right-margin").hide();
         $("a[href=#five]").click();
         $("#next").hide();

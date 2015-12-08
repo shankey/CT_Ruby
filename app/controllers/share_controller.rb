@@ -1,6 +1,7 @@
 class ShareController < ApplicationController
     include ShareHelper
     
+    
     skip_before_filter :verify_authenticity_token  
     
     def share
@@ -73,7 +74,7 @@ class ShareController < ApplicationController
         base_path = get_story_path(user.id.to_s, existing_ts.id.to_s)
         FileUtils.mkdir_p(base_path) unless File.exists?(base_path)
         File.open(base_path.join("story"), 'wb') do |file|
-            file.write(params[:story])
+            file.write(URI.unescape(params[:story]))
         end
 
         if(params[:draft].blank?)
@@ -113,7 +114,7 @@ class ShareController < ApplicationController
         ts.completed = -1;
         ts.save
         
-        render :nothing => true
+        render :nothing => true, :status => 200, :content_type => 'text/html'
     end
     
 end
