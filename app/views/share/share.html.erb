@@ -146,7 +146,7 @@
     
     $(".bs-wizard-dot").click(function(){
       
-      if($.cookie("login") == "0"){
+      if($.cookie("login") != "1"){
         $("#signinpop").click();
         return;
       }
