@@ -65,9 +65,22 @@ $(function() {
 });
 
 window.fbAsyncInit = function() {
-  var isLocal = (window.location.href.indexOf('localhost') != -1) || (window.location.href.indexOf('c9') != -1);
+  // Add an app id to support the URL corresponding to your test app.
+  var appIdMap = {
+    'localhost:3000': '532369196931759',
+    'testwsrubyct-stauntonknight.c9users.io': '1145563762138091',
+    'coupletrips.in': '1138815052812962'
+  };
+  // Default to the PROD app.
+  var appId = '1138815052812962';
+  for (var i in appIdMap) {
+    if (window.location.href.indexOf(i) != -1) {
+      appId = appIdMap[i];
+      break;
+    }
+  }
   FB.init({
-    appId      : isLocal ? '1152486968112437' : '1138815052812962',
+    appId      : appId,
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page
