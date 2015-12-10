@@ -5,10 +5,12 @@ class UserController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    p user_params
     if @user.save
+      logger.debug 'User save completed'
       redirect_to login_path 
     else
+      flash.now[:notice] =
+        @user.errors.full_messages.map{|m| "\t#{m}"}.join("\n")
       render 'signup'
     end
   end

@@ -9,6 +9,7 @@ class CtControllerController < ApplicationController
 
   def index
     @user = get_current_user
+    logger.debug "Current User : #{@user} "
     @user = define_sign_in_out_variables(@user)
     @story_array = Array.new
     user = User.find_by(name: "Sheetal Virmani")
@@ -29,8 +30,6 @@ class CtControllerController < ApplicationController
     @user = get_current_user
     @user = define_sign_in_out_variables(@user)
   end
-
-
 
   # Call during registeration or cookie expiration or logout which leads to cookie expiration
   def login_request
@@ -85,7 +84,6 @@ class CtControllerController < ApplicationController
   end
   
   def ifttt_like
-    
     client = Twitter::REST::Client.new do |config|
         config.consumer_key        = "IGEpNQSbzPokonHlFQzAdGxOI"
         config.consumer_secret     = "jNhr5ITUsX9NQlpKtT6GtQb0Gtj33z6OBZtcUSioJr5IhK7F5E"
@@ -102,8 +100,6 @@ class CtControllerController < ApplicationController
   end
   
   def ifttt_follow
-      
-        
         client = Twitter::REST::Client.new do |config|
             config.consumer_key        = "IGEpNQSbzPokonHlFQzAdGxOI"
             config.consumer_secret     = "jNhr5ITUsX9NQlpKtT6GtQb0Gtj33z6OBZtcUSioJr5IhK7F5E"
@@ -114,9 +110,6 @@ class CtControllerController < ApplicationController
         client.follow(@@arrayFollow)
         puts "SUCCESSFUL"
         @@arrayFollow.clear
-        
-        
-        
         
         # while(!@@queue.empty?) do
         #   params = @@queue.pop
@@ -131,23 +124,13 @@ class CtControllerController < ApplicationController
         #   if(!params[:name].blank?)
             
         #   end
-          
-          
-        
-        
-      
-      
-      
       rescue Twitter::Error::TooManyRequests => error
         puts error
         puts "UNSUCCESSFUL"
- 
   end
-  
   
   def callback
     puts request.env['omniauth.auth']
     render :nothing => true
   end
-
 end
