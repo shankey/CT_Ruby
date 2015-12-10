@@ -9,6 +9,10 @@ class SessionsController < ApplicationController
                             session_params[:password])
     if user
       logger.debug 'Successful Signin'
+      # This is a hack, we need to figure out a streamlined way to login.
+      cookies[:login]="1" 
+      cookies[:custom]="1" 
+      log_in(user)
       redirect_to '/'
       # Login USER
     else

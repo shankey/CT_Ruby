@@ -7,29 +7,40 @@ class ApplicationController < ActionController::Base
 
   def log_in(user)
     if cookies[:login] == "1"
-      session[:current_user_id] = user.external_id
+      if user.external_id
+        session[:current_user_id] = user.external_id
+      else
+        session[:current_user_email] = user.email
+      end
     else
       session[:current_user_id] = nil
+      session[:current_user_email] = nil
     end
   end
 
-  def validate_incoming_request
-    if(!session[:current_user_id])
-      return nil
-    end
+  def is_logged_in
+    return session[:current_user_id] || session[:current_user_email]
   end
 
   def get_current_user 
     if cookies[:login] != "1"
       return nil
     end
-    if (!session[:current_user_id])
+
+    if !is_logged_in
       return nil
     end
 
+    # Look by external id first.
     existing_user = User.find_by(
       external_id: session[:current_user_id])  
-    if(existing_user.blank?)
+
+    # Look by email id next.
+    if existing_user.blank?
+      existing_user = User.find_by(
+        email: session[:current_user_email])  
+    end
+    if existing_user.blank?
       return nil
     else
       return existing_user
@@ -41,7 +52,7 @@ class ApplicationController < ActionController::Base
       user = User.new
       @sign_in_out = "signin"
     else
-      puts "profile picture image = "+@user.profile_pictures
+      logger.debug @user.profile_pictures
       @sign_in_out = "signout"
     end
     @profile_image_display = get_log_out_display(user)

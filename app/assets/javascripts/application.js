@@ -19,10 +19,19 @@ $(document).ready(function() {
   });
 
   $("#logout" ).click(function() {
-    FB.logout(function(response) {
+    if ($.cookie("custom") == "1") {
+      // In case of custom login, we don't need to do FB logout.
       $.cookie("login", "0");
+      $.cookie("custom", "0");
       location.reload();
-    });
+    } else {
+      // Do FB logout and then clear the rest cookies.
+      FB.logout(function(response) {
+        $.cookie("login", "0");
+        location.reload();
+      });
+
+    }
   });
 
   $(".navbar-brand").hover(
