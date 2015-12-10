@@ -1,22 +1,17 @@
 class User < ActiveRecord::Base
   has_secure_password
+  # We should enable the following once we have migrated all the existing users.
+  # validates_presence_of :email, :password
+  # validates_uniqueness_of :email
 
-  def User.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-      BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
-  end
-
-  # Returns a random token.
-  def User.new_token
-    SecureRandom.urlsafe_base64
-  end
-
-  def remember
-    update_attribute(:remember_digest, User.get_remember_digest)
-  end
-
+  # Returns false if the user verification failed, else returns the
+  # user object itself.
   def User.verify_user(email, password)
-
+    user = User.find_by_email(email)
+    if !user
+      return false
+    else
+      return user.authenticate(password)
+    end
   end
 end
