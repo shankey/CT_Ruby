@@ -100,33 +100,19 @@ class CtControllerController < ApplicationController
   end
   
   def ifttt_follow
-        client = Twitter::REST::Client.new do |config|
-            config.consumer_key        = "IGEpNQSbzPokonHlFQzAdGxOI"
-            config.consumer_secret     = "jNhr5ITUsX9NQlpKtT6GtQb0Gtj33z6OBZtcUSioJr5IhK7F5E"
-            config.access_token        = "4069963099-on9tZ6ZwxJxNSqoQvJzLLbjQs6fLO9FNF9HsJVg"
-            config.access_token_secret = "1QKvMEpUy2ZVEn5xzQ49zbmIE6rdioRKEt8NJiYs8TQ9u"
-        end
-        
-        client.follow(@@arrayFollow)
-        puts "SUCCESSFUL"
-        @@arrayFollow.clear
-        
-        # while(!@@queue.empty?) do
-        #   params = @@queue.pop
-        #   puts params
-        #   time = Random.rand(2..Random.rand(2..10))
-        #   puts "sleeping now for "+ time.to_s
-        #   sleep(0.5)
-      
-        
-      
-      
-        #   if(!params[:name].blank?)
-            
-        #   end
-      rescue Twitter::Error::TooManyRequests => error
-        puts error
-        puts "UNSUCCESSFUL"
+    client = Twitter::REST::Client.new do |config|
+      config.consumer_key        = "IGEpNQSbzPokonHlFQzAdGxOI"
+      config.consumer_secret     = "jNhr5ITUsX9NQlpKtT6GtQb0Gtj33z6OBZtcUSioJr5IhK7F5E"
+      config.access_token        = "4069963099-on9tZ6ZwxJxNSqoQvJzLLbjQs6fLO9FNF9HsJVg"
+      config.access_token_secret = "1QKvMEpUy2ZVEn5xzQ49zbmIE6rdioRKEt8NJiYs8TQ9u"
+    end
+
+    client.follow(@@arrayFollow)
+    logger.debug "Successful follow"
+    @@arrayFollow.clear
+  rescue Twitter::Error::TooManyRequests => error
+    puts error
+    puts "UNSUCCESSFUL"
   end
   
   def callback
