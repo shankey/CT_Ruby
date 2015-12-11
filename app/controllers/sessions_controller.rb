@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   def new
     render 'new'
   end
@@ -11,6 +12,7 @@ class SessionsController < ApplicationController
       logger.debug 'Successful Signin'
       # This is a hack, we need to figure out a streamlined way to login.
       cookies[:login]="1" 
+      # To ensure that client can decide whether to call FB logout or not.
       cookies[:custom]="1" 
       log_in(user)
       redirect_to '/'
@@ -23,6 +25,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    render 'new'
+    log_out
+    render :nothing => true
   end
 end

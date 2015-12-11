@@ -12,10 +12,18 @@ class ApplicationController < ActionController::Base
       else
         session[:current_user_email] = user.email
       end
+      cookies[:noautologin]="0" 
     else
-      session[:current_user_id] = nil
-      session[:current_user_email] = nil
+      log_out
     end
+  end
+
+  def log_out
+    cookies[:login] = "0"
+    if session[:current_user_email]
+      cookies[:noautologin]="0" 
+    end
+    reset_session
   end
 
   def is_logged_in
