@@ -14,9 +14,11 @@ function statusChangeCallback(response) {
     $.cookie("login", "1", {expires: 365, path: '/' });
   } else if (response.status === 'not_authorized') {
     // The person is logged into Facebook, but not your app.
+    $.cookie("login", "0", {expires: 365, path: '/' });
   } else {
     // The person is not logged into Facebook, so we're not sure if
     // they are logged into this app or not.
+    $.cookie("login", "0", {expires: 365, path: '/' });
   }
 }
 
@@ -55,15 +57,6 @@ function handleLoginSuccess() {
   });
 };
 
-// This should be merged with application.js by making login.js a library.
-$(function() {
-  $( "#signin" ).click(function() {
-    FB.login(function(response){
-      checkLoginState();
-    });
-  });
-});
-
 window.fbAsyncInit = function() {
   // Add an app id to support the URL corresponding to your test app.
   var appIdMap = {
@@ -86,6 +79,15 @@ window.fbAsyncInit = function() {
     xfbml      : true,  // parse social plugins on this page
     version    : 'v2.5' // use version 2.2
   });
+
+  // Check no auto login for the user.
+  if ($.cookie('noautologin') == '1') {
+    return;
+  }
+  // If user is logged in due to custom login then only don't check for FB login.
+  if ($.cookie('login') == '1' && $.cookie('custom') == '1') {
+    return;
+  }
 
   // Now that we've initialized the JavaScript SDK, we call 
   // FB.getLoginStatus().  This function gets the state of the
