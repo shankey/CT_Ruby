@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
     if session[:current_user_email]
       cookies[:noautologin]="0" 
     end
+    cookies[:custom] = "0"
     reset_session
   end
 

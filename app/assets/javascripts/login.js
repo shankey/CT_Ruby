@@ -1,5 +1,5 @@
 // This is called with the results from from FB.getLoginStatus().
-function statusChangeCallback(response) {
+function statusChangeCallback(response, opt_successCallback) {
   // The response object is returned with a status field that lets the
   // app know the current login status of the person.
   // Full docs on the response object can be found in the documentation
@@ -12,6 +12,9 @@ function statusChangeCallback(response) {
     // Ideally we should make a login client API and use that
     // in client everywhere.
     $.cookie("login", "1", {expires: 365, path: '/' });
+    if (opt_successCallback) {
+      opt_successCallback();
+    }
   } else if (response.status === 'not_authorized') {
     // The person is logged into Facebook, but not your app.
     $.cookie("login", "0", {expires: 365, path: '/' });
@@ -22,12 +25,21 @@ function statusChangeCallback(response) {
   }
 }
 
+function loadHomePage() {
+  window.location.href = '//' + window.location.host;
+};
+
+function checkLoginStateAndRedirect() {
+  checkLoginState(loadHomePage);
+};
+
+
 // This function is called when someone finishes with the Login
 // Button.  See the onlogin handler attached to it in the sample
 // code below.
-function checkLoginState() {
+function checkLoginState(opt_callback) {
   FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
+    statusChangeCallback(response, opt_callback);
   });
 };
 

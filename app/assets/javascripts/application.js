@@ -18,23 +18,22 @@ $(document).ready(function() {
     $('#myModal').modal('show');
   });
 
+  function destroySession(callback) {
+    $.ajax({
+      type: 'DELETE',
+      url: '/logout',
+      success: callback
+    });
+  }
+
   $("#logout" ).click(function() {
     if ($.cookie('custom') == "1") {
       // In case of custom login, we don't need to do FB logout.
-      $.cookie('login', "0");
-      $.cookie('custom', "0");
-      $.ajax({
-        type: 'DELETE',
-        url: '/logout',
-        success: function() {
-          location.reload(true /* forceGet */);
-        }
-      });
+      destroySession(loadHomePage);
     } else {
       // Do FB logout and then clear the rest cookies.
-      FB.logout(function(response) {
-        $.cookie("login", "0");
-        location.reload();
+      FB.logout(function() {
+        destroySession(loadHomePage);
       });
     }
   });
