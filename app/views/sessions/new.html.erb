@@ -4,7 +4,7 @@
     <div class="notice"><%= flash[:notice] %></div>
   <% end %>
 
-  <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+  <fb:login-button scope="public_profile,email" onlogin="checkLoginStateAndRedirect();">
   </fb:login-button>
 
 
