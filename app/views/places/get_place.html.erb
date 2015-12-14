@@ -3,7 +3,7 @@
 		
 			<div class="banner-bottom left-right-margin">
 			    
-                <%= render get_place_title_url(params) %>
+                <%= render get_r_place_title_path(@story_id) %>
                 						
             </div>
 </div>
@@ -26,4 +26,57 @@
 
 
 
-<%= render get_place_url(params) %>
+
+<!---->
+<!---->
+<!---->
+<!---->
+
+<div class="parent-null">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="tab-content blog-text">
+            
+            <div role="tabpanel" class="tab-pane fade in active" id="about">
+                <h4 class="about-sub-heading"> About <%= render get_r_place_location_path(@story_id) %></h4>
+
+
+                <div>
+                   <%= render get_r_place_about_path(@story_id)  %>
+                </div>
+                
+                <hr>
+            
+                <div class="parent-null">
+                    <h4 class="about-sub-heading"> How To Reach</h4>
+                
+                    <%= render get_r_place_reach_path(@story_id)  %>
+            
+                </div>
+                <hr>
+                <h4 class="about-sub-heading"> Best Time To Go </h4>
+        
+                <%= render get_r_place_besttime_path(@story_id)  %>
+        
+        
+        
+            </div>
+        
+            
+                <%= render get_r_place_story_path(@story_id)  %>          
+            
+            
+                <%= render get_r_place_attractions_path(@story_id)  %>
+            
+            
+                <%= render get_r_place_gallery_path(@story_id)  %>
+            
+            
+                <%= render get_r_place_stay_path(@story_id)  %>
+            
+            
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+    </div>
+

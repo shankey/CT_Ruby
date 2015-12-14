@@ -10,6 +10,14 @@ class CtControllerController < ApplicationController
   def index
     @user = get_current_user
     @user = define_sign_in_out_variables(@user)
+    @story_array = Array.new
+    user = User.find_by(name: "Sheetal Virmani")
+    TravelStory.where("user_id= #{user.id} AND live=1").each do |ts|
+      
+      @story_array.push(ts)
+    end
+    
+      
   end
 
   def about
@@ -38,7 +46,7 @@ class CtControllerController < ApplicationController
 
     # This is to spam calls to api which will cause unwanted entries into database 
 
-    existing_user = User.find_by(external_id: client_user.external_id);
+    existing_user = User.find_by(external_id: client_user.external_id)
     if existing_user.blank?
       client_user.save
     else
