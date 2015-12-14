@@ -27,6 +27,14 @@ Rails.application.routes.draw do
   get '/instagram/callback' => 'instagram#callback'
   get '/instagram/ifttt_instagram' => 'instagram#ifttt_instagram'
   
+  get '/migrate' => 'publish#migrate'
+  get '/publish' => 'publish#publish'
+  get '/edit_story' => 'publish#edit_story'
+  post '/edit_story_save' => 'publish#edit_story_save'
+  get '/all_user' => 'publish#all_user'
+  get '/all_stories' => 'publish#all_stories'
+  get '/all_images' => 'publish#all_images'
+  
   
   
   # get 'places/hampi' => 'places#hampi'

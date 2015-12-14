@@ -1,0 +1,30 @@
+<div class="parent-null">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+
+<% @story_array.each do |story| %>
+ <li>
+<% if (story.published == true) %>
+<a href="/edit_story?story_id=<%= story.id.to_s %>"><%= story.id.to_s + " " + story.location.to_s + " "%></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="/all_images?story_id=<%= story.id.to_s %>"> images </a>
+<% else %>
+
+<a href="#"><%= story.id.to_s + " " + story.location.to_s + " "%></a>
+<a href="/publish?story_id=<%= story.id.to_s %>&user_id=<%= story.user_id.to_s %>"> publish </a>
+
+<% end %>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="/places/<%= story.location.downcase.to_s %>_<%= story.id.to_s %>"> website look</a>
+</li>
+
+
+
+<% end %>
+
+
+
+
+</div>
+<div class="col-md-2"></div>
+</div>

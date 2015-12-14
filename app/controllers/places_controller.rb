@@ -5,9 +5,12 @@ class PlacesController < ApplicationController
   # GET /places
   # GET /places.json
   def get_place
-    @placeHeading = params[:id].gsub('_', ' ').upcase
+    puts params[:id]
+    place_and_storyid = params[:id].split("_")
+    @story_id = place_and_storyid[place_and_storyid.size - 1]
     @user = get_current_user
     @user = define_sign_in_out_variables(@user)
+    
     # puts @placeHeading
     # puts params.inspect
     # puts 'hi hello'

@@ -1,0 +1,56 @@
+<%= form_tag("/edit_story_save", method: "post") do %>
+
+
+    
+        <div class="parent-null">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                
+                <%= hidden_field_tag(:story_id, value = @story_id) %> 
+    
+                
+  <%= label_tag(:about_label, "about") %> <br>
+  <%= text_area_tag(:about , @est.about, cols: "100", rows: "10") %>
+  <br><br><br>
+  
+  <%= label_tag(:attractions_label, "attractions") %> <br>
+  <%= text_area_tag(:attractions , @est.attractions, cols: "100", rows: "40") %>
+  <br><br><br>
+  
+  <%= label_tag(:besttime_label, "besttime") %> <br>
+  <%= text_area_tag(:besttime , @est.besttime, cols: "100", rows: "30") %>
+  <br><br><br>
+  
+  <%= label_tag(:gallery_label, "gallery") %> <br>
+  <%= text_area_tag(:gallery , @est.gallery, cols: "100", rows: "30") %>
+  <br><br><br>
+  
+  <%= label_tag(:location_label, "location") %> <br>
+  <%= text_area_tag(:location , @est.location, cols: "100", rows: "2") %>
+  <br><br><br>
+  
+  <%= label_tag(:reach_label, "reach") %> <br>
+  <%= text_area_tag(:reach , @est.reach, cols: "100", rows: "30") %>
+  <br><br><br>
+  
+  <%= label_tag(:stay_label, "stay") %> <br>
+  <%= text_area_tag(:stay , @est.stay, cols: "100", rows: "30") %>
+  <br><br><br>
+  
+  <%= label_tag(:story_label, "story") %> <br>
+  <%= text_area_tag(:story , @est.story, cols: "100", rows: "40") %>
+  <br><br><br>
+  
+  <%= label_tag(:title_label, "title") %> <br>
+  <%= text_area_tag(:title , @est.title, cols: "100", rows: "10") %>
+  <br><br><br>
+  <%= submit_tag("Submit") %>
+  </div>
+  <div class="col-md-2"></div>
+      </div>
+
+
+  
+  
+  
+<% end %>

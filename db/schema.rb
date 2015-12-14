@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116181257) do
+ActiveRecord::Schema.define(version: 20151214142831) do
 
   create_table "places", force: :cascade do |t|
     t.binary   "About",       limit: 65535
@@ -25,9 +25,13 @@ ActiveRecord::Schema.define(version: 20151116181257) do
 
   create_table "travel_stories", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.integer  "completed",  limit: 4
+    t.string   "image",      limit: 255
+    t.string   "title",      limit: 255
+    t.string   "location",   limit: 255
+    t.integer  "live",       limit: 4
   end
 
   create_table "tries", force: :cascade do |t|
