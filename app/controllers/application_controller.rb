@@ -41,11 +41,15 @@ class ApplicationController < ActionController::Base
     end
 
     # Look by external id first.
-    existing_user = User.find_by(
-      external_id: session[:current_user_id])  
+    existing_user = nil
+    if session[:current_user_id]
+      existing_user = User.find_by(
+        external_id: session[:current_user_id])  
+    end
+
 
     # Look by email id next.
-    if existing_user.blank?
+    if !existing_user || existing_user.blank?
       existing_user = User.find_by(
         email: session[:current_user_email])  
     end
