@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get '/contact' => 'ct_controller#contact'
   get '/subscribe' => 'ct_controller#subscribe'
   
+  # Handles FB login.
   post 'login_request' => 'ct_controller#login_request'
   get '/ifttt' => 'ct_controller#ifttt'
   
@@ -42,11 +43,9 @@ Rails.application.routes.draw do
 
   if Rails.env.development?
     # Sign up
-    get    'signup'   => 'user#signup'
     post   'signup'   => 'user#create'
    
     # Sessions management.
-    get    'login'   => 'sessions#new'
     post   'login'   => 'sessions#create'
     delete 'logout'  => 'sessions#destroy'
   else
