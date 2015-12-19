@@ -1,8 +1,5 @@
 class SessionsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  def new
-    render 'new'
-  end
 
   def create
     user = User.verify_user(session_params[:email].downcase,

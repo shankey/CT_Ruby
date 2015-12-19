@@ -1,8 +1,5 @@
 class UserController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  def signup
-    @user = User.new
-  end
 
   def create
     @user = User.new(user_params)
