@@ -1,4 +1,5 @@
 class UserController < ApplicationController
+  skip_before_filter :verify_authenticity_token
   def signup
     @user = User.new
   end
@@ -7,11 +8,11 @@ class UserController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       logger.debug 'User save completed'
-      redirect_to login_path 
+      render :nothing => true
     else
       flash.now[:notice] =
         @user.errors.full_messages.map{|m| "\t#{m}"}.join("\n")
-      render 'signup'
+      raise 'Unauthorized login' 
     end
   end
 
