@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+.custom-login-header {
+  padding: 0 0 10px 0;
+}

@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
   end
 
   def create
-    session_params = params[:session]
     user = User.verify_user(session_params[:email].downcase,
                             session_params[:password])
     if user
@@ -15,12 +14,10 @@ class SessionsController < ApplicationController
       # To ensure that client can decide whether to call FB logout or not.
       cookies[:custom]="1" 
       log_in(user)
-      redirect_to '/'
-      # Login USER
+      render :nothing => true
     else
       logger.debug 'Unsuccessful attempt to signin'
-      flash.now[:notice] = 'Invalid email/password combination' 
-      render 'new'
+      raise 'Unauthorized login' 
     end
   end
 
@@ -28,4 +25,10 @@ class SessionsController < ApplicationController
     log_out
     render :nothing => true
   end
+
+  private
+    def session_params
+      params.require(:session).permit(:email,
+                                      :password)
+    end
 end
