@@ -195,7 +195,7 @@ class PublishController < ApplicationController
             template_gallery_list = File.read(template_folder.to_s + "/gallery_list")
             template_gallery_list = template_gallery_list.gsub("_number_",index.to_s)
             index = index + 1
-            template_gallery.concat(template_gallery_list.gsub("_imagepath_", base_image_folder.join(image).to_s.gsub('/home/ubuntu/workspace/CoupleTrips/public', '..') ))
+            template_gallery.concat(template_gallery_list.gsub("_imagepath_", base_image_folder.join(image).to_s.gsub(/.*public/, '..') ))
         end
         
         base_image_folder = get_image_story_folder(story_id)
