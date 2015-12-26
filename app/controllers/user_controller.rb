@@ -9,7 +9,8 @@ class UserController < ApplicationController
     else
       flash.now[:notice] =
         @user.errors.full_messages.map{|m| "\t#{m}"}.join("\n")
-      raise 'Unauthorized login' 
+      render :json => {:errors => @user.errors.full_messages},
+             :status => 422
     end
   end
 

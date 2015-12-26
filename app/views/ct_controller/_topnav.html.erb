@@ -31,7 +31,7 @@
       <!-- Profile pic -->
       <!-- <p class="float-right" id="signin"><%= default_sign_in_name(@user)  %></p> -->
       <p class="float-right">
-      <img id="profileimage" src="<%= @user.profile_pictures %>" style="display: <%= @profile_image_display %>">
+      <img id="profileimage" src="<%= get_profile_pic(@user) %>" style="display: <%= @profile_image_display %>">
       </p>
     </div>
   </nav>
