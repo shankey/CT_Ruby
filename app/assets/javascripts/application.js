@@ -21,6 +21,11 @@ $(document).ready(function() {
     $('.ct-login').show();
     clearLoginNotices();
   });
+  $('#signinfb').click(function() {
+    FB.login(function() {
+      checkLoginState();
+    });
+  });
 
   function destroySession(callback) {
     $.ajax({
@@ -30,7 +35,7 @@ $(document).ready(function() {
     });
   }
 
-  $("#logout" ).click(function() {
+  $("#logout").click(function() {
     if ($.cookie('custom') == "1") {
       // In case of custom login, we don't need to do FB logout.
       destroySession(loadHomePage);
