@@ -40,16 +40,12 @@ Rails.application.routes.draw do
   get 'places/:id' => 'places#get_place'
   
 
-  if Rails.env.development?
-    # Sign up
-    post   'signup'   => 'user#create'
-   
-    # Sessions management.
-    post   'login'   => 'sessions#create'
-    delete 'logout'  => 'sessions#destroy'
-  else
-    get '/login' => 'ct_controller#login'
-  end
+  # Sign up
+  post   'signup'   => 'user#create'
+
+  # Sessions management.
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
  
 
   
