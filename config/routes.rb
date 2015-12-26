@@ -34,7 +34,6 @@ Rails.application.routes.draw do
   get '/all_stories' => 'publish#all_stories'
   get '/all_images' => 'publish#all_images'
   
-  
   # get 'places/hampi' => 'places#hampi'
   # get 'places/khajjiar_dalhousie' => 'places#khajjiar_dalhousie'
   # get 'places/ananthagiri' => 'places#anathagiri'
