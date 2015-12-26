@@ -22,3 +22,7 @@
 .login-notices .alert-success {
   white-space: pre-wrap;
 }
+
+#signinpop {
+  cursor: pointer;
+}
