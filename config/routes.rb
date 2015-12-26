@@ -40,13 +40,12 @@ Rails.application.routes.draw do
   get 'places/:id' => 'places#get_place'
   
 
-    # Sign up
-    post   'signup'   => 'user#create'
-   
-    # Sessions management.
-    post   'login'   => 'sessions#create'
-    delete 'logout'  => 'sessions#destroy'
-  end
+  # Sign up
+  post   'signup'   => 'user#create'
+
+  # Sessions management.
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
  
 
   
