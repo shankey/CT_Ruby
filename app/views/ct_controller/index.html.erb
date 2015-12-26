@@ -1,51 +1,28 @@
-
-
-
 <div class="banner">
-		
-							<div class="banner-infoa">
-                                <%= render "/ct_controller/topnav" %>
-
-									<div class="man">
-                                        <br><br>
-    <h3> <b>A COMMUNITY FOR LOVERS WHO TRAVEL </b></h3>
-                            <a href="./share.html">    <Button class="gradient btn-primary top-button">Share Your Trip</Button> </a>
-
-                                        
-										<div class="clearfix"></div>
-									</div>
-
-
-							</div>
-
-			<div class="banner-bottom left-right-margin">
-					<div class="bottom-grids">
-					    <!--./images/Ananthagiri_images/driveway_cover.jpg-->
-					    <% @story_array.each do |story| %>
-					        <div class="col-md-3">
-							    <div class="photo" style="background:url('<%= story.image %>'); background-size: cover">
-                                    <a href="./places/<%= story.location %>_<%= story.id %>.html" class="fill-div">
-                              
-                                        
-                                        
-                                        <div class="place-title <%= ((story.title.to_s.include? '<br>') ? "place-title-2" : "") %>"><%= story.title.html_safe %></div>
-                                    </a>
-                                </div>
-                            </div>
-                            
-                        <% end %>
-
-    
-
-                    
-						<div class="clearfix"></div>
-					</div>
-			</div>
-    
-  
+  <div class="banner-infoa">
+    <%= render "/ct_controller/topnav" %>
+    <div class="man">
+      <br><br>
+      <h3> <b>A COMMUNITY FOR LOVERS WHO TRAVEL </b></h3>
+      <a href="./share.html">    <Button class="gradient btn-primary top-button">Share Your Trip</Button> </a>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  <div class="banner-bottom left-right-margin">
+    <div class="bottom-grids">
+      <% @story_array.each do |story| %>
+        <div class="col-md-3">
+          <div class="photo" style="background:url('<%= story.image %>'); background-size: cover">
+            <a href="./places/<%= story.location %>_<%= story.id %>.html" class="fill-div">
+              <div class="place-title <%= ((story.title.to_s.include? '<br>') ? "place-title-2" : "") %>"><%= story.title.html_safe %></div>
+            </a>
+          </div>
+        </div>
+      <% end %>
+      <div class="clearfix"></div>
+    </div>
+  </div>
 </div>
-
-
 
 <!-- Modal -->
 

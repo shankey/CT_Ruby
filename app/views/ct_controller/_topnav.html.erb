@@ -1,35 +1,38 @@
 <div class="collapse navbar-collapse main-top">
   <nav class="navbar remove-margin">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/index.html"><img class="logo-ct"  src="/images/CT-Logo-2heart.png" />   </a>
+    <div class="container-fluid">
+      <!-- Logo -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/index.html"><img class="logo-ct"  src="/images/CT-Logo-2heart.png" />   </a>
+      </div>
+
+      <!-- Top bar -->
+      <ul class="nav navbar-nav">
+        <li><a href="/about.html">About Us</a></li>
+        <li><a href="/share.html">Share Your Trip</a></li>
+        <li><a href="/contact.html">Contact Us</a></li>
+      </ul>
+
+      <!-- Drop down for login/logout -->
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown" style="display:<%= get_log_out_display(@user) %>">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="signout">
+            <span id="signouttext"><%= default_sign_in_name(@user)%></span><span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#" id="logout">Log Out</a></li>
+          </ul>
+        </li>
+        <li style="display:<%= get_log_in_display(@user) %>" id="signinli">
+          <div id="signinpop">Sign In</div>
+        </li>
+      </ul>
+
+      <!-- Profile pic -->
+      <!-- <p class="float-right" id="signin"><%= default_sign_in_name(@user)  %></p> -->
+      <p class="float-right">
+      <img id="profileimage" src="<%= @user.profile_pictures %>" style="display: <%= @profile_image_display %>">
+      </p>
     </div>
-
-    <ul class="nav navbar-nav">
-      <li><a href="/about.html">About Us</a></li>
-      <li><a href="/share.html">Share Your Trip</a></li>
-      <li><a href="/contact.html">Contact Us</a></li>
-    </ul>
-
-    <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown" style="display:<%= get_log_out_display(@user) %>">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="signout">
-          <span id="signouttext"><%= default_sign_in_name(@user)%></span><span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-          <li><a href="#" id="logout">Log Out</a></li>
-        </ul>
-      </li>
-      <li style="display:<%= get_log_in_display(@user) %>" id="signinli"><a href="#" id="signinpop">Sign In</a></li>
-
-    </ul>
-
-    <!-- <p class="float-right" id="signin"><%= default_sign_in_name(@user)  %></p> -->
-    <p class="float-right">
-    <img id="profileimage" src="<%= @user.profile_pictures %>" style="display: <%= @profile_image_display %>">
-    </p>
-
-
-  </div>
   </nav>
 </div>

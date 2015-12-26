@@ -24,6 +24,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
       <meta name="keywords" content="Couple Trips, Love, Trip, Trips, Couple, Leisure" />
   </head>
   <body>
+    <!-- PAGE WRAP BEGINS -->
     <div class="page-wrap">
       <!-- banner -->
       <%= yield %>
@@ -43,6 +44,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
       </script>
       <!-- GOOGLE ANALYTICS END -->
       <!-- //banner -->
+      <!-- LOGIN DIALOG -->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-sm" role="document">
           <div class="modal-content">
@@ -51,12 +53,58 @@ License URL: http://creativecommons.org/licenses/by/3.0/
               <h4 class="modal-title" id="myModalLabel">SIGN IN</h4>
             </div>
             <div class="modal-body">
-              <button type="button" class="btn btn-primary btn-lg" id="signin"><img src="/images/fbicon.jpg" height="40px" style="padding-right:5px"> Sign In With Facebook</button>
-              <div height="50px"></div>
+              <div class="login-notices">
+                <div class="alert alert-success">
+                </div>
+                <div class="alert alert-danger">
+                </div>
+              </div>
+              <div class="ct-login">
+                <button type="button" class="btn btn-primary btn-lg" id="signinfb">
+                  <img src="/images/fbicon.jpg" height="40px" style="padding-right:5px">
+                  Sign In With Facebook
+                </button>
+                <div height="50px"></div>
+                <hr />
+                <div class="custom-login-section">
+                  <div class="custom-login-header">
+                    Or use your email address
+                  </div>
+                  <div class="custom-login-controls">
+                    <button class="btn btn-default custom-login-button">Log in</button>
+                    <button class="btn btn-default custom-signup-button">Sign up</button>
+                  </div>
+                </div>
+              </div>
+              <!-- LOGIN FORM -->
+              <form class="ct-custom-login-form" action="/">
+                <div class="form-group">
+                  <input type="email" class="form-control" id="login-inputEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" id="login-inputPassword" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+              </form>
+
+              <!-- SIGNUP FORM -->
+              <form class="ct-signup" action="/">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="signup-inputName" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control" id="signup-inputEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" id="signup-inputPassword" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+              </form>
             </div>
           </div>
         </div>
       </div>
+      <!-- LOGIN DIALOG ENDS -->
     </div>
     <div class="footer">
       <div class="center-align-place">

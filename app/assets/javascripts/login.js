@@ -1,5 +1,5 @@
 // This is called with the results from from FB.getLoginStatus().
-function statusChangeCallback(response) {
+function statusChangeCallback(response, opt_successCallback) {
   // The response object is returned with a status field that lets the
   // app know the current login status of the person.
   // Full docs on the response object can be found in the documentation
@@ -12,20 +12,34 @@ function statusChangeCallback(response) {
     // Ideally we should make a login client API and use that
     // in client everywhere.
     $.cookie("login", "1", {expires: 365, path: '/' });
+    if (opt_successCallback) {
+      opt_successCallback();
+    }
   } else if (response.status === 'not_authorized') {
     // The person is logged into Facebook, but not your app.
+    $.cookie("login", "0", {expires: 365, path: '/' });
   } else {
     // The person is not logged into Facebook, so we're not sure if
     // they are logged into this app or not.
+    $.cookie("login", "0", {expires: 365, path: '/' });
   }
 }
+
+function loadHomePage() {
+  window.location.href = '//' + window.location.host;
+};
+
+function checkLoginStateAndRedirect() {
+  checkLoginState(loadHomePage);
+};
+
 
 // This function is called when someone finishes with the Login
 // Button.  See the onlogin handler attached to it in the sample
 // code below.
-function checkLoginState() {
+function checkLoginState(opt_callback) {
   FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
+    statusChangeCallback(response, opt_callback);
   });
 };
 
@@ -55,24 +69,37 @@ function handleLoginSuccess() {
   });
 };
 
-// This should be merged with application.js by making login.js a library.
-$(function() {
-  $( "#signin" ).click(function() {
-    FB.login(function(response){
-      checkLoginState();
-    });
-  });
-});
-
 window.fbAsyncInit = function() {
-  var isLocal = (window.location.href.indexOf('localhost') != -1) || (window.location.href.indexOf('c9') != -1);
+  // Add an app id to support the URL corresponding to your test app.
+  var appIdMap = {
+    'localhost:3000': '532369196931759',
+    'testwsrubyct-stauntonknight.c9users.io': '1145563762138091',
+    'coupletrips.in': '1138815052812962'
+  };
+  // Default to the PROD app.
+  var appId = '1138815052812962';
+  for (var i in appIdMap) {
+    if (window.location.href.indexOf(i) != -1) {
+      appId = appIdMap[i];
+      break;
+    }
+  }
   FB.init({
-    appId      : isLocal ? '1152486968112437' : '1138815052812962',
+    appId      : appId,
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page
     version    : 'v2.5' // use version 2.2
   });
+
+  // Check no auto login for the user.
+  if ($.cookie('noautologin') == '1') {
+    return;
+  }
+  // If user is logged in due to custom login then only don't check for FB login.
+  if ($.cookie('login') == '1' && $.cookie('custom') == '1') {
+    return;
+  }
 
   // Now that we've initialized the JavaScript SDK, we call 
   // FB.getLoginStatus().  This function gets the state of the
@@ -89,7 +116,6 @@ window.fbAsyncInit = function() {
   FB.getLoginStatus(function(response) {
     statusChangeCallback(response);
   });
-
 };
 
 // Load the SDK asynchronously

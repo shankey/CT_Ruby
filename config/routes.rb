@@ -1,16 +1,15 @@
 Rails.application.routes.draw do
-  
-  
+
   get 'sessions/new'
 
   get '/' => 'ct_controller#index'
   
   get '/index' => 'ct_controller#index'
   get '/about' => 'ct_controller#about'
-  get '/login' => 'ct_controller#login'
   get '/contact' => 'ct_controller#contact'
   get '/subscribe' => 'ct_controller#subscribe'
   
+  # Handles FB login.
   post 'login_request' => 'ct_controller#login_request'
   get '/ifttt' => 'ct_controller#ifttt'
   
@@ -35,15 +34,23 @@ Rails.application.routes.draw do
   get '/all_stories' => 'publish#all_stories'
   get '/all_images' => 'publish#all_images'
   
-  
-  
   # get 'places/hampi' => 'places#hampi'
   # get 'places/khajjiar_dalhousie' => 'places#khajjiar_dalhousie'
   # get 'places/ananthagiri' => 'places#anathagiri'
   get 'places/:id' => 'places#get_place'
   
-  
-  
+
+  if Rails.env.development?
+    # Sign up
+    post   'signup'   => 'user#create'
+   
+    # Sessions management.
+    post   'login'   => 'sessions#create'
+    delete 'logout'  => 'sessions#destroy'
+  else
+    get '/login' => 'ct_controller#login'
+  end
+ 
 
   
   
