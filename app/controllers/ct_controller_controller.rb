@@ -12,7 +12,7 @@ class CtControllerController < ApplicationController
     logger.debug "Current User : #{@user} "
     @user = define_sign_in_out_variables(@user)
     @story_array = Array.new
-    user = User.find_by(name: "Sheetal Virmani")
+    user = User.find_by(id: 2)
     TravelStory.where("user_id= #{user.id} AND live=1").each do |ts|
       
       @story_array.push(ts)
