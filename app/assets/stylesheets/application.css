@@ -17,3 +17,12 @@
 .custom-login-header {
   padding: 0 0 10px 0;
 }
+
+.login-notices .alert-danger,
+.login-notices .alert-success {
+  white-space: pre-wrap;
+}
+
+#signinpop {
+  cursor: pointer;
+}

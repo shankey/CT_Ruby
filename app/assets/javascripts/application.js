@@ -20,6 +20,7 @@ $(document).ready(function() {
     $('.ct-signup').hide();
     $('.ct-login').show();
     clearLoginNotices();
+    updateSignInModalTitle(MODAL_TITLE_MAP['SIGNIN']);
   });
   $('#signinfb').click(function() {
     FB.login(function() {
@@ -61,20 +62,32 @@ $(document).ready(function() {
   $('.custom-signup-button').click(function() {
     showCustomSignup();
   });
+
   $('.custom-login-button').click(function() {
     showCustomLogin();
   });
+
+  function updateSignInModalTitle(title) {
+    $('#myModalLabel').text(title);
+  } 
+
+  var MODAL_TITLE_MAP = {
+    'SIGNUP':' SIGN UP',
+    'SIGNIN': 'SIGN IN'
+  }
 
   function showCustomLogin() {
     $('.ct-login').hide();
     $('.ct-signup').hide();
     $('.ct-custom-login-form').show();
+    updateSignInModalTitle(MODAL_TITLE_MAP['SIGNIN']);
   }
 
   function showCustomSignup() {
     $('.ct-login').hide();
     $('.ct-signup').show();
     $('.ct-custom-login-form').hide();
+    updateSignInModalTitle(MODAL_TITLE_MAP['SIGNUP']);
   }
 
   function showLoginNotice(isError) {
@@ -91,14 +104,22 @@ $(document).ready(function() {
     }
   }
 
-  function showSignupNotice(isError) {
+  // opt_details is mostly used for error details.
+  function showSignupNotice(isError, opt_details) {
     clearLoginNotices();
+    var text = isError ? 'Signup failed' : 'Signup success! Please login!';
+    if (opt_details && opt_details.length > 0) {
+      for (var i = 0 ; i < opt_details.length; i++) {
+        text = text + '\n';
+        text = text + opt_details[i];
+      }
+    }
     if (isError) {
       $('.login-notices > .alert-danger').show();
-      $('.login-notices > .alert-danger').text('Signup failed');
+      $('.login-notices > .alert-danger').text(text);
     } else {
       $('.login-notices > .alert-success').show();
-      $('.login-notices > .alert-success').text('Signup success! Please login!');
+      $('.login-notices > .alert-success').text(text);
     }
   }
 
@@ -126,8 +147,8 @@ $(document).ready(function() {
         showSignupNotice();
         showCustomLogin();
       },
-      'error': function() {
-        showSignupNotice(true /* isError */); 
+      'error': function(res) {
+        showSignupNotice(true /* isError */, res.responseJSON['errors']); 
       }
     });
   });
