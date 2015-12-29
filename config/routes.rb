@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   # get 'places/ananthagiri' => 'places#anathagiri'
   get 'places/:id' => 'places#get_place'
   
+  #userprofile
+  get 'user/:id' => 'user#profile'
 
   # Sign up
   post   'signup'   => 'user#create'

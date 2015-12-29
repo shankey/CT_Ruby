@@ -1,5 +1,16 @@
 class UserController < ApplicationController
   skip_before_filter :verify_authenticity_token
+  
+  def profile
+    @user = get_current_user
+    @user = define_sign_in_out_variables(@user)
+    
+    profile_user_id = params[:id]
+    @profile_user = User.find_by(id: profile_user_id) or not_found
+    logger.debug @profile_user
+    @ts_array = TravelStory.where("user_id= #{params[:id]} AND live=1")
+    
+  end
 
   def create
     @user = User.new(user_params)

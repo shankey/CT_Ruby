@@ -20,6 +20,7 @@
             <span id="signouttext"><%= default_sign_in_name(@user)%></span><span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
+            <li><a href="/user/<%= @user.id %>" id="myprofile">My Profile</a></li>
             <li><a href="#" id="logout">Log Out</a></li>
           </ul>
         </li>

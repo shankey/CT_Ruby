@@ -1,0 +1,29 @@
+<div class="banner">
+  <div class="banner-infoa" style="background: url(<%= default_blog_cover_on_nil (@profile_user.blog_cover_image) %>) no-repeat 0px 0px; background-size: cover; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; min-height:460px; position: relative; box-shadow :0px 1000px rgba(0, 0, 0, 0.15) inset">
+    <%= render "/ct_controller/topnav" %>
+    <div class="man">
+      <br><br>
+      <h3> <b><%= default_blog_name_on_nil(@profile_user.blog_title, @profile_user.name) %></b></h3>
+      <!--<a href="./share.html">    <Button class="gradient btn-primary top-button">Share Your Trip</Button> </a>-->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  <div class="banner-bottom left-right-margin">
+    <div class="bottom-grids">
+      <% @ts_array.each do |story| %>
+        <div class="col-md-3">
+          <div class="photo" style="background:url('<%= story.image %>'); background-size: cover">
+            <a href="./places/<%= story.location %>_<%= story.id %>.html" class="fill-div">
+              <div class="place-title <%= ((story.title.to_s.include? '<br>') ? "place-title-2" : "") %>"><%= story.title.html_safe %></div>
+            </a>
+          </div>
+        </div>
+      <% end %>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+
+

@@ -72,4 +72,8 @@ class ApplicationController < ActionController::Base
     @profile_image_display = get_log_out_display(user)
     return user
   end
+  
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
 end

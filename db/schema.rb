@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214142831) do
+ActiveRecord::Schema.define(version: 20151229073306) do
 
   create_table "places", force: :cascade do |t|
     t.binary   "About",       limit: 65535
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 20151214142831) do
     t.string   "remember_digest",  limit: 255
     t.string   "password_digest",  limit: 255
     t.string   "profile_pictures", limit: 255
+    t.string   "blog_title",       limit: 255
+    t.string   "blog_cover_image", limit: 255
   end
 
 end
