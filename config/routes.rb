@@ -41,6 +41,8 @@ Rails.application.routes.draw do
   
   #userprofile
   get 'user/:id' => 'user#profile'
+  get '/edit_user_info' => 'user#edit_user_info'
+  post 'edit_profile_save' => 'user#edit_profile_save'
 
   # Sign up
   post   'signup'   => 'user#create'

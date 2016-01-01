@@ -11,6 +11,23 @@ class UserController < ApplicationController
     @ts_array = TravelStory.where("user_id= #{params[:id]} AND live=1")
     
   end
+  
+  def edit_profile_save
+    @user = get_current_user
+    @user = define_sign_in_out_variables(@user)
+    
+    logger.debug params
+    
+    render :nothing => true , :status => 200
+    
+  end
+  
+  def edit_user_info
+    @user = get_current_user
+    @user = define_sign_in_out_variables(@user)
+    
+    
+  end
 
   def create
     @user = User.new(user_params)

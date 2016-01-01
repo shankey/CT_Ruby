@@ -94,6 +94,25 @@ a.fill-div{
     letter-spacing: 2px;
 }
 
+.edit-profile{
+  font-size: 16px;
+}
+
+h4.no-break{
+    display: inline-block;
+    width: 200px;
+}
+
+a.submit-profile{
+    text-decoration: none;
+}
+
+a:hover.submit-profile{
+    text-decoration: none;
+}
+
+
+
 .place-title-2{
     top: 80px;
 }
