@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :profile_images
   get 'sessions/new'
 
   get '/' => 'ct_controller#index'
@@ -33,6 +34,8 @@ Rails.application.routes.draw do
   get '/all_user' => 'publish#all_user'
   get '/all_stories' => 'publish#all_stories'
   get '/all_images' => 'publish#all_images'
+  get '/attach_stories' => 'publish#attach_stories'
+  post '/attach_stories_save' => 'publish#attach_stories_save'
   
   # get 'places/hampi' => 'places#hampi'
   # get 'places/khajjiar_dalhousie' => 'places#khajjiar_dalhousie'

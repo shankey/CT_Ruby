@@ -26,6 +26,45 @@ class PublishController < ApplicationController
         
     end
     
+    def attach_stories
+        @user_array = User.all
+        
+        @user_array.each do |key|
+            if (key==nil || key.name == nil)
+                @user_array.delete(key)
+            end
+        end
+        
+        @user_array.each do |key|
+            puts key.name
+        end
+        
+        @ts_array = TravelStory.all
+        
+        @ts_array.each do |key|
+            if (key==nil || key.location == nil)
+                @ts_array.delete(key)
+            end
+        end
+        
+        @ts_array.each do |key|
+            puts key.location
+        end
+        
+        puts @ts_array
+    end
+    
+    def attach_stories_save
+        puts params
+        
+        ts = TravelStory.find(params[:id])
+        ts.user_id = params[:user_id]
+        ts.save
+        
+        
+        render :nothing => true
+    end
+    
     def all_user
         @user_array = Array.new
         User.all.each do |user|

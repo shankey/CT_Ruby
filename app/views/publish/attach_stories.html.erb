@@ -1,0 +1,51 @@
+<div class="parent-null">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+<ul>
+    
+
+<% @user_array.each do |key| %>
+<li>
+    
+    <li> <a href="#"><%= key.id.to_s %> <%= " " + key.name + " "%></a></li>
+
+</li>
+<% end %>
+
+</ul>
+<br><br><br><br><br><br>
+<ul>
+
+<% @ts_array.each do |key| %>
+<li>
+    
+    <li> 
+  <%= form_tag("/attach_stories_save", method: "post") do %>
+    <%= label_tag(:id_label, "id") %>
+    <%= text_area_tag(:id, key.id, :readonly => true, :multiple => true, cols: "20", rows: "1")%> <br>
+    
+    <%= label_tag(:location_label, "location") %> 
+    <%= label_tag(:location, key.location) %> <br>
+    
+    <%= label_tag(:current_user_id_label, "current user_id") %> 
+      <%= label_tag(:current_user_id, key.user_id, cols: "20", rows: "1") %> <br>
+    
+        <%= label_tag(:user_id_label, "new user_id") %> 
+      <%= text_area_tag(:user_id, key.user_id, :multiple => true, cols: "20", rows: "1") %>
+  <%= submit_tag("Submit") %>
+<% end %>
+      <br><br><br><br><br><br>
+    
+    </li>
+
+</li>
+
+<% end %>
+
+</ul>
+    
+
+
+</div>
+<div class="col-md-2"></div>
+</div>
