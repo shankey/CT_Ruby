@@ -52,7 +52,7 @@ class ShareController < ApplicationController
             return
         end
         existing_ts = TravelStory.find_by(user_id: user.id, completed: 0)
-
+        existing_ts.location = params[:place]
         base_path = get_story_path(user.id.to_s, existing_ts.id.to_s)
         FileUtils.mkdir_p(base_path) unless File.exists?(base_path)
         File.open(base_path.join("place"), 'wb') do |file|
