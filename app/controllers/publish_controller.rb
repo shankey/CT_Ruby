@@ -27,11 +27,11 @@ class PublishController < ApplicationController
     end
     
     def attach_stories
-        @user_array = User.all
-        
-        @user_array.each do |key|
-            if (key==nil || key.name == nil)
-                @user_array.delete(key)
+        @users = User.all
+        @user_array = Array.new
+        @users.each do |key|
+            if (key!=nil || key.name != nil)
+                @user_array.push(key)
             end
         end
         
@@ -39,11 +39,11 @@ class PublishController < ApplicationController
             puts key.name
         end
         
-        @ts_array = TravelStory.all
-        
-        @ts_array.each do |key|
-            if (key==nil || key.location == nil)
-                @ts_array.delete(key)
+        @tss = TravelStory.all
+        @ts_array = Array.new
+        @tss.each do |key|
+            if (key!=nil || key.location != nil)
+                @ts_array.push(key)
             end
         end
         
