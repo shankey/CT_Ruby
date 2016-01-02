@@ -1,0 +1,40 @@
+<div class="banner">
+  <%= render "/ct_controller/topnav" %>
+</div>
+
+  <div class="parent-null">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="form-class">
+        
+        <div style="padding-top: 50px"></div>
+        
+        <%= form_for @user, :url => { :action => "edit_profile_save" }, :method => "post" do |f| %>
+    
+        <%= f.label :image, 'Current Profile Picture', { class: 'form-class-element lhs' } %> <img src="<%= get_profile_pic(@user) %>" style="max-width: 200px"> 
+        <br>
+        <%= f.label :imagenew, 'Change Profile Picture', { class: 'form-class-element lhs' } %>
+        <%= f.file_field :profile_pictures, { class: 'form-class-element' } %>
+    
+        <br>
+        <%= f.label :name, { class: 'form-class-element lhs' } %>
+        <%= f.text_field :name  %> 
+        
+        <br>
+        <%= f.label :email, { class: 'form-class-element lhs' } %>
+        <%= f.text_field :email %> <br />
+
+        <%= f.submit "Update Profile" %>
+    
+    <% end %>
+      </div>
+        
+        
+        
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+<!-- Modal -->
+
+
