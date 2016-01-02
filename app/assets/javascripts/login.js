@@ -49,7 +49,7 @@ function handleLoginSuccess() {
     $("#signouttext").text(response.name.split(" ")[0]);
     $("#signinli").hide();
     $(".dropdown").show();
-    $("#profileimage").attr('src', response.picture.data.url);
+    // $("#profileimage").attr('src', response.picture.data.url);
     $("#profileimage").show();
     $.ajax({
       type: "POST",
@@ -74,6 +74,7 @@ window.fbAsyncInit = function() {
   var appIdMap = {
     'localhost:3000': '532369196931759',
     'testwsrubyct-stauntonknight.c9users.io': '1145563762138091',
+    'rails-tutorial-shankey.c9.io': '1152486968112437',
     'coupletrips.in': '1138815052812962'
   };
   // Default to the PROD app.

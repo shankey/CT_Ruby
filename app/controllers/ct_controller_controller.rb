@@ -55,7 +55,7 @@ class CtControllerController < ApplicationController
       # NO POINT SAVING THIS TOKEN - this is short lived.
       existing_user.access_token = client_user.access_token
       existing_user.email = client_user.email
-      existing_user.profile_pictures = client_user.profile_pictures
+      #existing_user.profile_pictures = client_user.profile_pictures
       existing_user.save
     end
     log_in(client_user)

@@ -94,6 +94,23 @@ a.fill-div{
     letter-spacing: 2px;
 }
 
+.form-class{
+  font-size: 16px;
+}
+
+.form-class-element{
+  padding-top: 20px;
+  padding-bottom :20px;
+}
+
+.form-class-element.lhs{
+  width: 250px;
+}
+
+#user_profile_pictures{
+  display: inline-block;
+}
+
 .edit-profile{
   font-size: 16px;
 }

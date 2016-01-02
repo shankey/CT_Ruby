@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :profile_images
+  
   get 'sessions/new'
 
   get '/' => 'ct_controller#index'
@@ -44,8 +44,9 @@ Rails.application.routes.draw do
   
   #userprofile
   get 'user/:id' => 'user#profile'
+  
   get '/edit_user_info' => 'user#edit_user_info'
-  post 'edit_profile_save' => 'user#edit_profile_save'
+  post '/edit_profile_save' => 'user#edit_profile_save'
 
   # Sign up
   post   'signup'   => 'user#create'
