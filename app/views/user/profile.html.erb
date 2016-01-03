@@ -23,7 +23,7 @@
     <div class="bottom-grids">
       <% @ts_array.each do |story| %>
         <div class="col-md-3">
-          <div class="photo" style="background:url('<%= story.image %>'); background-size: cover">
+          <div class="photo" style="background:url('<%= get_tile_image (story) %>'); background-size: cover">
             
       
             <a href="./places/<%= story.location %>_<%= story.id %>.html" class="fill-div">
