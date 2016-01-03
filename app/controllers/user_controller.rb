@@ -18,29 +18,33 @@ class UserController < ApplicationController
     @user = get_current_user
     @user = define_sign_in_out_variables(@user)
     
-    logger.debug params[:user][:profile_pictures]
-    logger.debug params[:user][:name]
-    logger.debug params[:user][:email]
+    logger.debug params
+    
+    if(params[:user])
+      logger.debug params[:user][:profile_pictures]
+      logger.debug params[:user][:name]
+      logger.debug params[:user][:email]
+    end
     
     @updated_user = User.find(@user.id)
     
-    if(params[:user][:name])
+    if(params[:user] && params[:user][:name])
       @updated_user.name = params[:user][:name]
     end
     
-    if(params[:user][:email])
+    if(params[:user] && params[:user][:email])
       @updated_user.email = params[:user][:email]
     end
     
-    if(params[:user][:profile_pictures])
-      uploaded_io = params[:user][:profile_pictures]
+    if(params[:profile_pictures])
+      uploaded_io = params[:profile_pictures]
     
       base_user_directory = Rails.root.join('public', 'users', @user.id.to_s)
       FileUtils.mkdir_p(base_user_directory) unless File.exists?(base_user_directory)
     
       extension = uploaded_io.original_filename.split(".")[uploaded_io.original_filename.split(".").size - 1]
       profie_picture_upload_location = base_user_directory.join(@user.id.to_s+"_image."+extension)
-      profie_picture_upload_html_location = File.join('users', @user.id.to_s, @user.id.to_s+"_image."+extension)
+      profie_picture_upload_html_location = File.join('/users', @user.id.to_s, @user.id.to_s+"_image."+extension)
     
       File.open(profie_picture_upload_location, 'wb') do |file|
         file.write(uploaded_io.read)
@@ -52,9 +56,10 @@ class UserController < ApplicationController
     
     
     @updated_user.save
-    
-    redirect_to '/edit_user_info'
-    
+
+      render :json => {:message => "Profile Picture Updated Successfully"},
+             :status => 200
+  
   end
   
   def edit_user_info

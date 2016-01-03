@@ -7,14 +7,29 @@
     <div class="col-md-8">
       <div class="form-class">
         
-        <div style="padding-top: 50px"></div>
+      <div style="margin-top:30px; height: 70px">
+        
+        <div id="form_update_feedback" style="display:none">
+          <div class="alert alert-info alert-dismissible" role="alert">
+            <span id="form_update_feedback_message"></span>
+            
+          </div>
+          <br>
+        </div>
+      </div>
         
         <%= form_for @user, :url => { :action => "edit_profile_save" }, :method => "post" do |f| %>
     
         <%= f.label :image, 'Current Profile Picture', { class: 'form-class-element lhs' } %> <img src="<%= get_profile_pic(@user) %>" style="max-width: 200px"> 
         <br>
         <%= f.label :imagenew, 'Change Profile Picture', { class: 'form-class-element lhs' } %>
-        <%= f.file_field :profile_pictures, { class: 'form-class-element' } %>
+        
+        
+        <label class="pictureupload">
+          <input type="file" id="pictureupload_input">
+          <span><img class="upload-icon" src="/images/camera.png"> Change Profile Picture</span>
+        </label>
+
     
         <br>
         <%= f.label :name, { class: 'form-class-element lhs' } %>
@@ -28,6 +43,60 @@
     
     <% end %>
       </div>
+      
+      <script>
+        $( ".edit_user" ).submit(function( event ) {
+          event.preventDefault();
+          
+          var data= new FormData();
+         data.append('user[name]', $("#user_name").val());
+         data.append('user[email]', $("#user_email").val());
+          
+          $.ajax({
+               type: 'POST',               
+               processData: false, // important
+               contentType: false, // important
+               data: data,
+               url: "/edit_profile_save",
+               dataType : 'json',  
+               // in PHP you can call and process file in the same way as if it was submitted from a form:
+               // $_FILES['input_file_name']
+               success: function(jsonData){
+                  $("#form_update_feedback").show().delay(3000).fadeOut();
+                  $("#form_update_feedback_message").text("Profile Updated Successfully");
+               },
+               error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                  $("#form_update_feedback").show();
+                  $("#form_update_feedback_message").text("Unable To Update. Please Try Again");
+                } 
+            });
+        });
+      </script>
+      
+      <script>
+         $('.pictureupload').on('change', function(){    
+         var data= new FormData();
+         data.append('profile_pictures', $(".pictureupload input[type='file']").prop('files')[0]);
+         
+         
+          //append other variables to data if you want: data.append('field_name_x', field_value_x);
+
+             $.ajax({
+               type: 'POST',               
+               processData: false, // important
+               contentType: false, // important
+               data: data,
+               url: "/edit_profile_save",
+               dataType : 'json',  
+               // in PHP you can call and process file in the same way as if it was submitted from a form:
+               // $_FILES['input_file_name']
+               success: function(jsonData){
+                 location.reload();
+               }
+            }); 
+         });
+      </script>
+
         
         
         

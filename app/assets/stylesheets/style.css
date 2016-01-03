@@ -72,6 +72,38 @@ display:block;
     margin-bottom: 0px;
 }
 
+label.pictureupload input[type="file"] {
+    position: fixed;
+    top: -1000px;
+}
+
+.upload-icon{
+  height: 40px;
+}
+
+/***** Example custom styling *****/
+.pictureupload {
+    border: 2px solid #AAA;
+    border-radius: 4px;
+    padding: 2px 5px;
+    margin: 2px;
+    background: #FFF;
+    display: inline-block;
+}
+.pictureupload:hover {
+    background: #CCC;
+}
+.pictureupload:active {
+    background: #CCF;
+}
+.pictureupload :invalid + span {
+    color: #A44;
+}
+.pictureupload :valid + span {
+    color: #4A4;
+}
+
+
 a.fill-div{
     display: block;
     height: 100%;
