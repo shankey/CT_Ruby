@@ -1,6 +1,17 @@
 <div class="banner">
+  
   <div class="banner-infoa" style="background: url(<%= default_blog_cover_on_nil (@profile_user.blog_cover_image) %>) no-repeat 0px 0px; background-size: cover; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; min-height:460px; position: relative; box-shadow :0px 1000px rgba(0, 0, 0, 0.15) inset">
     <%= render "/ct_controller/topnav" %>
+    <div class="cover_image_edit">
+      
+      <label id="cover_pictureupload" class="pictureupload">
+          <input type="file" id="cover_pictureupload_input">
+          <span><img class="cover_image_edit_icon" src="/images/camera.png"> </span>
+      </label>
+       
+      <!--<span class="cover_image_edit_icon_text">Upload New Cover</span>-->
+      
+    </div>
     <div class="man">
       <br><br>
       <h3> <b><%= default_blog_name_on_nil(@profile_user.blog_title, @profile_user.name) %></b></h3>
@@ -13,7 +24,19 @@
       <% @ts_array.each do |story| %>
         <div class="col-md-3">
           <div class="photo" style="background:url('<%= story.image %>'); background-size: cover">
+            
+      
             <a href="./places/<%= story.location %>_<%= story.id %>.html" class="fill-div">
+              
+              <div class="tile_image_edit">
+      
+                <label id="cover_pictureupload" class="pictureupload">
+                  <input type="file" class="tile_pictureupload_input" id="<%= story.id %>">
+                  <span><img class="cover_image_edit_icon" src="/images/camera.png"> </span>
+                </label>
+      <!--<span class="cover_image_edit_icon_text">Upload New Cover</span>-->
+              </div>
+              
               <div class="place-title <%= ((story.title.to_s.include? '<br>') ? "place-title-2" : "") %>"><%= story.title.html_safe %></div>
             </a>
           </div>
@@ -23,6 +46,56 @@
     </div>
   </div>
 </div>
+
+<script>
+         $('#cover_pictureupload_input').on('change', function(){    
+         var data= new FormData();
+         data.append('cover_picture', $(".cover_image_edit input[type='file']").prop('files')[0]);
+         alert(data);
+         
+          //append other variables to data if you want: data.append('field_name_x', field_value_x);
+
+             $.ajax({
+               type: 'POST',               
+               processData: false, // important
+               contentType: false, // important
+               data: data,
+               url: "/cover_picture_save",
+               dataType : 'json',  
+               // in PHP you can call and process file in the same way as if it was submitted from a form:
+               // $_FILES['input_file_name']
+               success: function(jsonData){
+                 location.reload();
+               }
+             }); 
+         });
+</script>
+
+<script>
+         $('.tile_pictureupload_input').on('change', function(){    
+         var data= new FormData();
+         data.append('tile_picture', $(this).prop('files')[0]);
+         data.append('story_id', $(this).attr('id'));
+         alert(data);
+         
+          //append other variables to data if you want: data.append('field_name_x', field_value_x);
+
+            $.ajax({
+              type: 'POST',               
+              processData: false, // important
+              contentType: false, // important
+              data: data,
+              url: "/tile_picture_save",
+              dataType : 'json',  
+              // in PHP you can call and process file in the same way as if it was submitted from a form:
+              // $_FILES['input_file_name']
+              success: function(jsonData){
+                 location.reload();
+              }
+            }); 
+         });
+</script>
+
 
 <!-- Modal -->
 

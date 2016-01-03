@@ -74,7 +74,7 @@
       </script>
       
       <script>
-         $('.pictureupload').on('change', function(){    
+         $('#pictureupload_input').on('change', function(){    
          var data= new FormData();
          data.append('profile_pictures', $(".pictureupload input[type='file']").prop('files')[0]);
          

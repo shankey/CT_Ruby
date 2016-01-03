@@ -68,6 +68,69 @@ class UserController < ApplicationController
     
     
   end
+  
+  def tile_profile_save
+    @user = get_current_user
+    @user = define_sign_in_out_variables(@user)
+    
+    if(!params[:story_id])
+      render :json => {:message => "Unable to update"},
+             :status => 422
+      return
+    end
+    
+    puts params
+    
+    if(params[:tile_picture])
+      uploaded_io = params[:tile_picture]
+    
+      base_story_directory = Rails.root.join('public', 'images', @user.id.to_s)
+      FileUtils.mkdir_p(base_story_directory) unless File.exists?(base_story_directory)
+    
+      extension = uploaded_io.original_filename.split(".")[uploaded_io.original_filename.split(".").size - 1]
+      tile_picture_upload_location = base_story_directory.join(@user.id.to_s+"_tile."+extension)
+      tile_picture_upload_html_location = File.join('/images', @user.id.to_s, @user.id.to_s+"_tile."+extension)
+    
+      File.open(tile_picture_upload_location, 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+      
+      @ts = TravelStory.find(params[:story_id])
+      @ts.image = tile_picture_upload_html_location
+      @ts.save
+    end
+    
+    render :json => {:message => "Tile Picture Updated Successfully"},
+             :status => 200
+    
+  end
+  
+  def cover_profile_save
+    @user = get_current_user
+    @user = define_sign_in_out_variables(@user)
+    
+    if(params[:cover_picture])
+      uploaded_io = params[:cover_picture]
+    
+      base_user_directory = Rails.root.join('public', 'users', @user.id.to_s)
+      FileUtils.mkdir_p(base_user_directory) unless File.exists?(base_user_directory)
+    
+      extension = uploaded_io.original_filename.split(".")[uploaded_io.original_filename.split(".").size - 1]
+      tile_picture_upload_location = base_user_directory.join(@user.id.to_s+"_cover."+extension)
+      tile_picture_upload_html_location = File.join('/users', @user.id.to_s, @user.id.to_s+"_cover."+extension)
+    
+      File.open(tile_picture_upload_location, 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+      
+      @updated_user = User.find(@user.id)
+      @updated_user.blog_cover_image = tile_picture_upload_html_location.to_s
+      @updated_user.save
+    end
+    
+    render :json => {:message => "Cover Picture Updated Successfully"},
+             :status => 200
+  end
 
   def create
     @user = User.new(user_params)

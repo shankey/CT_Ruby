@@ -47,6 +47,8 @@ Rails.application.routes.draw do
   
   get '/edit_user_info' => 'user#edit_user_info'
   post '/edit_profile_save' => 'user#edit_profile_save'
+  post '/tile_picture_save' => 'user#tile_profile_save'
+  post '/cover_picture_save' => 'user#cover_profile_save'
 
   # Sign up
   post   'signup'   => 'user#create'

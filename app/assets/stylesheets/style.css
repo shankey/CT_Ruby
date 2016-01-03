@@ -81,13 +81,41 @@ label.pictureupload input[type="file"] {
   height: 40px;
 }
 
+.cover_image_edit_icon{
+  height: 40px;
+}
+
+.cover_image_edit_icon:hover{
+  height: 40px;
+  cursor: pointer;
+}
+
+.cover_image_edit{
+  margin-top: 40px;
+  margin-left: 100px;
+  padding-left: 10px;
+  position: absolute;
+}
+
+
+.tile_image_edit{
+  margin-top: 10px;
+  margin-left: 20px;
+  padding-left: 5px;
+  position: absolute;
+}
+.cover_image_edit_icon_text{
+  
+}
+
+
 /***** Example custom styling *****/
 .pictureupload {
     border: 2px solid #AAA;
     border-radius: 4px;
     padding: 2px 5px;
     margin: 2px;
-    background: #FFF;
+    
     display: inline-block;
 }
 .pictureupload:hover {
