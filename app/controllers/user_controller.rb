@@ -79,23 +79,25 @@ class UserController < ApplicationController
       return
     end
     
+    @ts = TravelStory.find(params[:story_id])
+    
     puts params
     
     if(params[:tile_picture])
       uploaded_io = params[:tile_picture]
     
-      base_story_directory = Rails.root.join('public', 'images', @user.id.to_s)
+      base_story_directory = Rails.root.join('public', 'images', @ts.id.to_s)
       FileUtils.mkdir_p(base_story_directory) unless File.exists?(base_story_directory)
     
       extension = uploaded_io.original_filename.split(".")[uploaded_io.original_filename.split(".").size - 1]
-      tile_picture_upload_location = base_story_directory.join(@user.id.to_s+"_tile."+extension)
-      tile_picture_upload_html_location = File.join('/images', @user.id.to_s, @user.id.to_s+"_tile."+extension)
+      tile_picture_upload_location = base_story_directory.join(@ts.id.to_s+"_tile."+extension)
+      tile_picture_upload_html_location = File.join('/images', @ts.id.to_s, @ts.id.to_s+"_tile."+extension)
     
       File.open(tile_picture_upload_location, 'wb') do |file|
         file.write(uploaded_io.read)
       end
       
-      @ts = TravelStory.find(params[:story_id])
+      
       @ts.image = tile_picture_upload_html_location
       @ts.save
     end
