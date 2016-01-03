@@ -85,14 +85,25 @@ class UserController < ApplicationController
     
     if(params[:tile_picture])
       uploaded_io = params[:tile_picture]
+      
+      if(@ts.image)
+        version = @ts.image.split("_")[@ts.image.split("_").size - 1].to_i || 0
+      else
+        version = 0
+      end
+      version = version + 1
+      
+      
     
       base_story_directory = Rails.root.join('public', 'images', @ts.id.to_s)
       FileUtils.mkdir_p(base_story_directory) unless File.exists?(base_story_directory)
     
       extension = uploaded_io.original_filename.split(".")[uploaded_io.original_filename.split(".").size - 1]
-      tile_picture_upload_location = base_story_directory.join(@ts.id.to_s+"_tile."+extension)
-      tile_picture_upload_html_location = File.join('/images', @ts.id.to_s, @ts.id.to_s+"_tile."+extension)
-    
+      filename = @ts.id.to_s+"_tile_"+version.to_s+"."+extension
+      
+      tile_picture_upload_location = base_story_directory.join(filename)
+      tile_picture_upload_html_location = File.join('/images', @ts.id.to_s,filename)
+      
       File.open(tile_picture_upload_location, 'wb') do |file|
         file.write(uploaded_io.read)
       end
@@ -111,6 +122,13 @@ class UserController < ApplicationController
     @user = get_current_user
     @user = define_sign_in_out_variables(@user)
     
+    if(@user.blog_cover_image)
+        version = @user.blog_cover_image.split("_")[@user.blog_cover_image.split("_").size - 1].to_i || 0
+    else
+        version = 0
+    end
+    version = version + 1
+    
     if(params[:cover_picture])
       uploaded_io = params[:cover_picture]
     
@@ -118,8 +136,10 @@ class UserController < ApplicationController
       FileUtils.mkdir_p(base_user_directory) unless File.exists?(base_user_directory)
     
       extension = uploaded_io.original_filename.split(".")[uploaded_io.original_filename.split(".").size - 1]
-      tile_picture_upload_location = base_user_directory.join(@user.id.to_s+"_cover."+extension)
-      tile_picture_upload_html_location = File.join('/users', @user.id.to_s, @user.id.to_s+"_cover."+extension)
+      filename = @user.id.to_s+"_cover_" + version.to_s + "."+extension
+      
+      tile_picture_upload_location = base_user_directory.join(filename)
+      tile_picture_upload_html_location = File.join('/users', @user.id.to_s, filename)
     
       File.open(tile_picture_upload_location, 'wb') do |file|
         file.write(uploaded_io.read)
