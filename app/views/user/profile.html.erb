@@ -51,7 +51,7 @@
          $('#cover_pictureupload_input').on('change', function(){    
          var data= new FormData();
          data.append('cover_picture', $(".cover_image_edit input[type='file']").prop('files')[0]);
-         alert(data);
+         
          
           //append other variables to data if you want: data.append('field_name_x', field_value_x);
 
@@ -76,7 +76,7 @@
          var data= new FormData();
          data.append('tile_picture', $(this).prop('files')[0]);
          data.append('story_id', $(this).attr('id'));
-         alert(data);
+         
          
           //append other variables to data if you want: data.append('field_name_x', field_value_x);
 
