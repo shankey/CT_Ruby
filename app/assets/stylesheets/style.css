@@ -51,6 +51,14 @@ a::after {
     visibility:hidden;
     margin-bottom:-4px;
 }
+
+form{
+  
+}
+
+.edit_travel_story{
+  display: inline;
+}
 /*--banner--*/
 .logo img{
 width:100%

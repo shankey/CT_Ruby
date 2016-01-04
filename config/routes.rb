@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get '/all_images' => 'publish#all_images'
   get '/attach_stories' => 'publish#attach_stories'
   post '/attach_stories_save' => 'publish#attach_stories_save'
+  post '/update_travel_story' => 'publish#update_travel_story'
   
   # get 'places/hampi' => 'places#hampi'
   # get 'places/khajjiar_dalhousie' => 'places#khajjiar_dalhousie'
@@ -49,6 +50,7 @@ Rails.application.routes.draw do
   post '/edit_profile_save' => 'user#edit_profile_save'
   post '/tile_picture_save' => 'user#tile_profile_save'
   post '/cover_picture_save' => 'user#cover_profile_save'
+  
 
   # Sign up
   post   'signup'   => 'user#create'

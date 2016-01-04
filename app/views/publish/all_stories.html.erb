@@ -8,6 +8,12 @@
 <a href="/edit_story?story_id=<%= story.id.to_s %>"><%= story.id.to_s + " " + story.location.to_s + " "%></a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="/all_images?story_id=<%= story.id.to_s %>"> images </a>
+<%= form_for story, :url => { :action => "all_stories" }, :method => "post" do |f| %>
+    <a href="#"> <%= f.label :live, { class: 'form-class-element' } %> </a>
+    <a href="#"> <%= f.text_field :live, { class: story.id } %> </a>
+    <a href="#"><%= f.submit "Update Live" %></a>
+<% end %>
+
 <% else %>
 
 <a href="#"><%= story.id.to_s + " " + story.location.to_s + " "%></a>
@@ -18,13 +24,35 @@
 <a href="/places/<%= story.location.downcase.to_s %>_<%= story.id.to_s %>"> website look</a>
 </li>
 
-
-
 <% end %>
-
-
-
 
 </div>
 <div class="col-md-2"></div>
 </div>
+
+ <script>
+        $( ".edit_travel_story" ).submit(function( event ) {
+          event.preventDefault();
+          
+          var data= new FormData();
+         data.append('travel_story[live]', $(this).find("#travel_story_live").val());
+         data.append('travel_story[travel_story_id]', $(this).find("#travel_story_live").attr('class'));
+          $.ajax({
+               type: 'POST',               
+               processData: false, // important
+               contentType: false, // important
+               data: data,
+               url: "/update_travel_story",
+               dataType : 'json',  
+               // in PHP you can call and process file in the same way as if it was submitted from a form:
+               // $_FILES['input_file_name']
+               success: function(jsonData){
+                  
+                  alert("Profile Updated Successfully");
+               },
+               error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                  alert("Profile NOT Updated");
+                } 
+            });
+        });
+      </script>

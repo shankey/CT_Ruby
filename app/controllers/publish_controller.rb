@@ -1,6 +1,19 @@
 class PublishController < ApplicationController
     include PublishHelper
     
+    skip_before_filter :verify_authenticity_token
+    
+    def update_travel_story
+        logger.debug params
+        
+        ts= TravelStory.find(params[:travel_story][:travel_story_id])
+        ts.live = params[:travel_story][:live]
+        ts.save
+        
+        render :json => {:message => "Live updated success"},
+             :status => 200
+    end
+    
     def all_images
         
         story_id = params[:story_id]
