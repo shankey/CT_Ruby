@@ -37,7 +37,7 @@
       <!--<span class="cover_image_edit_icon_text">Upload New Cover</span>-->
               </div>
               
-              <div class="place-title <%= ((story.title.to_s.include? '<br>') ? "place-title-2" : "") %>"><%= story.title.html_safe %></div>
+              <div class="place-title <%= ((get_tile_title(story).include? '<br>') ? "place-title-2" : "") %>"><%= story.title.html_safe %></div>
             </a>
           </div>
         </div>

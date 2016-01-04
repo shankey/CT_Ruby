@@ -19,4 +19,8 @@ module ApplicationHelper
         end
         return blogname
     end
+    
+    def get_tile_title(story)
+        return story.title || story.location.upcase || ""
+    end
 end

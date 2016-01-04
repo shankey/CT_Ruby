@@ -14,7 +14,7 @@
         <div class="col-md-3">
           <div class="photo" style="background:url('<%= story.image %>'); background-size: cover">
             <a href="./places/<%= story.location %>_<%= story.id %>.html" class="fill-div">
-              <div class="place-title <%= ((story.title.to_s.include? '<br>') ? "place-title-2" : "") %>"><%= story.title.html_safe %></div>
+              <div class="place-title <%= ((get_tile_title(story).include? '<br>') ? "place-title-2" : "") %>"><%= story.title.html_safe %></div>
             </a>
           </div>
         </div>
