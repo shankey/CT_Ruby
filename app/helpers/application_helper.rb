@@ -21,6 +21,6 @@ module ApplicationHelper
     end
     
     def get_tile_title(story)
-        return story.title || story.location.upcase || ""
+        return story.title || blank_on_nil(story.location).upcase
     end
 end
