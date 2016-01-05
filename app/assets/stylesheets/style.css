@@ -56,6 +56,24 @@ form{
   
 }
 
+hr.section-divide {
+	border-top: 4px solid black;
+	text-align: center;
+}
+hr.section-divide:after {
+	content: 'Featured Bloggers';
+	display: inline-block;
+	position: relative;
+	top: -15px;
+	padding: 0 10px;
+	margin-left: 100px;
+	background: white;
+	color: black;
+	font-size: 18px;
+	float: left;
+	font-style: italic;
+}
+
 .edit_travel_story{
   display: inline;
 }
