@@ -41,7 +41,8 @@ module CtControllerHelper
           
       end
     end
-    
+    puts "hi"
+    puts return_resource["STORY"] 
     return return_resource
   end
   

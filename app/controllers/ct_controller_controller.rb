@@ -15,11 +15,11 @@ class CtControllerController < ApplicationController
     
     res = get_resources_from_collection(1)
     @story_array = res["STORY"]
-    @user_array = res["USER"]
+    @user_array = res["USER"] || Array.new
     
     res = get_resources_from_collection(2)
-    @story_array_2 = res["STORY"]
-    @user_array_2 = res["USER"]
+    @story_array_2 = res["STORY"] || Array.new
+    @user_array_2 = res["USER"] || Array.new
     
   end
 
