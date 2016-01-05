@@ -11,14 +11,16 @@ class CtControllerController < ApplicationController
     @user = get_current_user
     logger.debug "Current User : #{@user} "
     @user = define_sign_in_out_variables(@user)
-    @story_array = Array.new
-    user = User.find_by(id: 2)
-    TravelStory.where("user_id= #{user.id} AND live=1").each do |ts|
-      
-      @story_array.push(ts)
-    end
     
-      
+    
+    res = get_resources_from_collection(1)
+    @story_array = res["STORY"]
+    @user_array = res["USER"]
+    
+    res = get_resources_from_collection(2)
+    @story_array_2 = res["STORY"]
+    @user_array_2 = res["USER"]
+    
   end
 
   def about

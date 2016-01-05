@@ -13,8 +13,23 @@
       <% @story_array.each do |story| %>
         <div class="col-md-3">
           <div class="photo" style="background:url('<%= story.image %>'); background-size: cover">
-            <a href="./places/<%= story.location %>_<%= story.id %>.html" class="fill-div">
+            <a href="/places/<%= story.location %>_<%= story.id %>.html" class="fill-div">
               <div class="place-title <%= ((get_tile_title(story).include? '<br>') ? "place-title-2" : "") %>"><%= get_tile_title(story).html_safe %></div>
+            </a>
+          </div>
+        </div>
+      <% end %>
+      <div class="clearfix"></div>
+    </div>
+      
+      <hr class="section-divide"> </hr>
+     
+    <div class="bottom-grids"> 
+      <% @user_array_2.each do |user| %>
+        <div class="col-md-3">
+          <div class="photo" style="background:url('<%= get_user_tile_image (user) %>'); background-size: cover">
+            <a href="/user/<%= user.id %>" class="fill-div">
+              <div class="place-title <%= (user.name.include? '<br>') ? "place-title-2" : "" %>"><%= user.name.upcase.html_safe %></div>
             </a>
           </div>
         </div>
