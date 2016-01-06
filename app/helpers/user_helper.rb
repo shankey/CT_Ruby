@@ -6,4 +6,9 @@ module UserHelper
   def get_tile_image(story)
     return story.image || "/images/Gaurav_Jaipur_images/jal_mahal.jpg"
   end
+  
+  def get_user_tile_image(user)
+    return user.blog_cover_image || "/images/Gaurav_Jaipur_images/jal_mahal.jpg"
+  end
+  
 end
