@@ -4,10 +4,12 @@
     <%= render "/ct_controller/topnav" %>
     <div class="cover_image_edit">
       
+      <% if (@editable_item) %>
       <label id="cover_pictureupload" class="pictureupload">
           <input type="file" id="cover_pictureupload_input">
           <span><img class="cover_image_edit_icon" src="/images/camera.png"> </span>
       </label>
+      <% end %>
        
       <!--<span class="cover_image_edit_icon_text">Upload New Cover</span>-->
       
@@ -27,7 +29,7 @@
             
       
             <a href="/places/<%= story.location %>_<%= story.id %>.html" class="fill-div">
-              
+              <% if (@editable_item) %>
               <div class="tile_image_edit">
       
                 <label id="cover_pictureupload" class="pictureupload">
@@ -36,7 +38,7 @@
                 </label>
       <!--<span class="cover_image_edit_icon_text">Upload New Cover</span>-->
               </div>
-              
+              <% end %>
               <div class="place-title <%= ((get_tile_title(story).include? '<br>') ? "place-title-2" : "") %>"><%= get_tile_title(story).html_safe %></div>
             </a>
           </div>

@@ -11,4 +11,12 @@ module UserHelper
     return user.blog_cover_image || "/images/Gaurav_Jaipur_images/jal_mahal.jpg"
   end
   
+  def verify_story_user (ts, user)
+    if(ts.user_id == user.id)
+      return true
+    else
+      return false
+    end
+  end
+  
 end

@@ -8,6 +8,11 @@ class UserController < ApplicationController
     @user = define_sign_in_out_variables(@user)
     
     profile_user_id = params[:id]
+    if(profile_user_id.to_i == @user.id)
+      @editable_item = true
+    else
+      @editable_item = false
+    end
     @profile_user = User.find_by(id: profile_user_id) or not_found
     logger.debug @profile_user
     @ts_array = TravelStory.where("user_id= #{params[:id]} AND live=1")
@@ -80,6 +85,11 @@ class UserController < ApplicationController
     end
     
     @ts = TravelStory.find(params[:story_id])
+    
+    if(!verify_story_user(@ts, @user))
+      render :json => {:message => "Incorrect User"},
+             :status => 403
+    end
     
     puts params
     
