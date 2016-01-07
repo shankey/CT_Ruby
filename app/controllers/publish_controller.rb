@@ -16,12 +16,17 @@ class PublishController < ApplicationController
     
     def collection
        @collections = Collection.all.entries
-       
+       @collections.push(Collection.new)
     end
     
     def collection_update
         logger.debug params
-        cl = Collection.find(params[:collection][:id])
+        if(params[:collection][:id] && !params[:collection][:id].nil? && params[:collection][:id]!="")
+            cl = Collection.find(params[:collection][:id])
+        else
+            cl = Collection.new
+        end
+        
         cl.resource_id = params[:collection][:resource_id]
         cl.collection_type = params[:collection][:collection_type]
         cl.collection_id = params[:collection][:collection_id]
