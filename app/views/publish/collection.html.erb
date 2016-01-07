@@ -1,0 +1,29 @@
+
+
+
+        <div class="parent-null">
+    <%= @collections.each do |collection| %>
+    <%= form_for collection, :url => { :action => "collection_update" }, :method => "post" do |key| %>
+   
+    <%= key.label :id %>
+    <%= key.text_field :id, cols: "10", rows: "1"  %> 
+    
+    <%= key.label :collection_id %>
+    <%= key.text_field :collection_id  %> 
+    
+    <%= key.label :collection_type %>
+    <%= key.text_field :collection_type  %> 
+    
+    <%= key.label :resource_id %>
+    <%= key.text_field :resource_id  %> 
+        
+    <%= key.submit "Submit" %>
+    
+    <% end %>
+    <% end %>
+    <br><br>
+  </div>
+  
+      </div>
+
+

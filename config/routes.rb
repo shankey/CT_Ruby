@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   get '/attach_stories' => 'publish#attach_stories'
   post '/attach_stories_save' => 'publish#attach_stories_save'
   post '/update_travel_story' => 'publish#update_travel_story'
+  get '/collection' => 'publish#collection'
+  post '/collection_update' => 'publish#collection_update'
   
   # get 'places/hampi' => 'places#hampi'
   # get 'places/khajjiar_dalhousie' => 'places#khajjiar_dalhousie'
