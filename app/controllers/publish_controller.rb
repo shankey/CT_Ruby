@@ -32,7 +32,7 @@ class PublishController < ApplicationController
         cl.collection_id = params[:collection][:collection_id]
         cl.save
         
-        if(params[:collection][:collection_type] == "USER")
+        if(params[:collection][:collection_type] == "USER" && params[:collection][:user_tile_picture]!=nil)
             @user_ts = User.find(params[:collection][:resource_id])
         
             uploaded_io = params[:collection][:user_tile_picture]
