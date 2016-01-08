@@ -8,7 +8,7 @@ module UserHelper
   end
   
   def get_user_tile_image(user)
-    return user.blog_cover_image || "/images/Gaurav_Jaipur_images/jal_mahal.jpg"
+    return user.user_title_picture || "/images/Gaurav_Jaipur_images/jal_mahal.jpg"
   end
   
   def verify_story_user (ts, user)

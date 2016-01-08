@@ -32,7 +32,29 @@ class PublishController < ApplicationController
         cl.collection_id = params[:collection][:collection_id]
         cl.save
         
-        render :json => {:message => "Collection updated success"},
+        if(params[:collection][:collection_type] == "USER")
+            @user_ts = User.find(params[:collection][:resource_id])
+        
+            uploaded_io = params[:collection][:user_tile_picture]
+            base_user_directory = Rails.root.join('public', 'users', @user_ts.id.to_s)
+            FileUtils.mkdir_p(base_user_directory) unless File.exists?(base_user_directory)
+    
+            profie_picture_upload_location = base_user_directory.join(uploaded_io.original_filename)
+            profie_picture_upload_html_location = File.join('/users', @user_ts.id.to_s, uploaded_io.original_filename)
+    
+            File.open(profie_picture_upload_location, 'wb') do |file|
+                file.write(uploaded_io.read)
+            end
+            
+            puts @user_ts.id
+            puts profie_picture_upload_html_location
+            @user_ts.user_tile_picture = profie_picture_upload_html_location
+            @user_ts.save
+            
+            
+         end
+         
+         render :json => {:message => "Collection updated success"},
              :status => 200
     end
     
