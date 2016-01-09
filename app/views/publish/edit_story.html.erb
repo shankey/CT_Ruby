@@ -48,8 +48,14 @@
   <%= label_tag(:tile_title_label, "tile title") %> <br>
   <%= text_area_tag(:tile_title , @est.tile_title, cols: "100", rows: "1") %>
   
+  
   <br><br><br>
+  
+  <%= label_tag(:canonical_location_label, "canonical_location") %> <br>
+  <%= text_area_tag(:canonical_location , @est.canonical_location, cols: "100", rows: "1") %>
   <%= submit_tag("Submit") %>
+  
+  <br><br><br>
   </div>
   <div class="col-md-2"></div>
       </div>
