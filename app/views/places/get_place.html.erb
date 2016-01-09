@@ -1,3 +1,6 @@
+<% content_for :canonical_tag do %>
+    <% blank_on_nil (@canonical_location) %>
+<% end %>
 <div class="banner">
             <%= render "/ct_controller/topnav" %>
 		

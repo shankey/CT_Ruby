@@ -8,8 +8,12 @@ class PlacesController < ApplicationController
     puts params[:id]
     place_and_storyid = params[:id].split("_")
     @story_id = place_and_storyid[place_and_storyid.size - 1]
+    @ts = TravelStory.find(@story_id)
     @user = get_current_user
     @user = define_sign_in_out_variables(@user)
+    
+    @canonical_location = @ts.canonical_location
+    puts @canonical_location
     
     # puts @placeHeading
     # puts params.inspect
