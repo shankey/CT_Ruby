@@ -229,6 +229,7 @@ class PublishController < ApplicationController
         
         ts = TravelStory.find(params[:story_id])
         ts.title = params[:tile_title]
+        ts.location = params[:location]
         ts.canonical_location = params[:canonical_location]
         ts.save
         
