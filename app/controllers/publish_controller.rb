@@ -174,7 +174,9 @@ class PublishController < ApplicationController
         est.stay = if_blank_partial_then_template(File.read(base_path.join("_stay.html.erb")), "stay", story_id)
         est.story = if_blank_partial_then_template(File.read(base_path.join("_story.html.erb")), "story", story_id)
         est.title = if_blank_partial_then_template(File.read(base_path.join("_title.html.erb")), "title", story_id)
-        est.tile_title = TravelStory.find(story_id).title || ""
+        ts = TravelStory.find(story_id)
+        est.tile_title = ts.title
+        est.canonical_location = ts.canonical_location
         
         return est
     end
@@ -226,7 +228,8 @@ class PublishController < ApplicationController
         write_story_object(params)
         
         ts = TravelStory.find(params[:story_id])
-        ts.title = params[:tile_title] || ""
+        ts.title = params[:tile_title]
+        ts.canonical_location = params[:canonical_location]
         ts.save
         
         render :nothing =>true
