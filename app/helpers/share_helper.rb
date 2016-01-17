@@ -1,5 +1,4 @@
 module ShareHelper
-    
     def get_last_draft_id
         user = get_current_user
         

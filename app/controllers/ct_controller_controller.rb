@@ -14,7 +14,7 @@ class CtControllerController < ApplicationController
     
     
     res = get_resources_from_collection(1)
-    @story_array = res["STORY"]
+    @story_array = res["STORY"] || Array.new
     @user_array = res["USER"] || Array.new
     
     res = get_resources_from_collection(2)

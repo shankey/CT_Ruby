@@ -1,5 +1,6 @@
 class ShareController < ApplicationController
     include ShareHelper
+    include DiskImageHelper
     
     
     skip_before_filter :verify_authenticity_token  
@@ -87,7 +88,6 @@ class ShareController < ApplicationController
 
     def fileUploader
         user = get_current_user
-
         if(user.blank?)
             #error that please login
             return
@@ -95,14 +95,29 @@ class ShareController < ApplicationController
 
         existing_ts = TravelStory.find_by(user_id: user.id, completed: 0)
         uploaded_io = params[:file]
-        File.open(get_story_path(user.id.to_s, existing_ts.id.to_s).join(uploaded_io.original_filename), 'wb') do |file|
-            file.write(uploaded_io.read)
-        end
+        story_path = get_story_path(user.id.to_s, existing_ts.id.to_s)
+        upload_image(:story, story_path, uploaded_io)
         tempfile = params[:file].tempfile.path
         if File::exists?(tempfile)
             File::delete(tempfile)
         end
         render :nothing => true
+    end
+
+    def deleteFile
+      user = get_current_user
+      if(user.blank?)
+          #error that please login
+          return
+      end
+
+      existing_ts = TravelStory.find_by(user_id: user.id, completed: 0)
+      uploaded_io = params[:file]
+      story_path = get_story_path(user.id.to_s, existing_ts.id.to_s)
+      delete_image(:story, story_path, params[:name])
+      respond_to do |format|
+        format.json { head :no_content }
+      end
     end
     
     def discardStory
