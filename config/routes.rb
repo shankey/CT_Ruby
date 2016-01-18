@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   
   get '/share' => 'share#share'
   post '/fileUploader' => 'share#fileUploader'
+  delete '/deletefile' => 'share#deleteFile'
   post '/titleUploader' => 'share#titleUploader'
   post '/storyUploader' => 'share#storyUploader'
   post '/placeUploader' => 'share#placeUploader'

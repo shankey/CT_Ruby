@@ -22,6 +22,28 @@
       ],
       content_css : "css/tinymce.css, https://fonts.googleapis.com/css?family=Roboto+Slab:400,300"
     });
+    $(function() { 
+      Dropzone.options.mydropzone = {
+        addRemoveLinks: true,
+        removedfile: function(file) {
+          var params = {
+            name: file.name
+          };
+          $.ajax({
+              type: "DELETE",
+              url: "/deletefile",
+              data: params,
+              dataType: 'json',
+              async: false,
+              success: function() {
+                if (file.previewElement) {
+                  file.previewElement.remove();
+                }
+              }
+          });
+        }
+      };
+    });
   </script>
 <% end %>
 
@@ -98,8 +120,8 @@
         </div>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="three">
-        <form action="/fileUploader" class="dropzone" name="adiFileDrop">
-          <div class="dz-message" data-dz-message><span><h3>Drop pictures here or Click to upload</h3></span></div>
+        <form action="/fileUploader" class="dropzone" name="adiFileDrop" id="mydropzone">
+          <div id="uploadme" class="dz-message" data-dz-message><span><h3>Drop pictures here or Click to upload</h3></span></div>
           <input type="hidden" name="userId" value="null" />
         </form>
       </div>
@@ -138,10 +160,7 @@
 <script>
   $(document).ready(function() {
     
-    
-    
     $(".bs-wizard-dot").click(function(){
-      
       if($.cookie("login") != "1"){
         $("#signinpop").click();
         return;
