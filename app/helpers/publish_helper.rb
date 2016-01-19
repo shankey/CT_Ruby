@@ -1,5 +1,22 @@
 module PublishHelper
     
+    def unauthorzied_user_check
+        @user = get_current_user
+        if(!is_admin(@user.id))
+            render :json => {:message => "Unauthorized"},
+             :status => 404
+        end
+    end
+    
+    def is_admin(user_id)
+        puts user_id
+        if [1,2,4,5,6].include? user_id.to_i
+            return true
+        end
+        
+        return false
+    end
+    
     def get_story_folder(story_id)
         url = Rails.root.join('app','views','places', story_id.to_s)
         puts url

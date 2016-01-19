@@ -59,6 +59,8 @@ form{
 hr.section-divide {
 	border-top: 4px solid black;
 	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 hr.section-divide:after {
 	content: 'Featured Bloggers';

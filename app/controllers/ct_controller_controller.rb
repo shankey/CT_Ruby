@@ -115,6 +115,10 @@ class CtControllerController < ApplicationController
   rescue Twitter::Error::TooManyRequests => error
     puts error
     puts "UNSUCCESSFUL"
+  rescue Twitter::Error::Forbidden => error
+    puts error
+    @@arrayFollow.clear
+  
   end
   
   def callback

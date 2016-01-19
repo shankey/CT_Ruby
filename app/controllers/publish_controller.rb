@@ -3,7 +3,9 @@ class PublishController < ApplicationController
     
     skip_before_filter :verify_authenticity_token
     
+    
     def update_travel_story
+        
         logger.debug params
         
         ts= TravelStory.find(params[:travel_story][:travel_story_id])
@@ -15,11 +17,15 @@ class PublishController < ApplicationController
     end
     
     def collection
+        unauthorzied_user_check
+        
        @collections = Collection.all.entries
        @collections.push(Collection.new)
     end
     
     def collection_update
+        unauthorzied_user_check
+        
         logger.debug params
         if(params[:collection][:id] && !params[:collection][:id].nil? && params[:collection][:id]!="")
             cl = Collection.find(params[:collection][:id])
@@ -59,7 +65,7 @@ class PublishController < ApplicationController
     end
     
     def all_images
-        
+        unauthorzied_user_check
         story_id = params[:story_id]
         base_image_folder = get_image_story_folder(story_id)
         if(!File.exists?(base_image_folder))
@@ -84,6 +90,7 @@ class PublishController < ApplicationController
     end
     
     def attach_stories
+        unauthorzied_user_check
         @users = User.all
         @user_array = Array.new
         @users.each do |key|
@@ -112,6 +119,7 @@ class PublishController < ApplicationController
     end
     
     def attach_stories_save
+        unauthorzied_user_check
         puts params
         
         ts = TravelStory.find(params[:id])
@@ -123,6 +131,7 @@ class PublishController < ApplicationController
     end
     
     def all_user
+        unauthorzied_user_check
         @user_array = Array.new
         User.all.each do |user|
             if(user.name.blank?)
@@ -133,6 +142,7 @@ class PublishController < ApplicationController
     end
     
     def all_stories
+        unauthorzied_user_check
         @story_array = Array.new
         TravelStory.where(user_id: params[:user_id]).each do |ts|
             base_path = get_story_folder(ts.id)
@@ -163,6 +173,7 @@ class PublishController < ApplicationController
     end
     
     def get_edit_story_object(story_id)
+        unauthorzied_user_check
         est = EditStoryTemplate.new
         base_path = get_story_folder(story_id)
         est.about = if_blank_partial_then_template(File.read(base_path.join("_about.html.erb")), "about", story_id)
@@ -182,6 +193,7 @@ class PublishController < ApplicationController
     end
     
     def write_story_object(params)
+        unauthorzied_user_check
         base_path = get_story_folder(params[:story_id])
         
         File.open(base_path.join("_about.html.erb"), 'wb') do |file|
@@ -224,6 +236,7 @@ class PublishController < ApplicationController
     end
     
     def edit_story_save
+        unauthorzied_user_check
         puts params
         write_story_object(params)
         
@@ -339,6 +352,7 @@ class PublishController < ApplicationController
     end
     
     def migrate
+        unauthorzied_user_check
         file_name = params[:file]
         file_title = params[:title]
         page = Nokogiri::HTML(open("app/views/places/" + file_name))
