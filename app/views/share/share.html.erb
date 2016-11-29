@@ -2,6 +2,9 @@
 
   <script src="https://tinymce.cachefly.net/4.2/tinymce.min.js"></script>
   <script src="js/dropzone.js"></script>
+    <script src="http://hayageek.github.io/jQuery-Upload-File/4.0.10/jquery.uploadfile.min.js"></script>
+    <link href="http://hayageek.github.io/jQuery-Upload-File/4.0.10/uploadfile.css" rel="stylesheet">
+
   <script>
     tinymce.init({selector:'#editor1',
       menubar: false,
@@ -46,6 +49,58 @@
     });
   </script>
 <% end %>
+
+<script>
+  $(document).ready(function()
+  {
+    var storyId = $('div[storyid]').attr('storyid');
+    $("#fileuploader").uploadFile({
+      url:"/file_uploader",
+      multiple:true,
+      fileName:"picture", //name of the input file field
+      showPreview:true,
+      showDelete: true,
+      showAbort: false,
+      showProgress: true,
+      previewHeight: "50%",
+      previewWidth: "200px",
+      onLoad:function(obj)
+      {
+        $.ajax({
+          cache: false,
+          url: "/previous_pictures",
+          data: {story_id: storyId},
+          dataType: "json",
+          success: function(data)
+          {
+            for(var i=0;i<data.length;i++)
+            {
+              obj.createProgress(data[i]["name"],data[i]["url"],data[i]["size"]);
+            }
+          }
+        });
+      },
+      deleteCallback: function (data, pd) {
+        for (var i = 0; i < data.length; i++) {
+          $.post("delete.php", {op: "delete",name: data[i]},
+              function (resp,textStatus, jqXHR) {
+                //Show Message
+                alert("File Deleted");
+              });
+        }
+        pd.statusbar.hide(); //You choice.
+
+      },
+      extraHTML: function()
+      {
+        var html = "<div><b>Caption:</b><input type='text' name='caption' value='' /> <br/>";
+        html += "</div>";
+        return html;
+      },
+      formData: {"story_id": storyId}
+    });
+  });
+</script>
 
 <div class="banner">
   <%= render "/ct_controller/topnav" %>
@@ -120,10 +175,21 @@
         </div>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="three">
-        <form action="/fileUploader" class="dropzone" name="adiFileDrop" id="mydropzone">
-          <div id="uploadme" class="dz-message" data-dz-message><span><h3>Drop pictures here or Click to upload</h3></span></div>
-          <input type="hidden" name="userId" value="null" />
-        </form>
+
+        <div id="fileuploader">Upload</div>
+
+
+
+        <!--<form action="/fileUploader">-->
+          <!--<div id="uploadme"><span><h3>Click to upload</h3></span></div>-->
+          <!--<input type="file" name="url" value="null" />-->
+          <!--<input type="text" name="caption" value="null" />-->
+        <!--</form>-->
+
+        <!--<form action="/fileUploader" class="dropzone" name="adiFileDrop" id="mydropzone">-->
+          <!--<div id="uploadme" class="dz-message" data-dz-message><span><h3>Drop pictures here or Click to upload</h3></span></div>-->
+          <!--<input type="hidden" name="userId" value="null" />-->
+        <!--</form>-->
       </div>
       <div role="tabpanel" class="tab-pane fade" id="four">
         <div class="center-text">
@@ -151,7 +217,7 @@
     <span aria-hidden="true"></span> Save Draft
   </button>
 
-  <button type="button" class="btn share-btn" style="display:relative" id="next">
+  <button type="button" class="btn share-btn" id="next">
     <span aria-hidden="true"></span> Next
   </button>
 </div>

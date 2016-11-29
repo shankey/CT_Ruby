@@ -60,7 +60,7 @@ class PublishController < ApplicationController
             
          end
          
-         render :json => {:message => "Collection updated success"},
+        render :json => {:message => "Collection updated success"},
              :status => 200
     end
     

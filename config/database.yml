@@ -28,10 +28,10 @@ test:
   encoding: utf8
   pool: 5
   timeout: 5000
-  host: engage.ca78l9msjwmh.us-west-2.rds.amazonaws.com
-  username: Engage
-  password: Startup123#
-  database: Engage
+  host: ct.cndleqvabdzy.us-west-2.rds.amazonaws.com
+  username: tripper
+  password: Test123#
+  database: tripper
   port: 3306
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -57,9 +57,9 @@ production:
   encoding: utf8
   pool: 5
   timeout: 5000
-  host: engage.ca78l9msjwmh.us-west-2.rds.amazonaws.com
-  username: Engage
-  password: Startup123#
-  database: Engage
+  host: ct.cndleqvabdzy.us-west-2.rds.amazonaws.com
+  username: tripper
+  password: Test123#
+  database: tripper
   port: 3306
   

@@ -3,12 +3,53 @@ class ShareController < ApplicationController
     include DiskImageHelper
     
     
-    skip_before_filter :verify_authenticity_token  
-    
+    skip_before_filter :verify_authenticity_token
+
+    def story_picture_params
+        params.permit(:picture, :caption, :story_id)
+    end
+
+    def previous_pictures
+        logger.debug "Inside Previous Pictures"
+        user = get_current_user
+        if(user.blank?)
+            #error that please login
+            logger.debug "Blank User"
+            return
+        end
+
+        puts "previous pictures"
+        logger.debug params.inspect
+
+        story_id = params[:story_id]
+        logger.debug story_id
+        sps = StoryPicture.where(travel_story_id: story_id)
+        logger.debug sps.inspect
+
+        picture_array = Array.new
+        sps.each do |sp|
+            pic = Picture.new
+            pic.url = sp.picture.url(:medium_reduced)
+            pic.caption = sp.caption
+            pic.name = sp.picture_file_name
+            pic.size = sp.picture_file_size
+
+            picture_array << pic
+        end
+
+        logger.debug picture_array.to_json
+
+        render :json => picture_array.to_json,
+               :status => 200
+    end
+
     def share
+        puts "inside share"
+        logger.debug "inside share "
         @user = get_current_user
+
         @user = define_sign_in_out_variables(@user)
-        
+        logger.debug @user
         #the first call will not have a storyid in DOM structure
         if(params[:storyid])
             @saved_story = get_saved_story(params[:storyid])
@@ -86,21 +127,23 @@ class ShareController < ApplicationController
         render :nothing => true
     end
 
-    def fileUploader
+
+
+    def file_uploader
         user = get_current_user
         if(user.blank?)
             #error that please login
             return
         end
 
-        existing_ts = TravelStory.find_by(user_id: user.id, completed: 0)
-        uploaded_io = params[:file]
-        story_path = get_story_path(user.id.to_s, existing_ts.id.to_s)
-        upload_image(:story, story_path, uploaded_io)
-        tempfile = params[:file].tempfile.path
-        if File::exists?(tempfile)
-            File::delete(tempfile)
-        end
+        logger.debug params.inspect
+        sp = StoryPicture.new
+        sp.travel_story_id = params[:story_id]
+        sp.picture = params[:picture]
+        sp.save
+
+        logger.debug sp
+
         render :nothing => true
     end
 

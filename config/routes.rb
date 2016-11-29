@@ -15,13 +15,14 @@ Rails.application.routes.draw do
   get '/ifttt' => 'ct_controller#ifttt'
   
   get '/share' => 'share#share'
-  post '/fileUploader' => 'share#fileUploader'
+  post '/file_uploader' => 'share#file_uploader'
   delete '/deletefile' => 'share#deleteFile'
   post '/titleUploader' => 'share#titleUploader'
   post '/storyUploader' => 'share#storyUploader'
   post '/placeUploader' => 'share#placeUploader'
   post '/discardStory' => 'share#discardStory'
-  
+  get '/previous_pictures' => 'share#previous_pictures'
+
   get '/auth/:provider/callback' => 'ct_controller#callback'
   
   get '/instagram/connect' => 'instagram#connect'

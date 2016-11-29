@@ -15,6 +15,9 @@ gem 'twitter'
 gem 'omniauth-twitter'
 gem 'instagram'
 gem "sinatra"
+gem "paperclip", "~> 5.0.0"
+gem 'paperclip-compression'
+gem 'aws-sdk', '~> 2.3.0'
 gem 'sdoc',         '0.4.0', group: :doc
 
 group :development, :test do
