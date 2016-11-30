@@ -33,6 +33,7 @@ class ShareController < ApplicationController
             pic.caption = sp.caption
             pic.name = sp.picture_file_name
             pic.size = sp.picture_file_size
+            pic.picture_id = sp.id
 
             picture_array << pic
         end
@@ -144,7 +145,7 @@ class ShareController < ApplicationController
 
         logger.debug sp
 
-        render :nothing => true
+        render :json => {:picture_id => sp.id}
     end
 
     def deleteFile
